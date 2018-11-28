@@ -1,0 +1,33 @@
+html{
+  margin: 0;
+}
+
+body{
+  margin: 0;
+  background-image: url("http://files.linkenfest.co.uk/site_background_png.png");
+  background-size: cover;
+}
+
+img.main-logo{
+  height: 150;
+  width: 150;  
+  
+  top: 25px;
+  left: 25px;
+  position: absolute;
+}
+
+div.links{
+  float: left;
+  position: absolute;
+  left: 0;
+  top: 180;
+  padding-top: 10px;
+  width: 175;
+  
+  font-size: 30;
+}
+
+p.wholeWidth{
+  width: 100%;	
+}
