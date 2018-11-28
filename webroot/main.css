@@ -28,6 +28,32 @@ div.links{
   font-size: 30;
 }
 
+div.signInWidget{
+  float: right;
+
+  position: absolute;
+  top: 15;
+  right: 25;
+}
+
+input.signInWidgetControls{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
 p.wholeWidth{
   width: 100%;	
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a.pageLink{
+  display: block;
+
+  margin-top:    10;
+  margin-bottom: 10;
 }
