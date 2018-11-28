@@ -11,7 +11,11 @@
 <?php
     } else {
 ?>
-        <a href="signOut.php?referrer=<?= $referrer; ?>"><button>Logout</button></a>
+        <a href="signOut.php?referrer=<?= $referrer; ?>">
+            <button class="signOutButton">
+                Logout
+            </button>
+        </a>
 <?php
     }
 ?>

@@ -42,6 +42,12 @@ input.signInWidgetControls{
   font-size: 25;
 }
 
+button.signOutButton{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
 p.wholeWidth{
   width: 100%;	
 }

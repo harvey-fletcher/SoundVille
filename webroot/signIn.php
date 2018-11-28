@@ -26,7 +26,7 @@
         if( $loginQuery->rowCount() == 1 ){
             if( password_verify( $_POST['password'], $results[0]['password'] ) ){
                 //Don't share the password
-                unset( $results[0] );
+                unset( $results[0]['password'] );
 
                 //Login success, set the session
                 $_SESSION = $results[0];
