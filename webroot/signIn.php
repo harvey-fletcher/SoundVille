@@ -31,6 +31,14 @@
                 //Login success, set the session
                 $_SESSION = $results[0];
 
+                //Get the number of items in that user's basket
+                $basketSizeQuery = $db->prepare("SELECT COUNT(*) AS 'size' FROM baskets WHERE user_id=:user_id");
+                $basketSizeQuery->bindParam( ":user_id", $_SESSION['id'] );
+                $basketSizeQuery->execute();
+
+                //Add the size of the basket to the session
+                $_SESSION['basketSize'] = $basketSizeQuery->fetch( PDO::FETCH_ASSOC )['size'];
+
                 //Login success, redirect with success message
                 http_response_code( 303 );
                 header( 'Location: ' . $_GET['referrer'] . '?code=303' );

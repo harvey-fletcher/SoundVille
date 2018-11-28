@@ -11,6 +11,16 @@
 <?php
     } else {
 ?>
+        <a href="basket.php">
+            <button class="signOutButton">
+                Basket (<?= $_SESSION['basketSize']; ?>)
+            </button>
+        </a>
+        <a href="checkout.php">
+            <button class="signOutButton">
+                Checkout
+            </button>
+        </a>
         <a href="signOut.php?referrer=<?= $referrer; ?>">
             <button class="signOutButton">
                 Logout
