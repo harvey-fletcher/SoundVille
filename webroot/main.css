@@ -43,6 +43,9 @@ div.mainBodyContainer{
   position: absolute;
   left: 200;
   top:  100;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 div.productImageContainer{
@@ -64,9 +67,8 @@ div.productDetails{
 div.productOptions{
   float: right;
 
-  position: absolute; 
-  right: 20;
-  bottom: 0;
+  position: relative; 
+  right: 0;
 }
 
 input.signInWidgetControls{
