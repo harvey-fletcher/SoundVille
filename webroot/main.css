@@ -48,10 +48,16 @@ div.mainBodyContainer{
   overflow-y: scroll;
 }
 
+div.productParent{
+ width: calc( 100% - 75px );
+ padding-left: 25;
+ padding-bottom: 25;
+ display: inline-block;
+}
+
 div.productImageContainer{
   float: left;
 
-  padding-left: 20px;
   width: 200px;
   height: 200px;
 }
@@ -95,6 +101,10 @@ p.wholeWidth{
 
 .noMargin{
   margin: 0;
+}
+
+.warning{
+  color: red;
 }
 
 a{

@@ -6,7 +6,7 @@
     include '../config/database.php';
 
     //We will need to get a list of all the products
-    $productsQuery = $db->prepare( "SELECT * FROM products p JOIN product_images i ON p.id=i.product_id" );
+    $productsQuery = $db->prepare( "SELECT p.*, i.image_url FROM products p JOIN product_images i ON p.id=i.product_id" );
     $productsQuery->execute();
 
     //Put all the products in an array
