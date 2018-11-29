@@ -36,6 +36,39 @@ div.signInWidget{
   right: 25;
 }
 
+div.mainBodyContainer{
+  float: left;
+  width: calc( 100% - 250px );
+
+  position: absolute;
+  left: 200;
+  top:  100;
+}
+
+div.productImageContainer{
+  float: left;
+
+  padding-left: 20px;
+  width: 200px;
+  height: 200px;
+}
+
+div.productDetails{
+  float: left;
+  padding-left: 20px;
+  width: 800;
+  height: 200;
+  overflow: hidden;
+}
+
+div.productOptions{
+  float: right;
+
+  position: absolute; 
+  right: 20;
+  bottom: 0;
+}
+
 input.signInWidgetControls{
   height: 35;
   width:  185;
@@ -50,6 +83,10 @@ button.signOutButton{
 
 p.wholeWidth{
   width: 100%;	
+}
+
+.noMargin{
+  margin: 0;
 }
 
 a{

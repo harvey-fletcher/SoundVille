@@ -16,5 +16,8 @@ print_r( $_SESSION, 1 );
         <div class="links" align="right">
             <?php include 'menu.php'; ?>
         </div>
+        <div class="mainBodyContainer">
+            &nbsp;
+        </div>
     </body>
 </html>

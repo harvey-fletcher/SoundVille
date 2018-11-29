@@ -12,7 +12,7 @@
     } else {
 ?>
         <a href="basket.php">
-            <button class="signOutButton">
+            <button class="signOutButton" id="cartButton">
                 Basket (<?= $_SESSION['basketSize']; ?>)
             </button>
         </a>
