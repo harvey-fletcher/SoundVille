@@ -4,7 +4,7 @@ html{
 
 body{
   margin: 0;
-  background-image: url("http://files.linkenfest.co.uk/site_background_png.png");
+  background-image: url("https://files.linkenfest.co.uk/site_background_png.png");
   background-size: cover;
 }
 
@@ -28,6 +28,112 @@ div.links{
   font-size: 30;
 }
 
+div.signInWidget{
+  float: right;
+
+  position: absolute;
+  top: 15;
+  right: 25;
+}
+
+div.mainBodyContainer{
+  float: left;
+  width: calc( 100% - 250px );
+
+  position: absolute;
+  left: 200;
+  top:  100;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  max-height: 95%;
+}
+
+div.productParent{
+ width: calc( 100% - 75px );
+ padding-left: 25;
+ padding-bottom: 25;
+ display: inline-block;
+}
+
+div.productImageContainer{
+  float: left;
+
+  width: 200px;
+  height: 200px;
+}
+
+div.productDetails{
+  float: left;
+  padding-left: 20px;
+  width: 700;
+  height: 200;
+  overflow: hidden;
+}
+
+div.orderOptions{
+  float: right;
+ 
+  display: inline-block;
+  position: relative;
+}
+
+div.productOptions{
+  float: right;
+
+  position: relative;
+  right: 0;
+}
+
+input.signInWidgetControls{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
+select.productQuantitySelect{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
+button.signOutButton{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
+button.payNowButton{
+  height: 35;
+  width:  250;
+  font-size: 25;
+}
+
 p.wholeWidth{
   width: 100%;	
+}
+
+p.smallPrint{
+  font-size: 15px;
+}
+
+.noMargin{
+  margin: 0;
+}
+
+.warning{
+  color: red;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+a.pageLink{
+  display: block;
+
+  margin-top:    10;
+  margin-bottom: 10;
 }
