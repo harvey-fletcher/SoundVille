@@ -56,7 +56,7 @@ div.productImageContainer{
 div.productDetails{
   float: left;
   padding-left: 20px;
-  width: 800;
+  width: 700;
   height: 200;
   overflow: hidden;
 }
@@ -70,6 +70,12 @@ div.productOptions{
 }
 
 input.signInWidgetControls{
+  height: 35;
+  width:  185;
+  font-size: 25;
+}
+
+select.productQuantitySelect{
   height: 35;
   width:  185;
   font-size: 25;
