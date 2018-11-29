@@ -2,7 +2,11 @@
     //Uses session
     session_start();
 
-    //Page uses the database
+    //Import the dependencies file
+    include '../config/dependencies.php';
+    $dependencies = new Dependencies();
+
+    //Uses the database
     include '../config/database.php';
 
     //Check user is signed in
@@ -15,6 +19,13 @@
     $emptyBasketQuery = $db->prepare("DELETE FROM baskets WHERE user_id=:user_id");
     $emptyBasketQuery->bindParam( ":user_id", $_SESSION['id'] );
     $emptyBasketQuery->execute();
+
+    //Set the mail parameters
+    $mailer = $dependencies->mailer();
+    $mailer->addAddress( $_SESSION['email'] );
+    $mailer->Subject = "Linkenfest 2019: Booking Confirmation";
+    $mailer->Body = "<p>This is a test.</p>";
+    $mailer->send();
 ?>
 <html>
     <head>
