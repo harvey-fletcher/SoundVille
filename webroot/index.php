@@ -9,7 +9,7 @@ print_r( $_SESSION, 1 );
         <title>Linkenfest 2019</title>
     </head>
     <body>
-        <img src="http://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
