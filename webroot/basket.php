@@ -62,16 +62,20 @@
                $processingCharge = number_format( ( $orderTotal / 100 ) , 2, '.', '');
             }
             ?>
-            <div class="productParent">
-                <div class="orderOptions" align="right">
-                    <h3 class="noMargin">
-                        Order SubTotal: £<?= $orderTotal; ?><br />
-                        Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
-                        <br />
-                        Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?>
-                    </h3>
+            <?php if( sizeof($basketItems) > 0 ){ ?>
+                <div class="productParent">
+                    <div class="orderOptions" align="right">
+                        <h3 class="noMargin">
+                            Order SubTotal: £<?= $orderTotal; ?><br />
+                            Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
+                            <br />
+                            Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
+                        </h3>
+                    </div>
                 </div>
-            </div>
+            <?php } else { ?>
+                <h4 class="noMargin">Your basket is empty</h4>
+            <?php } ?>
         </div>
     </body>
 </html>

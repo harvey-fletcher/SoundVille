@@ -61,20 +61,24 @@
                //Calculate the processing charge
                $processingCharge = number_format( ( $orderTotal / 100 ) , 2, '.', '');
             }
-            ?>
-            <div class="productParent">
-                <div class="orderOptions" align="right">
-                    <h3 class="noMargin">
-                        Order SubTotal: £<?= $orderTotal; ?><br />
-                        Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
-                        <br />
-                        Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
-                        <br />
-                        <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
-                        <div id="paypal-button-container"></div>
-                    </h3>
+            ?> 
+            <?php if( sizeof($basketItems) > 0 ){ ?>
+                <div class="productParent">
+                    <div class="orderOptions" align="right">
+                        <h3 class="noMargin">
+                            Order SubTotal: £<?= $orderTotal; ?><br />
+                            Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
+                            <br />
+                            Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
+                            <br />
+                            <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
+                            <div id="paypal-button-container"></div>
+                        </h3>
+                    </div>
                 </div>
-            </div>
+            <?php } else { ?>
+                <h4 class="noMargin">Your basket is empty</h4>
+            <?php } ?>
         </div>
     </body>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
