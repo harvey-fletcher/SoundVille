@@ -39,15 +39,19 @@
             //Get all the rows from the basket
             $basketItems = $basketInspectQuery->fetchAll( PDO::FETCH_ASSOC )[0]['item_quantity_in_basket'];
 
+            if( $basketItems == NULL ){
+                $basketItems = 0;
+            }
+
             //Has the maximum number been exceeded?
-            if( $basketItems >= $product['product_max_per_purchase'] && $basketItems != NULL){
+            if( $basketItems >= $product['product_max_per_purchase'] ){
                 out( 400, "You already have the maximum quantity of this item in your basket.\nPlease checkout first, then try again." );
             }
 
             //Will the maximum number of this product be exceeded?
-            if( $basketItems + $_POST['productQuantity'] > $product['product_max_per_purchase'] && $basketItems != NULL){
+            if( $basketItems + $_POST['productQuantity'] > $product['product_max_per_purchase'] ){
                 out( 400, "You have selected too many of this product. Please select fewer and try again." );
-           }
+            }
         }
 
         //add the new record to the DB so it is tracked as being in the basket, even after sign out
