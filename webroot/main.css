@@ -46,6 +46,8 @@ div.mainBodyContainer{
 
   overflow-x: hidden;
   overflow-y: scroll;
+
+  max-height: 95%;
 }
 
 div.productParent{
@@ -70,10 +72,17 @@ div.productDetails{
   overflow: hidden;
 }
 
+div.orderOptions{
+  float: right;
+ 
+  display: inline-block;
+  position: relative;
+}
+
 div.productOptions{
   float: right;
 
-  position: relative; 
+  position: relative;
   right: 0;
 }
 
@@ -95,8 +104,18 @@ button.signOutButton{
   font-size: 25;
 }
 
+button.payNowButton{
+  height: 35;
+  width:  250;
+  font-size: 25;
+}
+
 p.wholeWidth{
   width: 100%;	
+}
+
+p.smallPrint{
+  font-size: 15px;
 }
 
 .noMargin{
