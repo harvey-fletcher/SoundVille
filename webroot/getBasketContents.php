@@ -3,6 +3,13 @@
     //We need the databaser
     include '../config/database.php';
 
+    //Check the user is signed in
+    //only do this if the access class hasn't already been called on this page.
+    if( !$access ){
+        include '../controllers/accessController.php';
+        $access->checkAuth();
+    }
+
     //Prepare the query that we will use to get the user's basket
     $basketQuery = $db->prepare( "SELECT b.product_id, b.quantity, p.product_name, p.product_price, p.product_description, p.product_max_per_purchase, pi.image_url FROM baskets b JOIN products p ON b.product_id=p.id JOIN product_images pi ON p.id=pi.product_id  WHERE user_id=:user_id" );
 
