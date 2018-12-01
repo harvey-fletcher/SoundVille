@@ -15,6 +15,7 @@
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
         <title>Linkenfest 2019</title>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
@@ -59,7 +60,7 @@
                }
 
                //Calculate the processing charge
-               $processingCharge = number_format( ( $orderTotal / 100 ) , 2, '.', '');
+               $processingCharge = number_format( ( $orderTotal / 40 ) , 2, '.', '');
             }
             ?> 
             <?php if( sizeof($basketItems) > 0 ){ ?>
@@ -72,7 +73,20 @@
                             Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
-                            <div id="paypal-button-container"></div>
+                            <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
+                            <form action="checkoutSuccess.php" method="POST" style='display: none' id="checkout-form">
+                                <script
+                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
+                                    data-amount="<?= number_format( $orderTotal + $processingCharge, 2, '', '' ); ?>"
+                                    data-name="Linkenfest"
+                                    data-description="Complete Purchase"
+                                    data-email="<?= $_SESSION['email']; ?>"
+                                    data-image="https://files.linkenfest.co.uk/logo_png.png"
+                                    data-locale="auto"
+                                    data-currency="gbp">
+                                </script>
+                            </form>
                         </h3>
                     </div>
                 </div>
@@ -80,72 +94,20 @@
                 <h4 class="noMargin">Your basket is empty</h4>
             <?php } ?>
         </div>
-    </body>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script>
-        // Render the PayPal button
-        paypal.Button.render({
-            // Set your environment
-            env: 'sandbox', // sandbox | production
-
-            // Specify the style of the button
-            style: {
-                layout: 'vertical',  // horizontal | vertical
-                size:   'medium',    // medium | large | responsive
-                shape:  'rect',      // pill | rect
-                color:  'gold'       // gold | blue | silver | white | black
-            },
-
-            // Specify allowed and disallowed funding sources
-            //
-            // Options:
-            // - paypal.FUNDING.CARD
-            // - paypal.FUNDING.CREDIT
-            // - paypal.FUNDING.ELV
-            funding: {
-                allowed: [
-                    paypal.FUNDING.CARD,
-                ],
-                disallowed: [
-                    paypal.FUNDING.CREDIT
-                ]
-            },
-
-            // Enable Pay Now checkout flow (optional)
-            commit: true,
-
-            // PayPal Client IDs - replace with your own
-            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-            client: {
-                sandbox: 'AZDxjDScFpQtjWTOUtWKbyN_bDt4OgqaF4eYXlewfBP4-8aqX3PiV8e1GWU6liB2CUXlkA59kJXE7M6R',
-                production: '<insert production client id>'
-            },
-
-            payment: function (data, actions) {
-                return actions.payment.create({
-                    payment: {
-                        transactions: [
-                            {
-                                amount: {
-                                    total: '<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?>',
-                                    currency: 'GBP'
-                                }
-                            }
-                        ]
-                    },
-
-                    item_list: {
-                       items: <?= json_encode( $basketItems ); ?>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type='text/javascript'>
+            function confirmCaptcha( data ){
+                $.post(
+                    "verifyCaptcha.php",
+                    { response: data }
+                ).done(function( data ){
+                    if( data.status == 200 ){
+                        $('#checkout-form').removeAttr('style');
+                    } else {
+                        alert( data.message );
                     }
                 });
-            },
-
-            onAuthorize: function (data, actions) {
-                return actions.payment.execute()
-                .then(function () {
-                    window.location.replace('checkoutSuccess.php');
-                });
             }
-        }, '#paypal-button-container');
-    </script>
+        </script>
+    </body>
 </html>

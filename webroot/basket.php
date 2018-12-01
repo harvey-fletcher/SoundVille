@@ -59,7 +59,7 @@
                }
 
                //Calculate the processing charge
-               $processingCharge = number_format( ( $orderTotal / 100 ) , 2, '.', '');
+               $processingCharge = number_format( ( $orderTotal / 40 ) , 2, '.', '');
             }
             ?>
             <?php if( sizeof($basketItems) > 0 ){ ?>
