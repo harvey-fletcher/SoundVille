@@ -21,7 +21,9 @@
                 <h1 class="noMargin"><u>Information</u></h1>
             </div>
             <h2 class="noMargin">What is Linkenfest?</h3>Linkenfest is a small music festival presenting local bands and individual artists.<br /><br />
-            <h2 class="noMargin">When is it?</h2>Linkenfest will be taking place from the 19th to 21st of July 2019 at the Linkenholt Adventure Centre, Linkenholt, SP11 0EA.<br /><br />
+            <h2 class="noMargin">When is it?</h2>Linkenfest will be taking place from the 19th to 21st of July 2019.<br /><br />
+            <h2 class="noMargin">Where is it?</h2>Linkenfest is at the Linkenholt Adventure Centre, Linkenholt, SP11 0EA.<br /><br />
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2096.585375854682!2d-1.477779317007439!3d51.324475400045465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487400307f1cf205%3A0xe5696ab08fabfae7!2sLinkenholt+Adventure+Centre+%2F+Campsite!5e0!3m2!1sen!2suk!4v1543786671440" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe><br /><br />
             <h2 class="noMargin">Age Restrictions</h2>The festival is open to everyone over the age of 18.<br /><br />
             <h2 class="noMargin">Lost Property</h2>Should you lose an item of personal belonging, please contact the lost and found at information@linkenfest.co.uk<br />If you are bringing a mobile phone with you, please make note of the device IMEI number. For any other portable device, please note the serial number. The organisers cannot be held responsible for any item of personal property which gets lost or damaged.<br /><br />
             <h2 class="noMargin">What you can and can't bring</h2>
