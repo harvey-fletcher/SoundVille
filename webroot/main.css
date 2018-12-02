@@ -17,6 +17,14 @@ img.main-logo{
   position: absolute;
 }
 
+img.headlineAct{
+  width: 100%;
+}
+
+div.fullWidth{
+  width: 100%;
+}
+
 div.links{
   float: left;
   position: absolute;
@@ -47,7 +55,7 @@ div.mainBodyContainer{
   overflow-x: hidden;
   overflow-y: scroll;
 
-  max-height: 95%;
+  max-height: 80%;
 }
 
 div.productParent{
@@ -84,6 +92,16 @@ div.productOptions{
 
   position: relative;
   right: 0;
+}
+
+div.lineupPoster{
+  background-color: white;
+  background-image: url('https://files.linkenfest.co.uk/logo_png_transparent.png');
+  background-repeat: no-repeat;
+  background-position: center;
+
+  height: 700;
+  width:  500;
 }
 
 input.signInWidgetControls{
@@ -136,4 +154,23 @@ a.pageLink{
 
   margin-top:    10;
   margin-bottom: 10;
+}
+
+table.noBorder{
+  border-collapse: collapse;
+}
+
+td.tableHeading{
+  background-color: black;
+  color: white;
+  font-size: 30px;
+
+  width: 90px;
+
+  padding-right: 20px;
+}
+
+td.itemsList{
+  border: 1px solid black;
+  font-size: 30px;
 }
