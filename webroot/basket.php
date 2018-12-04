@@ -40,6 +40,17 @@
                             Quantity: <?= $product['quantity'];?><br />
                             Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['quantity'] * $product['product_price'];?>
                         </h2>
+                        <div class="productOptions">
+                             <select id="quantity-item-<?=$product['product_id'];?>" class="productQuantitySelect">
+                                 <option value="1" <?php if( $product['quantity'] == 1 ){ ?>selected<?php } ?>>1</option>
+                                 <option value="2" <?php if( $product['quantity'] == 2 ){ ?>selected<?php } ?>>2</option>
+                                 <option value="3" <?php if( $product['quantity'] == 3 ){ ?>selected<?php } ?>>3</option>
+                                 <option value="4" <?php if( $product['quantity'] == 4 ){ ?>selected<?php } ?>>4</option>
+                                 <option value="5" <?php if( $product['quantity'] == 5 ){ ?>selected<?php } ?>>5</option>
+                             </select>
+                             <button id="update-product-<?=$product['product_id'];?>" onclick="amendOrderQuantity( this.id );" class="signOutButton">Amend</button>
+                             <button id="remove-product-<?=$product['product_id'];?>" onclick="removeOrderItems( this.id );" class="signOutButton">Remove</button>
+                         </div>
                         <br />
                         <?php if( $product['quantity'] > $product['product_max_per_purchase'] ){ ?>
                             <h3 class="warning noMargin">
@@ -84,4 +95,31 @@
             <?php } ?>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function amendOrderQuantity( id ){
+            var product_id  = id.split("-")[2];
+            var newQuantity = $('#quantity-item-' + product_id).val();
+
+            $.post(
+                "basketOperations.php",
+                { operation: "amend", amend_id: product_id, new_quantity: newQuantity }
+            ).done(function( data ){
+                alert( data.message ).delay( 0.5 );
+                window.location.reload();
+            });
+        }
+
+        function removeOrderItems( id ){
+            var product_id  = id.split("-")[2];
+
+            $.post(
+                "basketOperations.php",
+                { operation: "remove", amend_id: product_id }
+            ).done(function( data ){
+                alert( data.message );
+                window.location.reload();
+            });
+        }
+    </script>
 </html>

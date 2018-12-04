@@ -62,14 +62,14 @@
             var quantity  = $('#quantity-item-' + productId).val();
 
             $.post(
-                "addProductToBasket.php",
-                { id: productId, productQuantity: quantity }
+                "basketOperations.php",
+                { operation: "add", id: productId, productQuantity: quantity }
             ).done(function( data ){
                 alert( data.message );
 
                 if( data.status == 200 ){
                     var oldQuantity = $('#cartButton').text().split('(')[1].split(')')[0];
-                    var newQuantity = parseInt(oldQuantity) + 1;
+                    var newQuantity = parseInt(oldQuantity) + parseInt(quantity);
 
                     //Update button text
                     $('#cartButton').text('Basket ('+ newQuantity +')');
