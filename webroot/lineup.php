@@ -21,6 +21,15 @@ print_r( $_SESSION, 1 );
             <div class="lineupPoster">
                 <img src="https://files.linkenfest.co.uk/logo_png.png" width="75" height="75" />
                 <img src="https://files.linkenfest.co.uk/tomClementsBanner.jpg" class="headlineAct"/>
+                <br /><br />
+                <div>
+                    <div class="halfWidth">
+                        <img src="https://files.linkenfest.co.uk/dj_harvo_logo.png" class="largeAct" />
+                    </div>
+                    <div class="halfWidth">
+                        &nbsp;
+                    </div>
+                </div>
             </div>
         </div>
     </body>

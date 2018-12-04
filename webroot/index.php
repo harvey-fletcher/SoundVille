@@ -1,7 +1,5 @@
 <?php
     session_start();
-
-print_r( $_SESSION, 1 );
 ?>
 <html>
     <head>
@@ -17,7 +15,25 @@ print_r( $_SESSION, 1 );
             <?php include 'menu.php'; ?>
         </div>
         <div class="mainBodyContainer">
-            &nbsp;
+            <br />
+            <p class="largePara inlineText" >
+                <span class="title">
+                    <i><b>GET READY</b></i>
+                </span>
+                to party, this summer at <i>Linkenfest</i>! A small music festival in Hampshire featuring local bands and small artists who are just starting out!
+                <br />
+                <br />
+                <span class="title">
+                    <b><i>Tickets only £35.00!</i></b>
+                </span>
+                And are sold <b>EXCLUSIVELY</b> on this website, so get them while they last!
+                <br />
+                <br />
+                <span class="title">
+                    <b><i>Gates open Friday 19th July 2019 at 14:00!</i></b>
+                </span>
+                <br />Be there or be square.
+            </p>
         </div>
     </body>
 </html>
