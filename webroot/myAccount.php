@@ -4,8 +4,66 @@
     //This page needs the database and session access restrictions
     include 'sessionAccess.php';
 
+    //Import the dependencies file
+    include '../config/dependencies.php';
+    $dependencies = new Dependencies();
+
+    //If a form was submitted on this page, we need to update the user account
+    if( isset( $_POST['changeEmailForm'] ) ){
+        //An update will happen
+        $updateHappened = true;
+
+        $uuid = hash('sha1', $_SESSION['email'] . date('Y-m-d H:i:s') );
+        $actionName = "email";
+
+        if( $_POST['newEmail'] == $_POST['newEmailConfirm'] ){
+
+            $query = $db->prepare("INSERT INTO pending_user_updates( unique_identifier, user_id, do_action, update_column, old_value, new_value ) VALUES ( :uuid, :user_id, :do_action, :update_column, :old_val, :new_val )");
+            $query->bindParam( ":uuid", $uuid );
+            $query->bindParam( ":user_id", $_SESSION['id']);
+            $query->bindParam( ":do_action", $actionName );
+            $query->bindParam( ":update_column", $actionName );
+            $query->bindParam( ":old_val", $_SESSION['email'] );
+            $query->bindParam( ":new_val", $_POST['newEmailConfirm'] );
+
+            $query->execute();
+
+            $emailsMatch = true;
+        } else {
+            $emailsMatch = false;
+        }
+
+        //Make a mail
+        //Set the mail parameters
+        $mailer = $dependencies->mailer();
+        $mailer->addAddress( $_SESSION['email'] );
+        $mailer->Subject = "Linkenfest: Changes to your account";
+
+        $emailBody = "<div style='width: 750'>"
+               .     "<div style='float: left; width: 150px; height: 150px;'>"
+               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
+               .     "</div>"
+               .     "<div style='float: left; height: 150;' align='right'>"
+               .         "<h1 style='margin: 0; font-size: 130px;'>Linkenfest</h1>"
+               .     "</div>"
+               . "</div>"
+               . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
+               .     "<h4 style='margin: 0;'>"
+               .         "Hello, someone just requested to make changes to your Linkenfest account. If this was you, please click the link below:<br /><br />"
+               .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
+               .         "If this was not you, you do not need to do anything."
+               .     "</h4>"
+               . "</div>";
+
+        $mailer->Body = $emailBody;
+        $mailer->send();
+    } else {
+        //An update has not happened
+        $updateHappened = false;
+    }
+
     //Select all the information for this users orderr
-    $myOrdersQuery = $db->prepare("SELECT * FROM orders WHERE user_id=:user_id ORDER BY created ASC");
+    $myOrdersQuery = $db->prepare("SELECT * FROM orders WHERE user_id=:user_id ORDER BY created DESC");
     $myOrdersQuery->bindParam( ":user_id", $_SESSION['id'] );
     $myOrdersQuery->execute();
     $myOrders = $myOrdersQuery->fetchAll( PDO::FETCH_ASSOC );
@@ -54,11 +112,18 @@
             <p>
                 Registered email address: <?= $_SESSION['email']; ?><br />
                 <h3 class="noMargin">Change Email:</h3><br />
-                <form name="updateEmail" action="">
-                    <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
-                    <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
-                    <button type="submit" class="signOutButton">Update Email</button>
-                </form>
+                <?php if( !$updateHappened || !$emailsMatch ){ ?>
+                    <?php if( !$emailsMatch ){ ?>
+                        The emails entered did not match. Please try again.<br />
+                    <?php } ?>
+                    <form name="updateEmail" action="" method="POST">
+                        <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
+                        <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
+                        <button type="submit" name="changeEmailForm" class="signOutButton">Update Email</button>
+                    </form>
+                <?php } else { ?>
+                    <h2 class="noMargin">Success! Please check your email inbox and click the link to complete this process.</h2>
+                <?php } ?>
             </p>
             <br />
             <h1 class="noMargin">My Orders:</h1>
@@ -122,6 +187,7 @@
                         <td class="itemsList">&pound;<?= number_format( $orderTotal, 2, '.', ''); ?></td>
                     </tr>
                 </table>
+                <br /><br />
             <?php } ?>
         </div>
     </body>
