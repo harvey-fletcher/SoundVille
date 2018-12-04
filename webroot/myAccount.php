@@ -36,8 +36,8 @@
         //Make a mail
         //Set the mail parameters
         $mailer = $dependencies->mailer();
-        $mailer->addAddress( $_SESSION['email'] );
-        $mailer->Subject = "Linkenfest: Changes to your account";
+        $mailer->addAddress( $_POST['newEmailConfirm'] );
+        $mailer->Subject = "Linkenfest: Confirm your email";
 
         $emailBody = "<div style='width: 750'>"
                .     "<div style='float: left; width: 150px; height: 150px;'>"
@@ -49,10 +49,11 @@
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
-               .         "Hello, someone just requested to make changes to your Linkenfest account. If this was you, please click the link below:<br /><br />"
+               .         "Hello, someone just tried to register this email address on the https://linkenfest.co.uk site.<br />If this was you, please click the link below:<br /><br />"
                .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
                .         "If this was not you, you do not need to do anything."
-               .     "</h4>"
+               .     "</h4><br /><br />"
+               .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                . "</div>";
 
         $mailer->Body = $emailBody;
