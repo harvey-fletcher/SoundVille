@@ -42,10 +42,16 @@
                         </h2>
                         <br />
                         <?php if( $product['quantity'] > $product['product_max_per_purchase'] ){ ?>
-                           <h3 class="warning noMargin">
-                               You have selected too many of this item and you will not be able to check out.<br />
-                               You must first amend your order in the basket.
-                           </h3>
+                            <h3 class="warning noMargin">
+                                You have selected too many of this item and you will not be able to check out.<br />
+                                You must first amend your order in the basket.
+                            </h3>
+                        <?php } ?>
+                        <?php if(!$product['in_stock']){ ?>
+                            <h3 class="warning noMargin">
+                                There is not enough of this product remaining.<br />
+                                You will need to decrease your selection before you can check out.<br />
+                            </h3>
                         <?php } ?>
                     </div>
                 </div>

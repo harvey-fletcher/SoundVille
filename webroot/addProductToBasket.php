@@ -25,6 +25,11 @@
         //Get the product details from the selected product
         $product = $productsMatchingRequest[0];
 
+        //Ensure we have enough of that product in stock to handle the request
+        if( ( $product['product_stock_level'] - $_POST['productQuantity'] ) < 0 ){
+            out( 400, "There is not enough of this product in stock.\nPlease decrease your selection and try again." );
+        }
+
         //Check the user's basket to find other quantities of this item
         $basketInspectQuery = $db->prepare( "SELECT SUM( quantity ) as 'item_quantity_in_basket' FROM baskets WHERE user_id=:user_id AND product_id=:product_id" );
         $basketInspectQuery->bindParam( ":user_id", $_SESSION['id'] );

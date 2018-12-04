@@ -10,6 +10,9 @@
 
     //This is the order total
     $orderTotal = 0;
+
+    //By default, checkout is enabled
+    $canCheckout = true;
 ?>
 <html>
     <head>
@@ -47,6 +50,20 @@
                                You have selected too many of this item and you will not be able to check out.<br />
                                You must first amend your order in the basket.
                            </h3>
+                           <?php
+                               //This error should stop the user from being able to check out
+                               $canCheckout = false;
+                           ?>
+                        <?php } ?>
+                        <?php if(!$product['in_stock']){ ?>
+                            <h3 class="warning noMargin">
+                                There is not enough of this product remaining.<br />
+                                You will need to decrease your selection before you can check out.<br />
+                            </h3>
+                            <?php
+                                //This error should stop the user from being able to check out
+                                $canCheckout = false;
+                            ?>
                         <?php } ?>
                     </div>
                 </div>
@@ -73,20 +90,27 @@
                             Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
-                            <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
-                            <form action="checkoutSuccess.php" method="POST" style='display: none' id="checkout-form">
-                                <script
-                                    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
-                                    data-amount="<?= number_format( $orderTotal + $processingCharge, 2, '', '' ); ?>"
-                                    data-name="Linkenfest"
-                                    data-description="Complete Purchase"
-                                    data-email="<?= $_SESSION['email']; ?>"
-                                    data-image="https://files.linkenfest.co.uk/logo_png.png"
-                                    data-locale="auto"
-                                    data-currency="gbp">
-                                </script>
-                            </form>
+                            <?php if( $canCheckout ){?>
+                                <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
+                                <form action="checkoutSuccess.php" method="POST" style='display: none' id="checkout-form">
+                                    <script
+                                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
+                                        data-amount="<?= number_format( $orderTotal + $processingCharge, 2, '', '' ); ?>"
+                                        data-name="Linkenfest"
+                                        data-description="Complete Purchase"
+                                        data-email="<?= $_SESSION['email']; ?>"
+                                        data-image="https://files.linkenfest.co.uk/logo_png.png"
+                                        data-locale="auto"
+                                        data-currency="gbp">
+                                    </script>
+                                </form>
+                            <?php } else { ?>
+                                <h3 class="warning noMargin">
+                                    There is an issue with your basket.<br />
+                                    Please correct this issue <a href="basket.php">here</a> to continue</a>
+                                </h3>
+                            <?php } ?>
                         </h3>
                     </div>
                 </div>

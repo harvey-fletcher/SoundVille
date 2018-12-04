@@ -45,6 +45,21 @@
         }
     }
 
+    //Check that all the products in the basket will be in stock at the checkout
+    foreach( $basketItems as $productID=>$product ){
+        //Get the stock level for that product
+        $stockCheckQuery = $db->prepare("SELECT product_stock_level FROM products WHERE id=:productID");
+        $stockCheckQuery->bindParam(":productID", $productID);
+        $stockCheckQuery->execute();
+        $stockLevel = $stockCheckQuery->fetchAll( PDO::FETCH_ASSOC )[0]['product_stock_level'];
+
+        if( ($stockLevel - $product['quantity']) < 0 ){
+            $basketItems[ $productID ]['in_stock'] = false;
+        } else {
+            $basketItems[ $productID ]['in_stock'] = true;
+        }
+    }
+
     //Arrays have to start at 0
     $basketItems = array_values( $basketItems );
 

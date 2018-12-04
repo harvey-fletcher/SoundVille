@@ -33,6 +33,11 @@
             $newOrder->bindParam( ":product_id", $item['product_id'] );
             $newOrder->bindParam( ":quantity", $item['quantity'] );
             $newOrder->execute();
+
+            //Subtract from the products that are available
+            $stockAdjustQuery = $db->prepare("UPDATE products SET product_stock_level = product_stock_level - :quantity");
+            $stockAdjustQuery->bindParam( ":quantity", $item['quantity'] );
+            $stockAdjustQuery->execute();
         }
 
         //Build the confirmation email
