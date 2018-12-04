@@ -5,7 +5,7 @@
     include 'sessionAccess.php';
 
     //Select all the information for this users orderr
-    $myOrdersQuery = $db->prepare("SELECT * FROM orders WHERE user_id=:user_id");
+    $myOrdersQuery = $db->prepare("SELECT * FROM orders WHERE user_id=:user_id ORDER BY created ASC");
     $myOrdersQuery->bindParam( ":user_id", $_SESSION['id'] );
     $myOrdersQuery->execute();
     $myOrders = $myOrdersQuery->fetchAll( PDO::FETCH_ASSOC );
@@ -13,7 +13,7 @@
     //Get the products that are in each of those orders
     foreach( $myOrders as $key=>$order ){
         //Get the products
-        $myOrderProductsQuery = $db->prepare( "SELECT op.*, p.product_name, p.product_price FROM order_products op JOIN products p ON op.product_id=p.id WHERE op.order_id=:id ORDER BY created ASC" );
+        $myOrderProductsQuery = $db->prepare( "SELECT op.*, p.product_name, p.product_price FROM order_products op JOIN products p ON op.product_id=p.id WHERE op.order_id=:id" );
         $myOrderProductsQuery->bindParam( ":id", $order['id'] );
         $myOrderProductsQuery->execute();
         $myOrderProducts = $myOrderProductsQuery->fetchAll( PDO::FETCH_ASSOC );
