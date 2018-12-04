@@ -13,7 +13,7 @@
     //Get the products that are in each of those orders
     foreach( $myOrders as $key=>$order ){
         //Get the products
-        $myOrderProductsQuery = $db->prepare( "SELECT op.*, p.product_name, p.product_price FROM order_products op JOIN products p ON op.product_id=p.id WHERE op.order_id=:id" );
+        $myOrderProductsQuery = $db->prepare( "SELECT op.*, p.product_name, p.product_price FROM order_products op JOIN products p ON op.product_id=p.id WHERE op.order_id=:id ORDER BY created ASC" );
         $myOrderProductsQuery->bindParam( ":id", $order['id'] );
         $myOrderProductsQuery->execute();
         $myOrderProducts = $myOrderProductsQuery->fetchAll( PDO::FETCH_ASSOC );
