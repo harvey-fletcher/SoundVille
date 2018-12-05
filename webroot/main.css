@@ -172,6 +172,10 @@ p.smallPrint{
   color: red;
 }
 
+.success{
+  color: green;
+}
+
 a{
   text-decoration: none;
   color: black;
