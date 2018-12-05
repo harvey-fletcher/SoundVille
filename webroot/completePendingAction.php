@@ -28,6 +28,9 @@
         $query = $db->prepare( "UPDATE users SET email=:email WHERE id=:user_id" );
         $query->bindParam( ":email", $action['new_value']);
         $query->bindParam( ":user_id", $action['user_id']);
+    } else if( $action['do_action'] == 'activate' ){
+        $query = $db->prepare( "UPDATE users SET activated=1 WHERE id=:user_id");
+        $query->bindParam( ":user_id", $action['user_id']);
     } else {
         header( 'Location: index.php?code=403' );
     }
