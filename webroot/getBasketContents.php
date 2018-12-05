@@ -11,7 +11,7 @@
     }
 
     //Prepare the query that we will use to get the user's basket
-    $basketQuery = $db->prepare( "SELECT b.product_id, b.quantity, p.product_name, p.product_price, p.product_description, p.product_max_per_purchase, pi.image_url FROM baskets b JOIN products p ON b.product_id=p.id JOIN product_images pi ON p.id=pi.product_id  WHERE user_id=:user_id" );
+    $basketQuery = $db->prepare( "SELECT b.product_id, b.quantity, p.product_name, p.product_price, p.product_description, p.product_max_per_purchase, pi.image_url FROM baskets b JOIN products p ON b.product_id=p.id JOIN product_images pi ON p.product_image_id=pi.id  WHERE user_id=:user_id" );
 
     //Bind parameters
     $basketQuery->bindParam( ":user_id", $_SESSION['id'] );
