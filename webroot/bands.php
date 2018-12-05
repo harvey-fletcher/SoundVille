@@ -45,6 +45,12 @@
         }
     }
 
+    //Was the captcha correct?
+    if( !$dependencies->confirmCaptcha( $_POST['g-recaptcha-response'] ) ){
+        $error = true;
+        $errorText = "You did not successfully complete the CAPTCHA";
+    }
+
     //If there's an error, it's impossible to display success
     if( $error ){
         $success = false;
@@ -93,6 +99,7 @@
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
         <title>Linkenfest 2019</title>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
@@ -211,6 +218,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">
+                                <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
                                 <button type="submit" name="submit" class="largeFormSubmit">Apply</button>
                             </td>
                         </tr>
