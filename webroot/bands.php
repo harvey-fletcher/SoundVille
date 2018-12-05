@@ -124,6 +124,7 @@
                     <i><b>Want to perform at Linkenfest?</b></i>
                 </span>
                 It's simple. All you need to do is fill out the below form, and we will get in touch with you to arrange further details.<br /><br />
+                Contract and Payment negotiation will take place after we have established contact with you.<br /><br />
                 In order to perform at Linkenfest, you'll need to meet the following criteria:<br />
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
