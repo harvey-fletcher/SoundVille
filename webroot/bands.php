@@ -1,6 +1,13 @@
 <?php
     session_start();
 
+    //Uses DB
+    include '../config/database.php';
+
+    //This page will send a mail
+    include '../config/dependencies.php';
+    $dependencies = new Dependencies();
+
     //By default, there is a failure
     $error = false;
     $errorText = "An unexpected error has occurred.";
@@ -42,6 +49,45 @@
     if( $error ){
         $success = false;
     }
+
+    if( $success ){
+        //If there's a  success, insert to DB
+        //Prepare to insert the data into the table
+        $insertPerformerRequest = $db->prepare( "INSERT INTO performer_requests ( performer_name, person_name, performer_email, performer_phone ) VALUES ( :performer_name, :person_name, :performer_email, :performer_phone )");
+        $insertPerformerRequest->bindParam( ":performer_name", $_POST['actName'] );
+        $insertPerformerRequest->bindParam( ":person_name", $_POST['personName'] );
+        $insertPerformerRequest->bindParam( ":performer_email", $_POST['email'] );
+        $insertPerformerRequest->bindParam( ":performer_phone", $_POST['phone'] );
+        $insertPerformerRequest->execute();
+
+        //Make a mail
+        //Set the mail parameters
+        $mailer = $dependencies->mailer();
+        $mailer->addAddress( "harvey.fletcher1@ntlworld.com" );
+        $mailer->Subject = "Linkenfest: New band request";
+
+        $emailBody = "<div style='width: 650'>"
+               .     "<div style='float: left; width: 100px; height: 100px;'>"
+               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+               .     "</div>"
+               .     "<div style='float: left; height: 100;' align='right'>"
+               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+               .     "</div>"
+               . "</div>"
+               . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
+               .     "<h4 style='margin: 0;'>"
+               .         "Hello, A new performer request was received on the linkenfest site. Here are the details:<br /><br />"
+               .         "Act Name: " . $_POST['actName'] . "<br />"
+               .         "Person Name: " . $_POST['personName'] . "<br />"
+               .         "Phone Number: " . $_POST['phone'] . "<br />"
+               .         "Email Address: " . $_POST['email'] . "<br /><br />"
+               .     "</h4><br /><br />"
+               .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
+               . "</div>";
+
+        $mailer->Body = $emailBody;
+        $mailer->send();
+    }
 ?>
 <html>
     <head>
@@ -74,7 +120,7 @@
                 In order to perform at Linkenfest, you'll need to meet the following criteria:<br />
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
-                    <li>Be available on Friday 19th July from 09:00 to 23:30, your performance will be scheduled between these times.</li>
+                    <li>Be available on Friday 19th July from 17:30 to 23:30, your performance will be scheduled between these times.</li>
                     <li>Have at least 1 example of a prior gig, and the contact details of the organiser.</li>
                     <li>Have your own transport to and from Linkenfest.</li>
                     <li>Have a valid form of photo ID that is not expired.</li>
