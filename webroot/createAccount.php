@@ -116,6 +116,9 @@
         $mailer->Body = $emailBody;
         $mailer->send();
     }
+
+    //Set this value to true to disable account creation
+    $disabled = false;
 ?>
 <html>
     <head>
@@ -211,8 +214,12 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
-                                <button type="submit" name="submit" class="largeFormSubmit">Create Account</button>
+                                <?php if( !$disabled ){ ?>
+                                    <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
+                                    <button type="submit" name="submit" class="largeFormSubmit">Create Account</button>
+                                <?php } else { ?>
+                                    <h1 class="warning noMargin">Account creation disabled. Check back later.</b>
+                                <?php } ?>
                             </td>
                         </tr>
                     </table>

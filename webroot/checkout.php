@@ -11,8 +11,11 @@
     //We need to use the match controller
     include '../controllers/mathController.php';
 
-    //By default, checkout is enabled
+    //By default, there are no issues in the basket
     $canCheckout = true;
+
+    //Is checkout allowed?
+    $checkoutOpen = false;
 ?>
 <html>
     <head>
@@ -82,7 +85,7 @@
                             Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
-                            <?php if( $canCheckout ){?>
+                            <?php if( $canCheckout && $checkoutOpen ){?>
                                 <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
                                 <form action="checkoutSuccess.php" method="POST" style='display: none' id="checkout-form">
                                     <script
@@ -97,6 +100,10 @@
                                         data-currency="gbp">
                                     </script>
                                 </form>
+                            <?php } else if( !$checkoutOpen ) { ?>
+                                <h3 class="warning noMargin">
+                                    The checkout is currently disabled<br />We're sorry for any inconvenience this causes.
+                                </h3>
                             <?php } else { ?>
                                 <h3 class="warning noMargin">
                                     There is an issue with your basket.<br />
