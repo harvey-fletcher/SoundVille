@@ -1,5 +1,8 @@
 <?php
 
+    //Uses the math controller
+    include '../controllers/mathController.php';
+
     //This is the total cost
     $orderTotal = 0;
 
@@ -23,7 +26,7 @@
     }
 
     //Calculate how much the processing fee was
-    $processingFee = ( $orderTotal / 40 );
+    $processingFee = $math->calcProcessingFee( $orderTotal );
 
     //There is a blank row, followed by a complete order total
     $orderSummary .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp</td>"

@@ -8,6 +8,9 @@
     //Need to see the products in the basket
     include 'getBasketContents.php';
 
+    //We need to use the match controller
+    include '../controllers/mathController.php';
+
     //This is the order total
     $orderTotal = 0;
 
@@ -76,8 +79,8 @@
                    $orderTotal .= '.00';
                }
 
-               //Calculate the processing charge
-               $processingCharge = number_format( ( $orderTotal / 40 ) , 2, '.', '');
+               //Work out the processing fee
+               $processingCharge = $math->calcProcessingFee( $orderTotal );
             }
             ?> 
             <?php if( sizeof($basketItems) > 0 ){ ?>

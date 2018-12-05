@@ -8,6 +8,9 @@
     include '../config/dependencies.php';
     $dependencies = new Dependencies();
 
+    //Need the math controller
+    include '../controllers/mathController.php';
+
     //If a form was submitted on this page, we need to update the user account
     if( isset( $_POST['changeEmailForm'] ) ){
         //An update will happen
@@ -172,7 +175,7 @@
                         </tr>
                         <?php
                             //Calculate how much processing fee was paid on the order
-                            $processingCharge =  number_format( ( $orderTotal / 40 ) , 2, '.', '');
+                            $processingCharge = $math->calcProcessingFee( $orderTotal );
 
                             //Add the processing fee to the order total
                             $orderTotal += $processingCharge;
