@@ -22,9 +22,13 @@
         $orderSummary .= $row;
     }
 
+    //Calculate how much the processing fee was
+    $processingFee = ( $orderTotal / 40 );
+
     //There is a blank row, followed by a complete order total
     $orderSummary .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp</td>"
-                   . "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . number_format( $orderTotal, 2, '.', '') . "</td>";
+                   . "<tr><td>&nbsp;</td><td>Processing Fee:</td><td>&pound;" . number_format( $processingFee, 2, '.', '') . "</td>"
+                   . "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . number_format( $orderTotal + $processingFee, 2, '.', '') . "</td>";
 
     //Close off the order summary
     $orderSummary .= "</table>";
