@@ -109,86 +109,91 @@
             <?php include 'menu.php'; ?>
         </div>
         <div class="mainBodyContainer">
-            <h1 class="noMargin">My Details:</h1>
-            <p>
-                Registered email address: <?= $_SESSION['email']; ?><br />
-                <h3 class="noMargin">Change Email:</h3><br />
-                <?php if( !$updateHappened || !$emailsMatch ){ ?>
-                    <?php if( !$emailsMatch ){ ?>
-                        The emails entered did not match. Please try again.<br />
+            <?php if( isset( $_SESSION['email'] ) ){?>
+                <h1 class="noMargin">My Details:</h1>
+                <p>
+                    Registered email address: <?= $_SESSION['email']; ?><br />
+                    <h3 class="noMargin">Change Email:</h3><br />
+                    <?php if( !$updateHappened ){ ?>
+                        <form name="updateEmail" action="" method="POST">
+                            <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
+                            <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
+                            <button type="submit" name="changeEmailForm" class="signOutButton">Update Email</button>
+                        </form>
+                    <?php } else { ?>
+                        <?php if( !$emailsMatch ){ ?>
+                            The emails entered did not match. Please try again.<br />
+                        <?php } else { ?>
+                            <h2 class="noMargin">Success! Please check your email inbox and click the link to complete this process.</h2>
+                        <?php } ?>
                     <?php } ?>
-                    <form name="updateEmail" action="" method="POST">
-                        <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
-                        <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
-                        <button type="submit" name="changeEmailForm" class="signOutButton">Update Email</button>
-                    </form>
-                <?php } else { ?>
-                    <h2 class="noMargin">Success! Please check your email inbox and click the link to complete this process.</h2>
-                <?php } ?>
-            </p>
-            <br />
-            <h1 class="noMargin">My Orders:</h1>
-            <?php foreach($myOrders as $reference=>$order){?>
-                <?php $orderTotal = 0; ?>
-                <h3 class="noMargin">
-                    Order: <?= $reference; ?><br />
-                    Placed: <?= $order['created']; ?><br /><br />
-                </h3>
-                <table style="margin-left: 30px;">
-                    <tr>
-                        <td class="itemsList noBgTableHead">Item Name</td>
-                        <td class="itemsList noBgTableHead">Product Price</td>
-                        <td class="itemsList noBgTableHead">Quantity</td>
-                        <td class="itemsList noBgTableHead">Sub-Total</td>
-                    </tr>
-                    <tr>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                    </tr>
-                    <?php foreach( $order['items'] as $key=>$product ){ ?>
-                        <?php
-                            //Calculate the sub-total
-                            $subTotal   = ( $product['quantity'] * $product['product_price'] );
+                </p>
+                <br />
+                <h1 class="noMargin">My Orders:</h1>
+                <?php foreach($myOrders as $reference=>$order){?>
+                    <?php $orderTotal = 0; ?>
+                    <h3 class="noMargin">
+                        Order: <?= $reference; ?><br />
+                        Placed: <?= $order['created']; ?><br /><br />
+                    </h3>
+                    <table style="margin-left: 30px;">
+                        <tr>
+                            <td class="itemsList noBgTableHead">Item Name</td>
+                            <td class="itemsList noBgTableHead">Product Price</td>
+                            <td class="itemsList noBgTableHead">Quantity</td>
+                            <td class="itemsList noBgTableHead">Sub-Total</td>
+                        </tr>
+                        <tr>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                        </tr>
+                        <?php foreach( $order['items'] as $key=>$product ){ ?>
+                            <?php
+                                //Calculate the sub-total
+                                $subTotal   = ( $product['quantity'] * $product['product_price'] );
 
-                            //Re-Calculate the order total
-                            $orderTotal += $subTotal;
+                                //Re-Calculate the order total
+                                $orderTotal += $subTotal;
+                            ?>
+                            <tr>
+                                <td class="itemsList"><?= $product['product_name']; ?></td>
+                                <td class="itemsList"><?= $product['product_price']; ?></td>
+                                <td class="itemsList"><?= $product['quantity']; ?></td>
+                                <td class="itemsList">&pound;<?= number_format( $subTotal, 2, '.', ''); ?></td>
+                            </tr>
+                        <?php } ?>
+                        <tr>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                        </tr>
+                        <?php
+                            //Calculate how much processing fee was paid on the order
+                            $processingCharge =  number_format( ( $orderTotal / 40 ) , 2, '.', '');
+
+                            //Add the processing fee to the order total
+                            $orderTotal += $processingCharge;
                         ?>
                         <tr>
-                            <td class="itemsList"><?= $product['product_name']; ?></td>
-                            <td class="itemsList"><?= $product['product_price']; ?></td>
-                            <td class="itemsList"><?= $product['quantity']; ?></td>
-                            <td class="itemsList">&pound;<?= number_format( $subTotal, 2, '.', ''); ?></td>
+                            <td class="itemsList">Processing Fee:</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&pound;<?= $processingCharge; ?></td>
                         </tr>
-                    <?php } ?>
-                    <tr>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                    </tr>
-                    <?php
-                        //Calculate how much processing fee was paid on the order
-                        $processingCharge =  number_format( ( $orderTotal / 40 ) , 2, '.', '');
-
-                        //Add the processing fee to the order total
-                        $orderTotal += $processingCharge;
-                    ?>
-                    <tr>
-                        <td class="itemsList">Processing Fee:</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&pound;<?= $processingCharge; ?></td>
-                    </tr>
-                    <tr>
-                        <td class="itemsList">Total</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&nbsp;</td>
-                        <td class="itemsList">&pound;<?= number_format( $orderTotal, 2, '.', ''); ?></td>
-                    </tr>
-                </table>
-                <br /><br />
+                        <tr>
+                            <td class="itemsList">Total</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&nbsp;</td>
+                            <td class="itemsList">&pound;<?= number_format( $orderTotal, 2, '.', ''); ?></td>
+                        </tr>
+                    </table>
+                    <br /><br />
+                <?php } ?>
+            <?php } else { ?>
+                <h1 class="warning noMargin">You must be signed in to view this page</h1>
             <?php } ?>
         </div>
     </body>

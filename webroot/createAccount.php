@@ -69,10 +69,13 @@
     }
 
     if( $success ){
+        //Hash the password
+        $hashPassword = password_hash( $_POST['passwordConfirm'] , PASSWORD_DEFAULT);
+
         //Insert the new user account
         $query = $db->prepare( "INSERT INTO users ( email, password ) VALUES ( :email, :password )" );
         $query->bindParam( ":email", $_POST['email'] );
-        $query->bindParam( ":password", password_hash( $_POST['passwordConfirm'] , PASSWORD_DEFAULT) );
+        $query->bindParam( ":password", $hashPassword );
         $query->execute();
         $userID = $db->lastInsertId();
 
