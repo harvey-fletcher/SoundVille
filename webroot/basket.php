@@ -11,8 +11,6 @@
     //We need to use the math controller
     include '../controllers/mathController.php';
 
-    //This is the order total
-    $orderTotal = 0;
 ?>
 <html>
     <head>
@@ -70,14 +68,6 @@
                     </div>
                 </div>
             <?php
-               //Add the price of this product on to the total
-               $orderTotal += $product['quantity'] * $product['product_price'];
-
-               //Put two DP on the subtotal
-               if( floor( $orderTotal ) == $orderTotal ){
-                   $orderTotal .= '.00';
-               }
-
                //Calculate the processing charge
                $processingCharge = $math->calcProcessingFee( $orderTotal );
             }

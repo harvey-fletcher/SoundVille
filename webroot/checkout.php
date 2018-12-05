@@ -11,9 +11,6 @@
     //We need to use the match controller
     include '../controllers/mathController.php';
 
-    //This is the order total
-    $orderTotal = 0;
-
     //By default, checkout is enabled
     $canCheckout = true;
 ?>
@@ -71,14 +68,6 @@
                     </div>
                 </div>
             <?php
-               //Add the price of this product on to the total
-               $orderTotal += $product['quantity'] * $product['product_price'];
-
-               //Put two DP on the subtotal
-               if( floor( $orderTotal ) == $orderTotal ){
-                   $orderTotal .= '.00';
-               }
-
                //Work out the processing fee
                $processingCharge = $math->calcProcessingFee( $orderTotal );
             }

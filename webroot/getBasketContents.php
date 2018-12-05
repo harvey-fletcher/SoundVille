@@ -45,13 +45,28 @@
         }
     }
 
+    //This is the cost of the user's order (without processing fee). It starts at 0.
+    $orderTotal = 0;
+
     //Check that all the products in the basket will be in stock at the checkout
     foreach( $basketItems as $productID=>$product ){
         //Get the stock level for that product
-        $stockCheckQuery = $db->prepare("SELECT product_stock_level FROM products WHERE id=:productID");
+        $stockCheckQuery = $db->prepare("SELECT product_stock_level, product_price FROM products WHERE id=:productID");
         $stockCheckQuery->bindParam(":productID", $productID);
         $stockCheckQuery->execute();
-        $stockLevel = $stockCheckQuery->fetchAll( PDO::FETCH_ASSOC )[0]['product_stock_level'];
+
+        //This is the result row
+        $productRow = $stockCheckQuery->fetchAll( PDO::FETCH_ASSOC )[0];
+
+        //Set the stock level and the product price
+        $stockLevel   = $productRow['product_stock_level'];
+        $productPrice = $productRow['product_price'];
+
+        //calculate the total amount the user has spent on this item
+        $itemTotal    = ( $product['quantity'] * $productPrice );
+
+        //Add the user's item total to their whole total.
+        $orderTotal  += $itemTotal;
 
         if( ($stockLevel - $product['quantity']) < 0 ){
             $basketItems[ $productID ]['in_stock'] = false;

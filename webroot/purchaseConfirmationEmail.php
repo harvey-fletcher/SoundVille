@@ -3,9 +3,6 @@
     //Uses the math controller
     include '../controllers/mathController.php';
 
-    //This is the total cost
-    $orderTotal = 0;
-
     //Start the order summary table
     $orderSummary = "<table border='0' style='display: inline-block'>"
                   . "<tr><td>Quantity</td><td>Item</td><td>Sub-total</td>";
@@ -13,7 +10,6 @@
     //Build the order summary
     foreach( $basketItems as $key=>$item ){
         $itemTotal = number_format( ( (int)$item['quantity'] * (float)$item['product_price'] ), 2, '.', '' );
-        $orderTotal += $itemTotal;
 
         $row = "<tr>"
              .     "<td>". $item['quantity'] ." x</td>"
