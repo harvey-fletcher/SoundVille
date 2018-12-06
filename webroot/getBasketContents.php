@@ -27,7 +27,7 @@
              JOIN products p
                ON b.product_id=p.id
              JOIN product_images pi
-               ON p.product_image_id=pi.id 
+               ON p.product_image_id=pi.id
              WHERE
                user_id=:user_id
              GROUP BY p.id"
@@ -42,13 +42,6 @@
     //Get the items from the basket
     $basketItems = $basketQuery->fetchAll( PDO::FETCH_ASSOC );
 
-    //The order total starts at 0
-    $orderTotal = 0;
-
-    //Will this put the product out of stock
-    foreach( $basketItems as $id=>$item ){
-        //Add the item total to the order total
-        $orderTotal += $item['item_total'];
-    }
-
+    //Calculate the total amount of the order
+    $orderTotal = array_sum( array_values( array_column( $basketItems, "item_total") ) );
 ?>

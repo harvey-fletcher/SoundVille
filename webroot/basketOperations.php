@@ -58,7 +58,7 @@
                     );
             } else {
                 //Has the maximum number been exceeded?
-                if( $_POST['new_quantity'] >= $products[0]['product_max_per_purchase'] ){
+                if( $_POST['new_quantity'] > $products[0]['product_max_per_purchase'] ){
                     return array(
                         "status"  => 400,
                         "message" => "You already have the maximum quantity of this item in your basket.\nPlease checkout first, then try again."
