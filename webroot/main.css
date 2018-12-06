@@ -45,6 +45,10 @@ div.links{
   font-size: 30;
 }
 
+div.hidden{
+  display: none;
+}
+
 div.signInWidget{
   float: right;
 

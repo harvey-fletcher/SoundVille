@@ -201,7 +201,7 @@
                         </tr>
                         <tr>
                             <td class="title" align="right">
-                                I have read and agree to the terms and conditions and privacy statement listed on the <a href="info.php">information</a> page.*
+                                I have read and agree to the <a href="info.php?section=terms"><u>terms and conditions</u></a> and <a href="info.php?section=privacyStatement"><u>privacy statement</u> listed on the <a href="info.php"><u>information</u></a> page.*
                             </td>
                             <td align="center">
                                 <input type="checkbox" name="confirmTermsCheckbox" class="largeCheckbox" required/>
