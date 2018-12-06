@@ -1,28 +1,20 @@
 <?php
 
-    //Uses the math controller
-    include '../controllers/mathController.php';
-
     //Start the order summary table
     $orderSummary = "<table border='0' style='display: inline-block'>"
                   . "<tr><td>Quantity</td><td>Item</td><td>Sub-total</td>";
 
     //Build the order summary
     foreach( $basketItems as $key=>$item ){
-        $itemTotal = number_format( ( (int)$item['quantity'] * (float)$item['product_price'] ), 2, '.', '' );
-
         $row = "<tr>"
              .     "<td>". $item['quantity'] ." x</td>"
              .     "<td>". $item['product_name'] ."&nbsp; &nbsp;</td>"
-             .     "<td>&pound;". $itemTotal . "</td>"
+             .     "<td>&pound;". $item['item_total'] . "</td>"
              . "</tr>";
 
         //Add this product row to the order summary
         $orderSummary .= $row;
     }
-
-    //Calculate how much the processing fee was
-    $processingFee = $math->calcProcessingFee( $orderTotal );
 
     //There is a blank row, followed by a complete order total
     $orderSummary .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp</td>"
@@ -65,5 +57,3 @@
                .         "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                .     "</h4>"
                . "</div>";
-
-//$emailBody = "<p>test</p>";
