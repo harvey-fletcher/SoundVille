@@ -139,6 +139,82 @@
                         </ul>
                     </li>
                 </ul>
+                <br />
+                <h2 class="noMargin">
+                    What is the "Processing Fee"?
+                </h2>
+                <p class="fullWidth">Our payment provider, <u><a href="https://stripe.com/gb">stripe payments</a></u>, charges a fee to process payment cards. Additionally, this fee helps to keep our website services up and running. Because this fee relates to an external service provider, unfortunately it cannot be refunded.</p>
+                <br /><h2 class="noMargin">
+                    Privacy Statement
+                </h2>
+                <p class="fullWidth">
+                    <ul>
+                        <li>
+                            <h3 class="noMargin">
+                                Data Controller
+                            </h3>
+                            The data controller for the personal information collected on this site is Harvey Fletcher. To contact the data controller, please use one of the methods in <u><a href="contact.php">the contact page</a></u> of this site.
+                        </li>
+                        <li>
+                            <h3 class="noMargin">
+                                The data we collect
+                            </h3>
+                            On this site, we collect the following information from you:<br />
+                            <ul>
+                                <li>Your Name</li>
+                                <li>Your email address</li>
+                                <li>Your telephone number</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="noMargin">
+                                <li>How we collect this information</li>
+                            </h3>
+                            We collect the information through the following methods:
+                            <ul>
+                                <li>The information we keep on you is provided when you complete one of the forms on this site. We have no other data sources.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="noMargin">
+                                <li>How we use this information</li>
+                            </h3>
+                            The information collected on this site is used for:
+                            <ul>
+                                <li>Your Name - If you are a performer at the festival, we collect your name so that we can compare it with your ID.</li>
+                                <li>Your email address - Anyone using this site will be required to provide us with an email address. We use this email address to keep you updated when new acts are added to the line up, and also when you make a purchase, your confirmation is sent to your email. If you are a performer, we also use your email address to contact you regarding your contract with us.</li>
+                                <li>Your telephone number - If you are a volunteer or performer, we use your phone number to stay in contact with you regarding your duties at the festival. Users who are not a volunteer or performer do not need to provide their phone number.</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <h3 class="noMargin">
+                                <li>Your data rights</li>
+                            </h3>
+                            As part of the GDPR, you have the following rights with regard to the data we hold on you.
+                            <ul>
+                                <li>The right to request confirmation if we process your personal data, and if so, a right to request a copy of that data.</li>
+                                <li>The right to request that Linkenfest rectifies or updates your personal data that is inaccurate, incomplete, or outdated.</li>
+                                <li>The right to request that Linkenfest erase your personal data in certain circumstances provided by law;</li>
+                                <li>The right to request that Linkenfest restrict the use of your personal data in certain circumstances, such as while Linkenfest considers another request that you have submitted (including a request that Linkenfest makes an update to your Personal Data; and</li>
+                                <li>The right to request that Linkenfest export to another company, where technically feasible, your Personal Data that we hold in order to provide Services to you.</li>
+                            </ul>
+                            Where the processing of your Personal Data is based on your previously given consent, you have the right to withdraw your consent at any time. You may also have the right to object to the processing of your Personal Data on grounds relating to your particular situation.<br />
+                            If you wish to exercise any of your data protection rights listed above, you can contact us using the <u><a href="contact.php">contact us page</a></u>. We take each request seriously. We will comply with your request to the extent required by the applicable law. We will not be able to respond to a request if we no longer hold your Personal Data.<br />
+                            If you feel that you have not received a satisfactory response from us, you may consult with the data protection authority.<br /?
+                            For your protection, we may need you to verify your identity before responding to your request, such as verifying the email address the request was sent from matches your email address that we have on file.<br />
+                            When we no longer require your data, it will be purged from our systems.
+                        </li>
+                        <li>
+                            <h3 class="noMargin">
+                                <li>Do we share your data?</li>
+                            </h3>
+                            <ul>
+                                <li>Linkenfest does not share your data with third parties. We do not have any advertisements on this site that collect data.</li>
+                                <li>Our payment processor, stripe payments, has a separate privacy policy. This can be viewed <u><a href="https://stripe.com/gb/privacy">here.</a></u></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </p>
                 <br /><br />
                 <h2 class="noMargin">
                     If any of these terms are unclear please contact information@linkenfest.co.uk
