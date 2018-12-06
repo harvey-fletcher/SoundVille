@@ -11,7 +11,26 @@
     }
 
     //Prepare the query that we will use to get the user's basket
-    $basketQuery = $db->prepare( "SELECT b.product_id, b.quantity, p.product_name, p.product_price, p.product_description, p.product_max_per_purchase, pi.image_url FROM baskets b JOIN products p ON b.product_id=p.id JOIN product_images pi ON p.product_image_id=pi.id  WHERE user_id=:user_id" );
+    $basketQuery = $db->prepare(
+            "SELECT
+               b.product_id,
+               SUM( b.quantity ) as 'quantity',
+               ROUND( SUM( b.quantity * p.product_price ), 2) as 'item_total',
+               p.product_name,
+               p.product_price,
+               p.product_description,
+               p.product_max_per_purchase,
+               p.product_stock_level,
+               pi.image_url
+             FROM baskets b
+             JOIN products p
+               ON b.product_id=p.id
+             JOIN product_images pi
+               ON p.product_image_id=pi.id 
+             WHERE
+               user_id=:user_id
+             GROUP BY p.id"
+        );
 
     //Bind parameters
     $basketQuery->bindParam( ":user_id", $_SESSION['id'] );
@@ -22,60 +41,20 @@
     //Get the items from the basket
     $basketItems = $basketQuery->fetchAll( PDO::FETCH_ASSOC );
 
-    //This is an array for the sorted basket
-    $sortedBasket = array();
-
-    //Group the items in the basket into product groups
-    foreach( $basketItems as $basket_item_id=>$item ){
-        $sortedBasket[ $item['product_id'] ][] = $item;
-    }
-
-    //Erase the basket items, making it a blank array
-    $basketItems = array();
-
-    //Count each of the product types, adding up the quantity
-    foreach( $sortedBasket as $product_id=>$products ){
-        foreach( $products as $key=>$product ){
-            if( isset( $basketItems[ $product['product_id'] ] ) ){
-                $newQuantity = (int)$basketItems[ $product['product_id'] ]['quantity'] + $product['quantity'];
-                $basketItems[ $product['product_id'] ]['quantity'] = $newQuantity;
-            } else {
-                $basketItems[ $product['product_id'] ] = $product;
-            }
-        }
-    }
-
-    //This is the cost of the user's order (without processing fee). It starts at 0.
+    //The order total starts at 0
     $orderTotal = 0;
 
-    //Check that all the products in the basket will be in stock at the checkout
-    foreach( $basketItems as $productID=>$product ){
-        //Get the stock level for that product
-        $stockCheckQuery = $db->prepare("SELECT product_stock_level, product_price FROM products WHERE id=:productID");
-        $stockCheckQuery->bindParam(":productID", $productID);
-        $stockCheckQuery->execute();
-
-        //This is the result row
-        $productRow = $stockCheckQuery->fetchAll( PDO::FETCH_ASSOC )[0];
-
-        //Set the stock level and the product price
-        $stockLevel   = $productRow['product_stock_level'];
-        $productPrice = $productRow['product_price'];
-
-        //calculate the total amount the user has spent on this item
-        $itemTotal    = ( $product['quantity'] * $productPrice );
-
-        //Add the user's item total to their whole total.
-        $orderTotal  += $itemTotal;
-
-        if( ($stockLevel - $product['quantity']) < 0 ){
-            $basketItems[ $productID ]['in_stock'] = false;
+    //Will this put the product out of stock
+    foreach( $basketItems as $id=>$item ){
+        //Set the product stock flag
+        if( ( $item['product_stock_level'] - $item['quantity']) < 0 ){
+            $basketItems[ $id ]['in_stock'] = false;
         } else {
-            $basketItems[ $productID ]['in_stock'] = true;
+            $basketItems[ $id ]['in_stock'] = true;
         }
-    }
 
-    //Arrays have to start at 0
-    $basketItems = array_values( $basketItems );
+        //Add the item total to the order total
+        $orderTotal += $item['item_total'];
+    }
 
 ?>
