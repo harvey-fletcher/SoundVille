@@ -8,9 +8,6 @@
     //Need to see the products in the basket
     include 'getBasketContents.php';
 
-    //We need to use the math controller
-    include '../controllers/mathController.php';
-
 ?>
 <html>
     <head>
@@ -39,7 +36,7 @@
                             £<?= $product['product_price'];?> each<br />
                             <br />
                             Quantity: <?= $product['quantity'];?><br />
-                            Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['quantity'] * $product['product_price'];?>
+                            Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['item_total'];?>
                         </h2>
                         <div class="productOptions">
                              <select id="quantity-item-<?=$product['product_id'];?>" class="productQuantitySelect">
@@ -68,8 +65,6 @@
                     </div>
                 </div>
             <?php
-               //Calculate the processing charge
-               $processingCharge = $math->calcProcessingFee( $orderTotal );
             }
             ?>
             <?php if( sizeof($basketItems) > 0 ){ ?>
@@ -77,9 +72,9 @@
                     <div class="orderOptions" align="right">
                         <h3 class="noMargin">
                             Order SubTotal: £<?= $orderTotal; ?><br />
-                            Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
+                            Processing Charge: £<?= $processingFee ?> <a href="info.php?section=fees">(?)</a><br />
                             <br />
-                            Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
+                            Order Total: £<?= number_format( $orderTotal + $processingFee, 2, '.', '' ); ?><br />
                         </h3>
                     </div>
                 </div>

@@ -1,7 +1,10 @@
 <?php
 
-    //We need the databaser
+    //We need the database
     include '../config/database.php';
+
+    //We need to use the math controller (calculate processing fee)
+    include '../controllers/mathController.php';
 
     //Check the user is signed in
     //only do this if the access class hasn't already been called on this page.
@@ -44,4 +47,7 @@
 
     //Calculate the total amount of the order
     $orderTotal = array_sum( array_values( array_column( $basketItems, "item_total") ) );
+
+    //Work out the processig fee
+    $processingFee = $math->calcProcessingFee( $orderTotal );
 ?>

@@ -8,9 +8,6 @@
     //Need to see the products in the basket
     include 'getBasketContents.php';
 
-    //We need to use the match controller
-    include '../controllers/mathController.php';
-
     //By default, there are no issues in the basket
     $canCheckout = true;
 
@@ -45,7 +42,7 @@
                             £<?= $product['product_price'];?> each<br />
                             <br />
                             Quantity: <?= $product['quantity'];?><br />
-                            Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['quantity'] * $product['product_price'];?>
+                            Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['item_total'];?>
                         </h2>
                         <br />
                         <?php if( $product['quantity'] > $product['product_max_per_purchase'] ){ ?>
@@ -71,8 +68,6 @@
                     </div>
                 </div>
             <?php
-               //Work out the processing fee
-               $processingCharge = $math->calcProcessingFee( $orderTotal );
             }
             ?> 
             <?php if( sizeof($basketItems) > 0 ){ ?>
@@ -80,9 +75,9 @@
                     <div class="orderOptions" align="right">
                         <h3 class="noMargin">
                             Order SubTotal: £<?= $orderTotal; ?><br />
-                            Processing Charge: £<?= $processingCharge ?> <a href="info.php?section=fees">(?)</a><br />
+                            Processing Charge: £<?= $processingFee ?> <a href="info.php?section=fees">(?)</a><br />
                             <br />
-                            Order Total: £<?= number_format( $orderTotal + $processingCharge, 2, '.', '' ); ?><br />
+                            Order Total: £<?= number_format( $orderTotal + $processingFee, 2, '.', '' ); ?><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
@@ -91,7 +86,7 @@
                                     <script
                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                         data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
-                                        data-amount="<?= number_format( $orderTotal + $processingCharge, 2, '', '' ); ?>"
+                                        data-amount="<?= number_format( $orderTotal + $processingFee, 2, '', '' ); ?>"
                                         data-name="Linkenfest"
                                         data-description="Complete Purchase"
                                         data-email="<?= $_SESSION['email']; ?>"
