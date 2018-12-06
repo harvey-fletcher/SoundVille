@@ -16,6 +16,7 @@
                b.product_id,
                SUM( b.quantity ) as 'quantity',
                ROUND( SUM( b.quantity * p.product_price ), 2) as 'item_total',
+               ( ( p.product_stock_level - SUM( b.quantity ) ) >= 0 ) as 'in_stock',
                p.product_name,
                p.product_price,
                p.product_description,
@@ -46,13 +47,6 @@
 
     //Will this put the product out of stock
     foreach( $basketItems as $id=>$item ){
-        //Set the product stock flag
-        if( ( $item['product_stock_level'] - $item['quantity']) < 0 ){
-            $basketItems[ $id ]['in_stock'] = false;
-        } else {
-            $basketItems[ $id ]['in_stock'] = true;
-        }
-
         //Add the item total to the order total
         $orderTotal += $item['item_total'];
     }
