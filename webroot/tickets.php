@@ -47,7 +47,7 @@
                                  </select>
                                  <button id="add-product-<?=$product['id'];?>" onclick="addItemsToBasket( this.id );" class="signOutButton">Add to basket</button>
                              <?php } else { ?>
-                                 You must be signed in to add this product to cart. Sign In | Create Account
+                                 You must be signed in to add this product to cart. <a href="createAccount.php"><u>Create Account</u></a>
                              <?php } ?>
                          </div>
                     </div>
