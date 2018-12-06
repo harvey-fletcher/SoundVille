@@ -6,6 +6,8 @@ body{
   margin: 0;
   background-image: url("https://files.linkenfest.co.uk/site_background_png.png");
   background-size: cover;
+
+  font-family: Arial, serif;
 }
 
 img.main-logo{
