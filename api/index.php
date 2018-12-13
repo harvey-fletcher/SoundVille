@@ -3,6 +3,9 @@
     //API always returns JSON
     header('Content-Type: application/json');
 
+    //Need to allow cross origins
+    header("Access-Control-Allow-Origin: *");
+
     //There is a set of functions for use by the API
     include '../controllers/apiController.php';
     $api = new api();
@@ -20,14 +23,17 @@
     $access = new accessController();
 
     //Ensure that the user exists
-    $user = $access->userExists();
+    $user = $access->userExists( $_POST['email'] );
     if( !$user ){
         $api->out( 403, "That user does not exist" );
     }
 
     //Is the provided password correct
-    if( !$api->passwordVerify( $user['password'] ) ){
+    if( $user['password'] !== $_POST['password'] ){
         $api->out( 403, "The password you provided is incorrect" );
+    } else {
+        session_start();
+        $_SESSION = $user;
     }
 
     /**

@@ -20,7 +20,7 @@
         <title>Linkenfest 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
-    <body>
+    <body onload="getItems();">
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
@@ -124,6 +124,18 @@
                     } else {
                         alert( data.message );
                     }
+                });
+            }
+
+            function getItems(){
+                $.post(
+                    "https://api.linkenfest.co.uk/basket/getContents",
+                    {
+                        email: '<?= $_SESSION['email']; ?>',
+                        password: '<?= $_SESSION['password']; ?>'
+                    }
+                ).done(function( data ){
+                    console.log( data );
                 });
             }
         </script>
