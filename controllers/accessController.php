@@ -75,6 +75,39 @@
             $this->denied( $_GET['referrer'] );
         }
 
+        function apiAuth(){
+            global $api;
+            global $db;
+
+            if( !isset( $_SESSION['email'] ) || !isset( $_SESSION['password'] ) ){
+                return false;
+            } else {
+                //Check that the user account exists
+                //Create the query to identify user rows
+                $loginQuery = $db->prepare("SELECT * FROM users WHERE email=:email");
+
+                //bind the parameters to the query
+                $loginQuery->bindParam( ":email", $_SESSION['email'] );
+
+                //Execute the result
+                $loginQuery->execute();
+
+                //Get the results
+                $results = $loginQuery->fetchAll( PDO::FETCH_ASSOC );
+
+                //How many rows are there
+                if( $loginQuery->rowCount() == 1 ){
+                    if( $_SESSION['password'] != $results[0]['password'] ){
+                        return false;
+                    }
+
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+
         function checkAuth(){
             global $db;
 
