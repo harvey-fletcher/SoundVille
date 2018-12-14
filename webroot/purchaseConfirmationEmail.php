@@ -5,7 +5,7 @@
                   . "<tr><td>Quantity</td><td>Item</td><td>Sub-total</td>";
 
     //Build the order summary
-    foreach( $basketItems as $key=>$item ){
+    foreach( $basket['basket_items'] as $key=>$item ){
         $row = "<tr>"
              .     "<td>". $item['quantity'] ." x</td>"
              .     "<td>". $item['product_name'] ."&nbsp; &nbsp;</td>"
