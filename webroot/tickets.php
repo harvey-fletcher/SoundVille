@@ -62,10 +62,10 @@
             var quantity  = $('#quantity-item-' + productId).val();
 
             $.post(
-                "basketOperations.php",
-                { operation: "add", id: productId, productQuantity: quantity }
+                "https://api.linkenfest.co.uk/basket/add",
+                { session: '<?= session_id(); ?>', id: productId, productQuantity: quantity }
             ).done(function( data ){
-                alert( data.message );
+                alert( data.data.message );
 
                 if( data.status == 200 ){
                     var oldQuantity = $('#cartButton').text().split('(')[1].split(')')[0];

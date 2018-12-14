@@ -91,10 +91,10 @@
             var newQuantity = $('#quantity-item-' + product_id).val();
 
             $.post(
-                "basketOperations.php",
-                { operation: "amend", amend_id: product_id, new_quantity: newQuantity }
+                "https://api.linkenfest.co.uk/basket/amend",
+                { session: '<?= session_id(); ?>', amend_id: product_id, new_quantity: newQuantity }
             ).done(function( data ){
-                alert( data.message ).delay( 0.5 );
+                alert( data.data.message );
                 window.location.reload();
             });
         }
@@ -103,10 +103,10 @@
             var product_id  = id.split("-")[2];
 
             $.post(
-                "basketOperations.php",
-                { operation: "remove", amend_id: product_id }
+                "https://api.linkenfest.co.uk/basket/remove",
+                { session: '<?= session_id(); ?>', amend_id: product_id }
             ).done(function( data ){
-                alert( data.message );
+                alert( data.data.message );
                 window.location.reload();
             });
         }

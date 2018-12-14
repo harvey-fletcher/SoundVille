@@ -11,29 +11,24 @@
     $api = new api();
 
     //Need username and password to access the API
-    if( !isset( $_POST['email'] ) || !isset( $_POST['password'] ) ){
-        $api->out( 400, "You need to specify the email and password" );
+    if( !isset( $_POST['session'] ) ){
+        $api->out( 400, "You need to specify the session token" );
     }
 
     //Connect to the database
     include '../config/database.php';
 
+    //Start session
+    session_id( $_POST['session'] );
+    session_start();
+
     //Load the access controller
     include '../controllers/accessController.php';
     $access = new accessController();
 
-    //Ensure that the user exists
-    $user = $access->userExists( $_POST['email'] );
-    if( !$user ){
-        $api->out( 403, "That user does not exist" );
-    }
-
-    //Is the provided password correct
-    if( $user['password'] !== $_POST['password'] ){
-        $api->out( 403, "The password you provided is incorrect" );
-    } else {
-        session_start();
-        $_SESSION = $user;
+    //Ensure that the user is signed in
+    if( !$access->apiAuth() ){
+        $api->out( 403, array( "message" => "Your session is not active" ) );
     }
 
     /**
