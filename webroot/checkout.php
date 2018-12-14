@@ -6,13 +6,15 @@
     include 'sessionAccess.php';
 
     //Need to see the products in the basket
-    include 'getBasketContents.php';
+    include '../controllers/basketController.php';
+    $basketController = new basketController();
+    $basket = $basketController->getContents();
 
     //By default, there are no issues in the basket
     $canCheckout = true;
 
     //Is checkout allowed?
-    $checkoutOpen = false;
+    $checkoutOpen = true;
 ?>
 <html>
     <head>
@@ -20,7 +22,7 @@
         <title>Linkenfest 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
-    <body onload="getItems();">
+    <body onload="">
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
@@ -31,7 +33,7 @@
         <div class="mainBodyContainer" align="center">
             <h2 class="noMargin"><u>Please confirm your order</u></h2>
             <br />
-            <?php foreach( $basketItems as $key=>$product ){ ?>
+            <?php foreach( $basket['basket_items'] as $key=>$product ){ ?>
                 <div class="productParent" align="left">
                     <div class="productImageContainer">
                         <img src="<?= $product['image_url']; ?>" width="100%" height="100%" />
@@ -70,14 +72,14 @@
             <?php
             }
             ?> 
-            <?php if( sizeof($basketItems) > 0 ){ ?>
+            <?php if( sizeof($basket['basket_items']) > 0 ){ ?>
                 <div class="productParent">
                     <div class="orderOptions" align="right">
                         <h3 class="noMargin">
-                            Order SubTotal: £<?= $orderTotal; ?><br />
-                            Processing Charge: £<?= $processingFee ?> <a href="info.php?section=fees">(?)</a><br />
+                            Order SubTotal: £<?= $basket['sub_total']; ?><br />
+                            Processing Charge: £<?= $basket['processing_fee']; ?> <a href="info.php?section=fees">(?)</a><br />
                             <br />
-                            Order Total: £<?= number_format( $orderTotal + $processingFee, 2, '.', '' ); ?><br />
+                            Order Total: £<?= $basket['order_total']['decimal']; ?><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
@@ -86,7 +88,7 @@
                                     <script
                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                         data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
-                                        data-amount="<?= number_format( $orderTotal + $processingFee, 2, '', '' ); ?>"
+                                        data-amount="<?= $basket['order_total']['plain'] ?>"
                                         data-name="Linkenfest"
                                         data-description="Complete Purchase"
                                         data-email="<?= $_SESSION['email']; ?>"
@@ -124,18 +126,6 @@
                     } else {
                         alert( data.message );
                     }
-                });
-            }
-
-            function getItems(){
-                $.post(
-                    "https://api.linkenfest.co.uk/basket/getContents",
-                    {
-                        email: '<?= $_SESSION['email']; ?>',
-                        password: '<?= $_SESSION['password']; ?>'
-                    }
-                ).done(function( data ){
-                    console.log( data );
                 });
             }
         </script>

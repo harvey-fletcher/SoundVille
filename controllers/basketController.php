@@ -48,8 +48,12 @@
 
             //Return the data
             return array(
-                    "order_total"    => $orderTotal,
-                    "processing_fee" => $processingFee,
+                    "sub_total"      => number_format( $orderTotal, 2, '.', '' ),
+                    "order_total"    => array(
+                            "decimal" => number_format( ( $orderTotal + $processingFee ), 2, '.', '' ),
+                            "plain"   => number_format( ( $orderTotal + $processingFee ), 2, '', '' ),
+                        ),
+                    "processing_fee" => number_format( $processingFee, 2, '.', '' ),
                     "basket_items"   => $basketItems
                 );
         }

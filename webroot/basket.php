@@ -6,8 +6,9 @@
     include 'sessionAccess.php';
 
     //Need to see the products in the basket
-    include 'getBasketContents.php';
-
+    include '../controllers/basketController.php';
+    $basketController = new basketController();
+    $basket = $basketController->getContents();
 ?>
 <html>
     <head>
@@ -25,7 +26,7 @@
         <div class="mainBodyContainer" align="center">
             <h2 class="noMargin"><u>Your Basket</u></h2>
             <br />
-            <?php foreach( $basketItems as $key=>$product ){ ?>
+            <?php foreach( $basket['basket_items'] as $key=>$product ){ ?>
                 <div class="productParent" align="left">
                     <div class="productImageContainer">
                         <img src="<?= $product['image_url']; ?>" width="100%" height="100%" />
@@ -67,14 +68,14 @@
             <?php
             }
             ?>
-            <?php if( sizeof($basketItems) > 0 ){ ?>
+            <?php if( sizeof($basket['basket_items']) > 0 ){ ?>
                 <div class="productParent">
                     <div class="orderOptions" align="right">
                         <h3 class="noMargin">
-                            Order SubTotal: £<?= $orderTotal; ?><br />
-                            Processing Charge: £<?= $processingFee ?> <a href="info.php?section=fees">(?)</a><br />
+                            Order SubTotal: £<?= $basket['sub_total']; ?><br />
+                            Processing Charge: £<?= $basket['processing_fee'] ?> <a href="info.php?section=fees">(?)</a><br />
                             <br />
-                            Order Total: £<?= number_format( $orderTotal + $processingFee, 2, '.', '' ); ?><br />
+                            Order Total: £<?= $basket['order_total']['decimal'] ?><br />
                         </h3>
                     </div>
                 </div>
