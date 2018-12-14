@@ -18,8 +18,8 @@
 
     //There is a blank row, followed by a complete order total
     $orderSummary .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp</td>"
-                   . "<tr><td>&nbsp;</td><td>Processing Fee:</td><td>&pound;" . number_format( $processingFee, 2, '.', '') . "</td>"
-                   . "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . number_format( $orderTotal + $processingFee, 2, '.', '') . "</td>";
+                   . "<tr><td>&nbsp;</td><td>Processing Fee:</td><td>&pound;" . $basket['processing_fee']  . "</td>"
+                   . "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . $basket['order_total']['decimal']  . "</td>";
 
     //Close off the order summary
     $orderSummary .= "</table>";

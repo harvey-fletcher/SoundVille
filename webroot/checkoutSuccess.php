@@ -12,12 +12,14 @@
     //Check user is signed in
     include 'sessionAccess.php';
 
-    //Since the confirmation email contains the basket, we need to load the basket now
-    include 'getBasketContents.php';
+    //Need to see the products in the basket
+    include '../controllers/basketController.php';
+    $basketController = new basketController();
+    $basket = $basketController->getContents();
 
     if( $_SESSION['basketSize'] > 0 ){
         //Generate an order reference
-        $orderReference = substr( hash( 'sha1', json_encode( $basketItems ) . date('Y-m-d H:i:s') . $_SESSION['email'] ), 0, 20);
+        $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i:s') . $_SESSION['email'] ), 0, 20);
 
         //We need to insert the order to the database
         $newOrder = $db->prepare( "INSERT INTO orders (order_reference, user_id) VALUES ( :order_reference, :user_id)" );
@@ -27,7 +29,7 @@
         $orderNumber = $db->lastInsertId();
 
         //Now, we need to insert all the products from this order into the database so it is logged
-        foreach( $basketItems as $key=>$item ){
+        foreach( $basket['basket_items'] as $key=>$item ){
             $newOrder = $db->prepare( "INSERT INTO order_products ( order_id, product_id, quantity ) VALUES ( :order_id, :product_id, :quantity )" );
             $newOrder->bindParam( ":order_id", $orderNumber );
             $newOrder->bindParam( ":product_id", $item['product_id'] );
