@@ -1,77 +1,13 @@
 <?php
     //Uses session
     session_start();
-
-    //Import the dependencies file
-    include '../config/dependencies.php';
-    $dependencies = new Dependencies();
-
-    //Uses the database
-    include '../config/database.php';
-
-    //Check user is signed in
-    include 'sessionAccess.php';
-
-    //Need to see the products in the basket
-    include '../controllers/basketController.php';
-    $basketController = new basketController();
-    $basket = $basketController->getContents();
-
-    if( $_SESSION['basketSize'] > 0 ){
-        //Generate an order reference
-        $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i:s') . $_SESSION['email'] ), 0, 20);
-
-        //We need to insert the order to the database
-        $newOrder = $db->prepare( "INSERT INTO orders (order_reference, user_id) VALUES ( :order_reference, :user_id)" );
-        $newOrder->bindParam( ":order_reference", $orderReference );
-        $newOrder->bindParam( ":user_id", $_SESSION['id'] );
-        $newOrder->execute();
-        $orderNumber = $db->lastInsertId();
-
-        //Now, we need to insert all the products from this order into the database so it is logged
-        foreach( $basket['basket_items'] as $key=>$item ){
-            $newOrder = $db->prepare( "INSERT INTO order_products ( order_id, product_id, quantity ) VALUES ( :order_id, :product_id, :quantity )" );
-            $newOrder->bindParam( ":order_id", $orderNumber );
-            $newOrder->bindParam( ":product_id", $item['product_id'] );
-            $newOrder->bindParam( ":quantity", $item['quantity'] );
-            $newOrder->execute();
-
-            //Subtract from the products that are available
-            $stockAdjustQuery = $db->prepare("UPDATE products SET product_stock_level = product_stock_level - :quantity");
-            $stockAdjustQuery->bindParam( ":quantity", $item['quantity'] );
-            $stockAdjustQuery->execute();
-        }
-
-        //Build the confirmation email
-        include 'purchaseConfirmationEmail.php';
-
-        //Update the user's session so it has nothing in the basket
-        $_SESSION['basketSize'] = 0;
-
-        //Delete all items that are in the user's basket on the server
-        $emptyBasketQuery = $db->prepare("DELETE FROM baskets WHERE user_id=:user_id");
-        $emptyBasketQuery->bindParam( ":user_id", $_SESSION['id'] );
-        $emptyBasketQuery->execute();
-
-        //Set the mail parameters
-        $mailer = $dependencies->mailer();
-        $mailer->addAddress( $_SESSION['email'] );
-        $mailer->Subject = "Linkenfest 2019: Booking Confirmation";
-        $mailer->Body = $emailBody;
-        $mailer->send();
-
-        //There has not been an error.
-        $error = false;
-    } else {
-        $error = true;
-    }
 ?>
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
         <title>Linkenfest 2019</title>
     </head>
-    <body>
+    <body onload="processOrder()">
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
@@ -80,17 +16,24 @@
             <?php include 'menu.php'; ?>
         </div>
         <div class="mainBodyContainer" align="center">
-            <?php if(!$error){ ?>
-                <h1 class="noMargin">
-                    Thank You!
-                </h2>
-                <h4>
-                    Your order has been created, and a confirmation email sent to `<?= $_SESSION['email']; ?>`<br /><br />
-                    Please keep it safe, and bring a printed copy with you to the event.
-                </h4>
-            <?php } else { ?>
-                <h1 class="noMargin">An unexpected error has occurred.</h1>
-            <?php } ?>
+            <h1 class="noMargin">
+                Thank You!
+            </h2>
+            <h4>
+                Your order has been created, and a confirmation email sent to `<?= $_SESSION['email']; ?>`<br /><br />
+                Please keep it safe, and bring a printed copy with you to the event.
+            </h4>
         </div>
     </body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        function processOrder(){
+            $.post(
+                "https://api.linkenfest.co.uk/checkout/processOrder",
+                { session: '<?= session_id(); ?>' }
+            ).done(function( data ){
+                alert(data.data.message);
+            });
+        }
+    </script>
 </html>
