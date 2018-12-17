@@ -42,12 +42,12 @@
                 $errorText = "You are missing required field " . $name;
             }
         }
-    }
 
-    //Was the captcha correct?
-    if( !$dependencies->confirmCaptcha( $_POST['g-recaptcha-response'] ) ){
-        $error = true;
-        $errorText = "You did not successfully complete the CAPTCHA";
+        //Was the captcha correct?
+        if( !$dependencies->confirmCaptcha( $_POST['g-recaptcha-response'] ) ){
+            $error = true;
+            $errorText = "You did not successfully complete the CAPTCHA";
+        }
     }
 
     //If there's an error, it's impossible to display success
