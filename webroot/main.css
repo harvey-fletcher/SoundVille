@@ -154,6 +154,12 @@ button.largeFormSubmit{
   font-size: 25;
 }
 
+button.doubleFormControl{
+  width: 370;
+  height: 35;
+  font-size: 25;
+}
+
 p.wholeWidth{
   width: 100%;	
 }

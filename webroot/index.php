@@ -1,5 +1,11 @@
 <?php
     session_start();
+
+    if( isset( $_GET['code']) ){
+        if( $_GET['code'] == 403 ){
+            unset( $_SESSION );
+        }
+    }
 ?>
 <html>
     <head>

@@ -61,6 +61,60 @@
 
         $mailer->Body = $emailBody;
         $mailer->send();
+    } else if( isset( $_POST['changePasswordForm'] ) ){
+        //An update happend
+        $updateHappened = true;
+
+        //By default, there are all the errors
+        $oldPasswordMatch = false;
+        $passwordsMatch   = false;
+
+        //All fields are assumed populated and not null
+        $hasMissingFields = false;
+        $hasNullFields    = false;
+
+        //This is where the change password code goes
+        //These fields are required
+        $requiredFields = array(
+                "currentPassword",
+                "newPassword",
+                "newPasswordConfirm"
+            );
+
+        //Check all the required fields are specified
+        foreach( $requiredFields as $rf ){
+            if( !isset( $_POST[ $rf ] ) ){
+                $hasMissingFields = "You are missing the " . $rf . " field. Please try again.<br />";
+            } else {
+                //The field cant be blank
+                if( trim( $_POST[ $rf ] ) == "" ){
+                  $hasNullFields = "Field " . $rf . " can't be blank. Please try again.<br />";
+                }
+            }
+        }
+
+        //Check the password specified matches the current password
+        if( password_verify( $_POST['currentPassword'], $_SESSION['password'] ) ){
+            //Passwords match
+            $oldPasswordMatch = true;
+
+            if( $_POST['newPassword'] == $_POST['newPasswordConfirm'] ){
+                //new passwords match
+                $passwordsMatch = true;
+
+                //Hash the new password
+                $newPassword = password_hash( $_POST['newPasswordConfirm'], PASSWORD_DEFAULT );
+
+                //Build the update query
+                $stmt = $db->prepare( "UPDATE users SET password=:newPassword WHERE id=:user_id" );
+                $stmt->bindParam( ":newPassword", $newPassword );
+                $stmt->bindParam( ":user_id", $_SESSION['id'] );
+                $stmt->execute();
+
+                //Update the session
+                $_SESSION['password'] = $newPassword;
+            }
+        }
     } else {
         //An update has not happened
         $updateHappened = false;
@@ -117,17 +171,39 @@
                 <p>
                     Registered email address: <?= $_SESSION['email']; ?><br />
                     <h3 class="noMargin">Change Email:</h3><br />
-                    <?php if( !$updateHappened ){ ?>
-                        <form name="updateEmail" action="" method="POST">
-                            <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
-                            <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
-                            <button type="submit" name="changeEmailForm" class="signOutButton">Update Email</button>
-                        </form>
-                    <?php } else { ?>
+                    <form name="updateEmail" action="" method="POST">
+                        <input type="text" name="newEmail" class="signInWidgetControls" placeholder="New Email"/>
+                        <input type="text" name="newEmailConfirm" class="signInWidgetControls" placeholder="Confirm Email"/>
+                        <button type="submit" name="changeEmailForm" class="signOutButton">Update Email</button>
+                    </form>
+                    <?php if( $updateHappened && isset( $_POST['changeEmailForm'] ) ) { ?>
                         <?php if( !$emailsMatch ){ ?>
                             The emails entered did not match. Please try again.<br />
                         <?php } else { ?>
                             <h2 class="noMargin">Success! Please check your email inbox and click the link to complete this process.</h2>
+                        <?php } ?>
+                    <?php } ?>
+                </p>
+                <br />
+                <p>
+                    <h3 class="noMargin">Change Password:</h3><br />
+                    <form name="updatePassword" action="" method="POST">
+                        <input type="password" name="currentPassword" class="signInWidgetControls" placeholder="Current Password" /><br /><br />
+                        <input type="password" name="newPassword" class="signInWidgetControls" placeholder="New Password"/>
+                        <input type="password" name="newPasswordConfirm" class="signInWidgetControls" placeholder="Confirm New Password"/><br /><br />
+                        <button type="submit" name="changePasswordForm" class="doubleFormControl">Update Password</button>
+                    </form>
+                    <?php if( $updateHappened && isset( $_POST['changePasswordForm'] )){ ?>
+                        <?php if( !$oldPasswordMatch ){ ?>
+                            The value entered for "current password" did not match. Please try again.<br />
+                        <?php } else if( !$passwordsMatch ){ ?>
+                            The new passwords entered did not match. Please try again.<br />
+                        <?php } else if( $hasMissingFields ){ ?>
+                            <?= $hasMissingFields; ?>
+                        <?php } else if( $hasNullFields ){ ?>
+                            <?= $hasNullFields; ?>
+                        <?php } else { ?>
+                            <h2 class="noMargin">Success! Your password was updated successfully.</h2>
                         <?php } ?>
                     <?php } ?>
                 </p>
