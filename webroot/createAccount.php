@@ -44,77 +44,78 @@
                 $errorText = "You are missing required field " . $name;
             }
         }
-    }
 
-    //Was the captcha correct?
-    if( !$dependencies->confirmCaptcha( $_POST['g-recaptcha-response'] ) ){
-        $error = true;
-        $errorText = "You did not successfully complete the CAPTCHA";
-    }
+        //Was the captcha correct?
+        if( !$dependencies->confirmCaptcha( $_POST['g-recaptcha-response'] ) ){
+            $error = true;
+            $errorText = "You did not successfully complete the CAPTCHA";
+        }
 
-    if( $_POST['password'] != $_POST['passwordConfirm'] ){
-        $error = true;
-        $errorText = "The passwords did not match. Please try again.";
-    }
+        if( $_POST['password'] != $_POST['passwordConfirm'] ){
+            $error = true;
+            $errorText = "The passwords did not match. Please try again.";
+        }
 
-    //Check the user don't exist
-    if( $access->userExists( $_POST['email'] ) ){
-        $error = true;
-        $errorText = "A user with that email is already registered.";
-    }
+        //Check the user don't exist
+        if( $access->userExists( $_POST['email'] ) ){
+            $error = true;
+            $errorText = "A user with that email is already registered.";
+        }
 
-    //If there's an error, it's impossible to display success
-    if( $error ){
-        $success = false;
-    }
+        //If there's an error, it's impossible to display success
+        if( $error ){
+            $success = false;
+        }
 
-    if( $success ){
-        //Hash the password
-        $hashPassword = password_hash( $_POST['passwordConfirm'] , PASSWORD_DEFAULT);
+        if( $success ){
+            //Hash the password
+            $hashPassword = password_hash( $_POST['passwordConfirm'] , PASSWORD_DEFAULT);
 
-        //Insert the new user account
-        $query = $db->prepare( "INSERT INTO users ( email, password ) VALUES ( :email, :password )" );
-        $query->bindParam( ":email", $_POST['email'] );
-        $query->bindParam( ":password", $hashPassword );
-        $query->execute();
-        $userID = $db->lastInsertId();
+            //Insert the new user account
+            $query = $db->prepare( "INSERT INTO users ( email, password ) VALUES ( :email, :password )" );
+            $query->bindParam( ":email", $_POST['email'] );
+            $query->bindParam( ":password", $hashPassword );
+            $query->execute();
+            $userID = $db->lastInsertId();
 
-        //Create a new unique reference
-        $uuid = hash('sha1', $_POST['email'] . date('Y-m-d H:i:s') );
-        $actionName = "activate";
+            //Create a new unique reference
+            $uuid = hash('sha1', $_POST['email'] . date('Y-m-d H:i:s') );
+            $actionName = "activate";
 
-        $query = $db->prepare("INSERT INTO pending_user_updates( unique_identifier, user_id, do_action, update_column, old_value, new_value ) VALUES ( :uuid, :user_id, :do_action, :update_column, 0, 1 )");
-        $query->bindParam( ":uuid", $uuid );
-        $query->bindParam( ":user_id", $userID );
-        $query->bindParam( ":do_action", $actionName );
-        $query->bindParam( ":update_column", $actionName );
+            $query = $db->prepare("INSERT INTO pending_user_updates( unique_identifier, user_id, do_action, update_column, old_value, new_value ) VALUES ( :uuid, :user_id, :do_action, :update_column, 0, 1 )");
+            $query->bindParam( ":uuid", $uuid );
+            $query->bindParam( ":user_id", $userID );
+            $query->bindParam( ":do_action", $actionName );
+            $query->bindParam( ":update_column", $actionName );
 
-        $query->execute();
+            $query->execute();
 
-        //Make a mail
-        //Set the mail parameters
-        $mailer = $dependencies->mailer();
-        $mailer->addAddress( $_POST['email'] );
-        $mailer->Subject = "Linkenfest: Activate your account!";
+            //Make a mail
+            //Set the mail parameters
+            $mailer = $dependencies->mailer();
+            $mailer->addAddress( $_POST['email'] );
+            $mailer->Subject = "Linkenfest: Activate your account!";
 
-        $emailBody = "<div style='width: 650'>"
-               .     "<div style='float: left; width: 100px; height: 100px;'>"
-               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
-               .     "</div>"
-               .     "<div style='float: left; height: 100;' align='right'>"
-               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
-               .     "</div>"
-               . "</div>"
-               . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
-               .     "<h4 style='margin: 0;'>"
-               .         "Hello, someone just tried to create an account at https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
-               .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
-               .     "</h4><br /><br />"
-               .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
-               . "</div>";
+            $emailBody = "<div style='width: 650'>"
+                   .     "<div style='float: left; width: 100px; height: 100px;'>"
+                   .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+                   .     "</div>"
+                   .     "<div style='float: left; height: 100;' align='right'>"
+                   .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+                   .     "</div>"
+                   . "</div>"
+                   . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
+                   .     "<h4 style='margin: 0;'>"
+                   .         "Hello, someone just tried to create an account at https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
+                   .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
+                   .     "</h4><br /><br />"
+                   .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
+                   . "</div>";
 
-        $mailer->Body = $emailBody;
-        $mailer->send();
+            $mailer->Body = $emailBody;
+            $mailer->send();
+        }
+
     }
 
     //Set this value to true to disable account creation
