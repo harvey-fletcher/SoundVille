@@ -15,12 +15,20 @@
                 include '../config/dependencies.php';
                 $dependencies = new Dependencies();
 
-                //Generate an order reference
-                $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i:s') . $_SESSION['email'] ), 0, 20);
+                //Check an order reference was specified (we use it to confirm payment was made)
+                if( !isset( $_POST['orderReference'] ) ){
+                    return array( "status" => 400, "message" => "You have not specified a valid order reference." );
+                }
+
+                //On stripe, confirm that a payment was made. If not, error.
+                $paymentInfo = $this->confirmPayment( $_POST['orderReference'] );
+                if( !$paymentInfo ){
+                    return array( "status" => 403, "message" => "The order_id you have specified is not valid" );
+                }
 
                 //We need to insert the order to the database
                 $newOrder = $db->prepare( "INSERT INTO orders (order_reference, user_id) VALUES ( :order_reference, :user_id)" );
-                $newOrder->bindParam( ":order_reference", $orderReference );
+                $newOrder->bindParam( ":order_reference", $_POST['orderReference'] );
                 $newOrder->bindParam( ":user_id", $_SESSION['id'] );
                 $newOrder->execute();
                 $orderNumber = $db->lastInsertId();
@@ -40,7 +48,7 @@
                 }
 
                 //Build the confirmation email
-                $emailBody = $this->buildConfirmationEmail( $basket, $orderReference, $orderNumber );
+                $emailBody = $this->buildConfirmationEmail( $basket, $_POST['orderReference'], $orderNumber );
                 if( !$emailBody ){
                     return array( "message" => "Error building confirmation email." );
                 }
@@ -61,10 +69,40 @@
                 $_SESSION['basketSize'] = 0;
 
                 //Success
-                return array( "message" => "Success! Your reference number is " . $orderReference . " and a confirmation email has been sent to you." );
+                return array( "message" => "Success! Your reference number is " . $_POST['orderReference'] . " and a confirmation email has been sent to you." );
             } else {
                 return array( "message" => "Cannot checkout. Your basket is empty.");
             }
+        }
+
+        function confirmPayment( $reference = NULL ){
+            //Uses service keys
+            include '../config/service_keys.php';
+
+            //Reference can't be null
+            if($reference == NULL){
+                return false;
+            }
+
+            //Initiate a curl request
+            $ch = curl_init();
+
+            //Set options on the curl
+            curl_setopt( $ch, CURLOPT_URL, "https://api.stripe.com/v1/charges/" . $reference);
+            curl_setopt( $ch, CURLOPT_USERPWD, $serviceKeys[ $serviceMode ]['stripe'] . ":" . "");
+            curl_setopt( $ch, CURLOPT_VERBOSE, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+
+            //Execute the curl
+            $result = curl_exec( $ch );
+
+            if( curl_errno( $ch ) ){
+                return false;
+            }
+
+            curl_close( $ch );
+
+            return $result;
         }
 
         function buildConfirmationEmail( $basket = NULL, $orderReference = NULL, $orderNumber = 0 ){
@@ -131,5 +169,38 @@
                        . "</div>";
 
             return $emailBody;
+        }
+
+        function payment(){
+            //Uses the database
+            global $db;
+
+            //Uses service keys
+            include '../config/service_keys.php';
+
+            //We need to know how much the basket costs
+            include '../controllers/basketController.php';
+            $basketController = new basketController();
+            $basket = $basketController->getContents();
+
+            //Build the reference number
+            $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i') . $_SESSION['email'] ), 0, 20);
+
+            $headers = array();
+            $headers[] = "Content-Type: application/x-www-form-urlencoded";
+
+            $ch = curl_init();
+
+            curl_setopt( $ch, CURLOPT_URL, "https://api.stripe.com/v1/charges" );
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, "amount=" . $basket['order_total']['plain'] . "&currency=gbp&description=" . $_SESSION['email'] . "&source=tok_visa");
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_USERPWD, $serviceKeys[ $serviceMode ]['stripe'] . ":" . "");
+
+            $result = json_decode( curl_exec($ch), true );
+
+            curl_close ($ch);
+
+            return array( "status" => $result['status'], "order_id" => $result['id'], "message" => "Payment completed successfully") ;
         }
     }

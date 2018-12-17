@@ -84,7 +84,7 @@
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
                                 <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
-                                <form action="checkoutSuccess.php" method="POST" style='display: none' id="checkout-form">
+                                <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
                                     <script
                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                         data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"

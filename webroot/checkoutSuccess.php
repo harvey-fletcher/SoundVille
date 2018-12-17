@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="main.css" type="text/css"/>
         <title>Linkenfest 2019</title>
     </head>
-    <body onload="processOrder()">
+    <body>
         <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
@@ -27,13 +27,5 @@
     </body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script type="text/javascript">
-        function processOrder(){
-            $.post(
-                "https://api.linkenfest.co.uk/checkout/processOrder",
-                { session: '<?= session_id(); ?>' }
-            ).done(function( data ){
-                alert(data.data.message);
-            });
-        }
     </script>
 </html>
