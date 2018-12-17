@@ -1,3 +1,4 @@
 config/database.php
 config/schema.sql
 config/service_keys.php
+error.log
