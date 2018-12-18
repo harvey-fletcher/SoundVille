@@ -10,13 +10,29 @@
     include '../controllers/apiController.php';
     $api = new api();
 
-    //Need username and password to access the API
-    if( !isset( $_POST['session'] ) ){
-        $api->out( 400, "You need to specify the session token" );
-    }
+    //Break up the request URL
+    $request_url = array_values( array_filter( explode( '/', $_SERVER['REQUEST_URI'] ) ) );
+    $requestController = $request_url[0];
+    $requestFunction   = $request_url[1];
 
     //Connect to the database
     include '../config/database.php';
+
+    //The only endpoint that doesn't require auth is login
+    //Need username and password to access the API
+    if( !isset( $_POST['session'] ) ){
+        if( $requestController == 'access' && $requestFunction == 'login' ){
+            include '../controllers/accessController.php';
+	    $access = new accessController();
+
+            $data = $access->login();
+            $data['referrer'] = $request_url[2];
+
+            $api->out( 200, $data );
+        } else {
+            $api->out( 400, "You need to specify the session token " . $requestController . " " . $requestFunction );
+        } 
+    }
 
     //Start session
     session_id( $_POST['session'] );
@@ -33,13 +49,8 @@
 
     /**
         If the user has made it this far, then they have correctly authenticated.
-        Break up the request URL and load the controller from here.
+        Load the controller from here.
     **/
-    $request_url = array_values( array_filter( explode( '/', $_SERVER['REQUEST_URI'] ) ) );
-
-    //This is the request controller
-    $requestController = $request_url[0];
-    $requestFunction   = $request_url[1];
 
     //Now that the controller and function are in seperate variables, delete them from the request URL
     unset( $request_url[0] );

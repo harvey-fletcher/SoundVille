@@ -49,6 +49,9 @@
             //This function needs DB access
             global $db;
 
+            //start session
+            session_start();
+
             //Check user email address
             $userDetail = $this->userExists( $_POST['email'] );
 
@@ -67,13 +70,12 @@
                     $_SESSION['basketSize'] = $basketSizeQuery->fetch( PDO::FETCH_ASSOC )['size'];
 
                     //Grant access
-                    $this->granted( $_GET['referrer'] );
-                    die();
+                    return array( "status" => 200, "message" => "Successful login!", "session" => session_id() );
                 }
             }
 
             //This is here to catch anything that fails authorization
-            $this->denied( $_GET['referrer'] );
+            return array( "status" => 403, "message" => "Login failed." );
         }
 
         function apiAuth(){

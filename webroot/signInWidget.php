@@ -1,20 +1,44 @@
 <?php
     $referrer = str_replace( "/", "", $_SERVER['PHP_SELF'] );
 
-    //Has a sign in been attempted and was there an error
-    if( isset( $_GET['code'] ) ){
-        if( $_GET['code'] != 200 ){
-            echo "<p class='noMargin warning'>Your username or password was incorrect.</p>";
-        }
+    //Are we starting a session?
+    if( isset( $_GET['session'] ) ){
+        session_destroy();
+        session_id( $_GET['session'] );
+        session_start();
     }
 
     if( !isset( $_SESSION['email'] ) ){
 ?>
-        <form name="signInForm" method="POST" action="signIn.php?referrer=<?= $referrer ?>">
-            <input type="text" name="email" placeholder="E-mail address" class="signInWidgetControls">
-            <input type="password" name="password" placeholder="Password" class="signInWidgetControls">
-            <input type="submit" value="Sign In" class="signInWidgetControls">
-        </form>
+        <input type="text" id="email" name="email" placeholder="E-mail address" class="signInWidgetControls">
+        <input type="password" id="password" name="password" placeholder="Password" class="signInWidgetControls">
+        <button name="loginButton" id="loginButton" onclick="doLogin()" class="signOutButton">Sign In</button>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">
+            function doLogin(){
+                var userEmail = $("#email").val();
+                var userPassword = $("#password").val();
+
+                $.post(
+                    "https://api.linkenfest.co.uk/access/login/<?= $referrer ?>",
+                    {
+                      email: userEmail,
+                      password: userPassword
+                    }
+                ).done(function( data ){
+                    var status   = data.data.status;
+                    var referrer = data.data.referrer;
+                    var message  = data.data.message;
+                    var session  = data.data.session;
+
+                    alert( message );
+
+                    if( status == 200 ){
+                      window.location.replace( referrer + "?session=" + session );
+                    }
+                });
+            }
+        </script>
 <?php
     } else {
 ?>
