@@ -1,6 +1,13 @@
 <?php
     $referrer = str_replace( "/", "", $_SERVER['PHP_SELF'] );
 
+    //Has a sign in been attempted and was there an error
+    if( isset( $_GET['code'] ) ){
+        if( $_GET['code'] != 200 ){
+            echo "<script type='text/javascript'>alert('Sign in unsuccessful.\\nPlease check your details and try again.');</script>";
+        }
+    }
+
     if( !isset( $_SESSION['email'] ) ){
 ?>
         <form name="signInForm" method="POST" action="signIn.php?referrer=<?= $referrer ?>">

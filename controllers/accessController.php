@@ -29,7 +29,7 @@
             $results = $loginQuery->fetchAll( PDO::FETCH_ASSOC );
 
             //How many rows are there
-            if( $loginQuery->rowCount() == 1 )
+            if( sizeof( $results ) == 1 )
             {
                 return $results[0];
             } else {
@@ -141,7 +141,7 @@
 
         function denied( $referrer ){
             http_response_code( 403 );
-            header('Location: ' . $referrer . '?code=403');
+            header('Location: ' . $referrer . '?code=400');
         }
 
         function granted( $referrer ){
