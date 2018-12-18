@@ -10,6 +10,7 @@
 
     if( !isset( $_SESSION['email'] ) ){
 ?>
+        <p class="noMargin warning" id="errorMessageLoginForm"></p>
         <input type="text" id="email" name="email" placeholder="E-mail address" class="signInWidgetControls">
         <input type="password" id="password" name="password" placeholder="Password" class="signInWidgetControls">
         <button name="loginButton" id="loginButton" onclick="doLogin()" class="signOutButton">Sign In</button>
@@ -31,7 +32,8 @@
                     var message  = data.data.message;
                     var session  = data.data.session;
 
-                    alert( message );
+                    //Set the info text
+                    $('#errorMessageLoginForm').text( message );
 
                     if( status == 200 ){
                       window.location.replace( referrer + "?session=" + session );

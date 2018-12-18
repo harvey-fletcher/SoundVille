@@ -71,11 +71,15 @@
 
                     //Grant access
                     return array( "status" => 200, "message" => "Successful login!", "session" => session_id() );
+                } else {
+                    return array( "status" => 403, "message" => "Your password is incorrect." );
                 }
+            } else {
+                return array( "status" => 403, "message" => "A user with that email does not exist." );
             }
 
             //This is here to catch anything that fails authorization
-            return array( "status" => 403, "message" => "Login failed." );
+            return array( "status" => 403, "message" => "Incorrect username or password, please try again." );
         }
 
         function apiAuth(){
