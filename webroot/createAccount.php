@@ -114,9 +114,9 @@
                    . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                    .     "<h4 style='margin: 0;'>"
                    .         "Hello, someone just tried to create an account at https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
-                   .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
+                   .         "<a href='https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
                    .     "</h4><br /><br />"
-                   .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
+                   .     "Questions? Contact us!<br />0751 174 9870<br /><a href='https://www.linkenfest.co.uk'>https://www.linkenfest.co.uk</a>"
                    . "</div>";
 
             $mailer->Body = $emailBody;
