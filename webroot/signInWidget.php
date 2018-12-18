@@ -4,7 +4,7 @@
     //Has a sign in been attempted and was there an error
     if( isset( $_GET['code'] ) ){
         if( $_GET['code'] != 200 ){
-            echo "<script type='text/javascript'>alert('Sign in unsuccessful.\\nPlease check your details and try again.');</script>";
+            echo "<p class='noMargin warning'>Your username or password was incorrect.</p>";
         }
     }
 

@@ -68,6 +68,7 @@
 
                     //Grant access
                     $this->granted( $_GET['referrer'] );
+                    die();
                 }
             }
 
