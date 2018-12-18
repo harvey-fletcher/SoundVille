@@ -51,6 +51,13 @@
             $errorText = "You did not successfully complete the CAPTCHA";
         }
 
+        //Check the email supplied is a valid email
+        if( !filter_var( $_POST['email'], FILTER_VALIDATE_EMAIL ) ){
+            $error = true;
+            $errorText = "That doesn't look like an email address. Please try again.";
+        }
+
+        //Is the password and confirmPassword a match?
         if( $_POST['password'] != $_POST['passwordConfirm'] ){
             $error = true;
             $errorText = "The passwords did not match. Please try again.";
