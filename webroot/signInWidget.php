@@ -3,6 +3,9 @@
 
     //Are we starting a session?
     if( isset( $_GET['session'] ) ){
+        if( sizeof( $_SESSION ) == 0 ){
+            session_destroy();
+        }
         session_id( $_GET['session'] );
         session_start();
     }
