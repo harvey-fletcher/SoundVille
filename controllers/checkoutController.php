@@ -39,8 +39,9 @@
                     $newOrder->execute();
 
                     //Subtract from the products that are available
-                    $stockAdjustQuery = $db->prepare("UPDATE products SET product_stock_level = product_stock_level - :quantity");
+                    $stockAdjustQuery = $db->prepare("UPDATE products SET product_stock_level = product_stock_level - :quantity WHERE id = :product_id");
                     $stockAdjustQuery->bindParam( ":quantity", $item['quantity'] );
+                    $stockAdjustQuery->bindParam( ":product_id", $item['product_id'] );
                     $stockAdjustQuery->execute();
                 }
 
