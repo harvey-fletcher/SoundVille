@@ -16,11 +16,11 @@
         </div>
         <div class="mainBodyContainer">
             <h1 class="noMargin">Reset Password</h1>
-            <p class="largePara inlineText" >
+            <p class="largePara inlineText" id="mainText" >
                 Unfortunately, we can't give you your password back as it is encrypted. But we can change it to something and email you a new one.
                 <br /><br />
                 <input type="text" id="userEmail" name="userEmail" class="doubleFormControl" placeholder="Enter your email address here" /><br /><br />
-                <button onclick="resetPassword()" class="doubleFormControl">Reset Password</button>
+                <button onclick="resetPassword()" class="doubleFormControl" id="resetButton">Reset Password</button>
             </p>
         </div>
     </body>
@@ -29,13 +29,17 @@
         function resetPassword(){
             var userEmail = $('#userEmail').val();
 
+            //Disable the input and submit fields
+            $('#userEmail').prop( 'disabled', true );
+            $('#resetButton').prop( 'disabled', true );
+
             $.post(
                 "https://api.linkenfest.co.uk/access/reset_password",
                 {
                     email: userEmail
                 }
             ).done(function( data ){
-alert( data.data.message );
+                $('#mainText').html( data.data.message );
             });
 
         }
