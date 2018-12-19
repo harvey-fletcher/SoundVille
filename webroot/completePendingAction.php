@@ -31,6 +31,10 @@
     } else if( $action['do_action'] == 'activate' ){
         $query = $db->prepare( "UPDATE users SET activated=1 WHERE id=:user_id");
         $query->bindParam( ":user_id", $action['user_id']);
+    } else if( $action['do_action'] == 'resetpass' ){
+        $query = $db->prepare( "UPDATE users SET password=:password WHERE id=:user_id");
+        $query->bindParam( ":password", $action['new_value'] );
+        $query->bindParam( ":user_id", $action['user_id'] );
     } else {
         header( 'Location: index.php?code=403' );
     }
@@ -41,7 +45,8 @@
     //Success?
     if( $query->rowCount() ){
         //We need to update the pending action to be spent
-        $query = $db->prepare( "UPDATE pending_user_updates SET spent=1" );
+        $query = $db->prepare( "UPDATE pending_user_updates SET spent=1 WHERE id = :id");
+        $query->bindParam(":id", $action['id']);
         $query->execute();
 
         echo "The update completed sucessfully. You can now close this page.";

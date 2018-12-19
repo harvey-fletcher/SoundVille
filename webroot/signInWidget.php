@@ -33,7 +33,7 @@
                     var session  = data.data.session;
 
                     //Set the info text
-                    $('#errorMessageLoginForm').text( message );
+                    $('#errorMessageLoginForm').html( message );
 
                     if( status == 200 ){
                       window.location.replace( referrer + "?session=" + session );

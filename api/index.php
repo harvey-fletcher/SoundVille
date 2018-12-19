@@ -29,6 +29,10 @@
             $data['referrer'] = $request_url[2];
 
             $api->out( 200, $data );
+        } else if( $requestController == 'access' && $requestFunction == 'reset_password' ) {
+            include '../controllers/accessController.php';
+            $access = new accessController();
+            $api->out( 200, $access->resetPassword( $_POST['email'] ));
         } else {
             $api->out( 400, "You need to specify the session token " . $requestController . " " . $requestFunction );
         } 
