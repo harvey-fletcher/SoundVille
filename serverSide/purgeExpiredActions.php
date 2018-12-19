@@ -12,7 +12,7 @@
     include '../config/database.php';
 
     //Prepare the deletion query
-    $deletionQuery = $db->prepare( "DELETE FROM pending_user_updates WHERE created >= NOW() - INTERVAL 1 DAY" );
+    $deletionQuery = $db->prepare( "DELETE FROM pending_user_updates WHERE created <= NOW() - INTERVAL 1 DAY" );
     $deletionQuery->execute();
 
     //How many rows were affected?
