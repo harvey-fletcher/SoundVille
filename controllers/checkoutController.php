@@ -12,9 +12,6 @@
             $basket = $basketController->getContents();
 
             if( $_SESSION['basketSize'] > 0 ){
-                include '../config/dependencies.php';
-                $dependencies = new Dependencies();
-
                 //Check an order reference was specified (we use it to confirm payment was made)
                 if( !isset( $_POST['orderReference'] ) ){
                     return array( "status" => 400, "message" => "You have not specified a valid order reference." );
@@ -59,11 +56,9 @@
                 $emptyBasketQuery->execute();
 
                 //Set the mail parameters
-                $mailer = $dependencies->mailer();
-                $mailer->addAddress( $_SESSION['email'] );
-                $mailer->Subject = "Linkenfest 2019: Booking Confirmation";
-                $mailer->Body = $emailBody;
-                $mailer->send();
+                include '../serverSide/emailScript.php';
+                $email = new email();
+                $email->send( $_SESSION['email'], "donotreply", "Linkenfest 2019: Purchase confirmation", $emailBody );
 
                 //Update the user's session so it has nothing in the basket
                 $_SESSION['basketSize'] = 0;
@@ -164,7 +159,6 @@
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Wiltshire<br />"
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;SP11 0EA"
                        .         "<br /><br />"
-                       .         "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                        .     "</h4>"
                        . "</div>";
 

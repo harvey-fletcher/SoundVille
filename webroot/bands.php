@@ -67,11 +67,6 @@
         $insertPerformerRequest->execute();
 
         //Make a mail
-        //Set the mail parameters
-        $mailer = $dependencies->mailer();
-        $mailer->addAddress( "harvey.fletcher1@ntlworld.com" );
-        $mailer->Subject = "Linkenfest: New band request";
-
         $emailBody = "<div style='width: 650'>"
                .     "<div style='float: left; width: 100px; height: 100px;'>"
                .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
@@ -88,11 +83,12 @@
                .         "Phone Number: " . $_POST['phone'] . "<br />"
                .         "Email Address: " . $_POST['email'] . "<br /><br />"
                .     "</h4><br /><br />"
-               .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                . "</div>";
 
-        $mailer->Body = $emailBody;
-        $mailer->send();
+        //Send the email
+        include '../serverSide/emailScript.php';
+        $email = new email();
+        $email->send( $_POST['email'], 'do-not-reply', "Linkenfest: New Band Application", $emailBody );
     }
 ?>
 <html>

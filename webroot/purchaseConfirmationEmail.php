@@ -54,6 +54,5 @@
                .         "&nbsp;&nbsp;&nbsp;&nbsp;Wiltshire<br />"
                .         "&nbsp;&nbsp;&nbsp;&nbsp;SP11 0EA"
                .         "<br /><br />"
-               .         "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                .     "</h4>"
                . "</div>";

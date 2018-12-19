@@ -97,12 +97,7 @@
 
             $query->execute();
 
-            //Make a mail
-            //Set the mail parameters
-            $mailer = $dependencies->mailer();
-            $mailer->addAddress( $_POST['email'] );
-            $mailer->Subject = "Linkenfest: Activate your account!";
-
+            //Make the mail
             $emailBody = "<div style='width: 650'>"
                    .     "<div style='float: left; width: 100px; height: 100px;'>"
                    .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
@@ -116,11 +111,12 @@
                    .         "Hello, someone just tried to create an account at https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
                    .         "<a href='https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
                    .     "</h4><br /><br />"
-                   .     "Questions? Contact us!<br />0751 174 9870<br /><a href='https://www.linkenfest.co.uk'>https://www.linkenfest.co.uk</a>"
                    . "</div>";
 
-            $mailer->Body = $emailBody;
-            $mailer->send();
+            //Send the mail
+            include '../serverSide/emailScript.php';
+            $email = new email();
+            $email->send( $_POST['email'], 'do-not-reply', "Linkenfest: Activate your account!", $emailBody );
         }
 
     }

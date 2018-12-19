@@ -133,12 +133,6 @@
             $query->execute();
 
             //OK, now that's done, we need to build an email containing a password reset link
-            include '../config/dependencies.php';
-            $dependencies = new Dependencies();
-            $mailer = $dependencies->mailer();
-            $mailer->addAddress( $email );
-            $mailer->Subject = "Linkenfest: Reset Password";
-
             $emailBody = "<div style='width: 650'>"
                    .     "<div style='float: left; width: 100px; height: 100px;'>"
                    .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
@@ -154,11 +148,11 @@
                    .         "After you click this link, your new password will be:<br />&nbsp;&nbsp;&nbsp;&nbsp;<b>" . $passwordPlainText . "</b><br /><br />"
                    .         "If this was not you, you do not need to do anything, and your account will not be changed.<br /><br />"
                    .     "</h4><br /><br />"
-                   .     "Questions? Contact us!<br />0751 174 9870<br /><a href='https://www.linkenfest.co.uk'>https://www.linkenfest.co.uk</a>"
                    . "</div>";
 
-            $mailer->Body = $emailBody;
-            $mailer->send();
+            include '../serverSide/emailScript.php';
+            $email = new email();
+            $email->send( $_POST['email'], "do-not-reply", "Linkenfest: Reset Password", $emailBody );
 
             return array("status" => 200, "message" => "Ok, we've reset your password. Please check your emails for a link to complete the process.");
         }

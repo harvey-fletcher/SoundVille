@@ -4,10 +4,6 @@
     //This page needs the database and session access restrictions
     include 'sessionAccess.php';
 
-    //Import the dependencies file
-    include '../config/dependencies.php';
-    $dependencies = new Dependencies();
-
     //Need the math controller
     include '../controllers/mathController.php';
 
@@ -37,11 +33,6 @@
         }
 
         //Make a mail
-        //Set the mail parameters
-        $mailer = $dependencies->mailer();
-        $mailer->addAddress( $_POST['newEmailConfirm'] );
-        $mailer->Subject = "Linkenfest: Confirm your email";
-
         $emailBody = "<div style='width: 750'>"
                .     "<div style='float: left; width: 150px; height: 150px;'>"
                .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
@@ -56,11 +47,12 @@
                .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
                .         "If this was not you, you do not need to do anything."
                .     "</h4><br /><br />"
-               .     "Questions? Contact us!<br />0751 174 9870<br />https://www.linkenfest.co.uk"
                . "</div>";
 
-        $mailer->Body = $emailBody;
-        $mailer->send();
+        //Send the email
+        include '../serverSide/emailScript.php';
+        $email = new email();
+        $email->send( $_POST['newEmailConfirm'], "do-not-reply", "Linkenfest: Confirm your email", $emailBody );
     } else if( isset( $_POST['changePasswordForm'] ) ){
         //An update happend
         $updateHappened = true;
