@@ -87,7 +87,7 @@
                                 <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
                                     <script
                                         src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                        data-key="pk_test_RZIMubVhyxMcq7jNaWpiZGrX"
+                                        data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
                                         data-amount="<?= $basket['order_total']['plain'] ?>"
                                         data-name="Linkenfest"
                                         data-description="Complete Purchase"

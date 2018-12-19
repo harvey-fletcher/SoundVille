@@ -188,7 +188,7 @@
 
             curl_setopt( $ch, CURLOPT_URL, "https://api.stripe.com/v1/charges" );
             curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, "amount=" . $basket['order_total']['plain'] . "&currency=gbp&description=" . $_SESSION['email'] . "&source=tok_visa");
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, "amount=" . $basket['order_total']['plain'] . "&currency=gbp&description=" . $_SESSION['email'] . "&source=" . $_POST['stripeToken']);
             curl_setopt( $ch, CURLOPT_POST, 1);
             curl_setopt( $ch, CURLOPT_USERPWD, $serviceKeys[ $serviceMode ]['stripe'] . ":" . "");
 
@@ -196,6 +196,6 @@
 
             curl_close ($ch);
 
-            return array( "status" => $result['status'], "order_id" => $result['id'], "message" => "Payment completed successfully") ;
+            return array( "status" => $result['status'], "order_id" => $result['id'], "message" => "Payment completed successfully", "data" => json_encode( $result ) ) ;
         }
     }
