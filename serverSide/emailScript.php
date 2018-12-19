@@ -11,6 +11,9 @@
 
     class email{
         function send( $to, $from, $subject, $body ){
+            //We need the database
+            include '../config/database.php';
+
             //Initialise a mailer
             $mailer = new PHPMailer();
 
@@ -34,15 +37,28 @@
             //load the signature
             $signature = file_get_contents( "../config/emailSignature.html" );
 
+            //Build the full from address
+            $from .= "@linkenfest.co.uk";
+
+            //Join the mail with the signature
+            $body .= $signature;
+
             //Set the mail from address
-            $mailer->SetFrom( $from . "@linkenfest.co.uk" , "Linkenfest");
+            $mailer->SetFrom( $from , "Linkenfest");
 
             //Build the email
             $mailer->addAddress( $to );
             $mailer->Subject = $subject;
-            $mailer->Body = $body . $signature;
+            $mailer->Body = $body;
 
             //Send the email
             $mailer->send();
+
+            //We need to log that we sent an email to the user
+            $emailLogQuery = $db->prepare( "INSERT INTO emails (`mail_from`,`mail_to`,`mail_content`) VALUES (:mail_from, :mail_to, :mail_content) " );
+            $emailLogQuery->bindParam( ":mail_from", $from );
+            $emailLogQuery->bindParam( ":mail_to", $to );
+            $emailLogQuery->bindParam( ":mail_content", $body);
+            $emailLogQuery->execute();
         }
     }
