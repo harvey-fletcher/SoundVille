@@ -84,6 +84,9 @@
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
                                 <div id="secretCodeContainer">
+                                    <p class="noMargin">
+                                        Ticket sales are currently restricted. To buy tickets, you must have a secret code.
+                                    </p>
                                     <input type="text" id="secretCode" name="secretCode" placeholder="Enter your secret code here." class="doubleFormControl"/><br /><br />
                                     <button onclick="verifySecretCode();" class="doubleFormControl">Check Secret Code</button><br /><br />
                                 </div>
