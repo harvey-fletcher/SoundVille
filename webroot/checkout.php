@@ -83,20 +83,26 @@
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
-                                <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
-                                <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
-                                    <script
-                                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                        data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
-                                        data-amount="<?= $basket['order_total']['plain'] ?>"
-                                        data-name="Linkenfest"
-                                        data-description="Complete Purchase"
-                                        data-email="<?= $_SESSION['email']; ?>"
-                                        data-image="https://files.linkenfest.co.uk/logo_png.png"
-                                        data-locale="auto"
-                                        data-currency="gbp">
-                                    </script>
-                                </form>
+                                <div id="secretCodeContainer">
+                                    <input type="text" id="secretCode" name="secretCode" placeholder="Enter your secret code here." class="doubleFormControl"/><br /><br />
+                                    <button onclick="verifySecretCode();" class="doubleFormControl">Check Secret Code</button><br /><br />
+                                </div>
+                                <div id="paymentForm" class="hidden">
+                                    <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
+                                    <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
+                                        <script
+                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                            data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
+                                            data-amount="<?= $basket['order_total']['plain'] ?>"
+                                            data-name="Linkenfest"
+                                            data-description="Complete Purchase"
+                                            data-email="<?= $_SESSION['email']; ?>"
+                                            data-image="https://files.linkenfest.co.uk/logo_png.png"
+                                            data-locale="auto"
+                                            data-currency="gbp">
+                                        </script>
+                                    </form>
+                                </div>
                             <?php } else if( !$checkoutOpen ) { ?>
                                 <h3 class="warning noMargin">
                                     The checkout is currently disabled<br />We're sorry for any inconvenience this causes.
@@ -116,6 +122,25 @@
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type='text/javascript'>
+            function verifySecretCode(){
+                var SecretCode = $('#secretCode').val();
+
+                $.post(
+                    "https://api.linkenfest.co.uk/checkout/verifySecretCode",
+                    {
+                        session: '<?= session_id(); ?>',
+                        secretCode: SecretCode
+                    }
+                ).done(function (data){
+                    alert( data.data.message );
+
+                    if( data.data.codeValid ){
+                        $('#secretCodeContainer').addClass('hidden');
+                        $('#paymentForm').removeClass('hidden');
+                    }
+                });
+            }
+
             function confirmCaptcha( data ){
                 $.post(
                     "verifyCaptcha.php",

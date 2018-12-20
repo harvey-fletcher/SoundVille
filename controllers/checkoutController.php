@@ -198,4 +198,31 @@
 
             return array( "status" => $result['status'], "order_id" => $result['id'], "message" => "Payment completed successfully", "data" => json_encode( $result ) ) ;
         }
+
+        function verifySecretCode(){
+            //Uses db
+            global $db;
+
+            //Build the query to get any current secret codes
+            $secretCodeQuery = $db->prepare( "SELECT * FROM secret_codes WHERE ( valid_from <= NOW() AND valid_to >= NOW()) OR always_valid = '1'" );
+            $secretCodeQuery->execute();
+            $secretCodes = $secretCodeQuery->fetchAll( PDO::FETCH_ASSOC );
+
+            //The secret code
+            $userCode = strtoupper( $_POST['secretCode'] );
+
+            //All the codes that are valid
+            $secretCodes = array_column( $secretCodes, 'code' );
+
+            //Is the user specified code valid?
+            if( in_array( $userCode, $secretCodes ) ){
+                $codeValid = true;
+                $message   = "That is a valid secret code!";
+            } else {
+                $codeValid = false;
+                $message   = "Oops, sorry, this is a private event and you must have a secret code to buy tickets";
+            }
+
+            return array( "status" => 200, "codeValid" => $codeValid, "message" => $message );
+        }
     }
