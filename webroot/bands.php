@@ -85,10 +85,30 @@
                .     "</h4><br /><br />"
                . "</div>";
 
+        //This email gets sent to the user who completed the form
+        $confirmationEmail = "<div style='width: 650'>"
+               .     "<div style='float: left; width: 100px; height: 100px;'>"
+               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+               .     "</div>"
+               .     "<div style='float: left; height: 100;' align='right'>"
+               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+               .     "</div>"
+               . "</div>"
+               . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
+               .     "<h4 style='margin: 0;'>"
+               .         "Hello,<br />"
+               .         "We're just writing to let you know that we received your application to perform at Linkenfest.<br />"
+               .         "We will be in touch with you shortly with further details.<br />"
+               .         "<br />"
+               .         "Many thanks,<br />The Linkenfest team.<br /><br />"
+               .     "</h4><br /><br />"
+               . "</div>";
+
         //Send the email
         include '../serverSide/emailScript.php';
         $email = new email();
         $email->send( "harvey.fletcher1@ntlworld.com", 'do-not-reply', "Linkenfest: New Band Application", $emailBody );
+        $email->send( $_POST['email'] , 'do-not-reply', "Linkenfest: We received your application", $confirmationEmail );
     }
 ?>
 <html>
