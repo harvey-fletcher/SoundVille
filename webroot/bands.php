@@ -88,7 +88,7 @@
         //Send the email
         include '../serverSide/emailScript.php';
         $email = new email();
-        $email->send( $_POST['email'], 'do-not-reply', "Linkenfest: New Band Application", $emailBody );
+        $email->send( "harvey.fletcher1@ntlworld.com", 'do-not-reply', "Linkenfest: New Band Application", $emailBody );
     }
 ?>
 <html>
