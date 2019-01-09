@@ -1,5 +1,8 @@
 <?php
 
+    //Start the session
+    session_start();
+
     //This page will complete a pending user action based on the
     //specified identifier.
     $success = doUpdate();
