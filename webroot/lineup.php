@@ -27,7 +27,7 @@ print_r( $_SESSION, 1 );
                         <img src="https://files.linkenfest.co.uk/dj_harvo_logo.png" class="largeAct" />
                     </div>
                     <div class="halfWidth">
-                        &nbsp;
+                        <img src="https://files.linkenfest.co.uk/alex_krupa_banner.jpg" class="largeAct" />
                     </div>
                 </div>
             </div>
