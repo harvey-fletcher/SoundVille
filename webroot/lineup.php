@@ -30,6 +30,9 @@ print_r( $_SESSION, 1 );
                         <img src="https://files.linkenfest.co.uk/alex_krupa_banner_png.png" class="largeAct" />
                     </div>
                 </div>
+				<div>
+				<img src="https://files.linkenfest.co.uk/lizzie_cullen_name_png.png" class="largeActNotHeadline"/>
+				</div>	
             </div>
         </div>
     </body>

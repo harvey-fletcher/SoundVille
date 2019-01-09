@@ -23,6 +23,11 @@ img.headlineAct{
   width: 100%;
 }
 
+img.largeActNotHeadline{
+  margin-top: 20px;
+  width: 85%
+}
+
 img.largeAct{
   width: 60%;
 }
