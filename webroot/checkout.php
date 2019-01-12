@@ -93,6 +93,7 @@
                                 <div id="paymentForm" class="hidden">
                                     <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
                                     <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
+					<input type="text" id="secretCodeConfirmed" hidden="hidden" name="secretCodeConfirmed"/>
                                         <script
                                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                             data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
@@ -139,6 +140,7 @@
 
                     if( data.data.codeValid ){
                         $('#secretCodeContainer').addClass('hidden');
+                        $('#secretCodeConfirmed').val( SecretCode );
                         $('#paymentForm').removeClass('hidden');
                     }
                 });

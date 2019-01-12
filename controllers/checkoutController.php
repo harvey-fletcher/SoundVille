@@ -24,9 +24,10 @@
                 }
 
                 //We need to insert the order to the database
-                $newOrder = $db->prepare( "INSERT INTO orders (order_reference, user_id) VALUES ( :order_reference, :user_id)" );
+                $newOrder = $db->prepare( "INSERT INTO orders (order_reference, user_id, secret_code) VALUES ( :order_reference, :user_id, :secretCode)" );
                 $newOrder->bindParam( ":order_reference", $_POST['orderReference'] );
                 $newOrder->bindParam( ":user_id", $_SESSION['id'] );
+                $newOrder->bindParam( ":secretCode", $_POST['secretCode'] );
                 $newOrder->execute();
                 $orderNumber = $db->lastInsertId();
 

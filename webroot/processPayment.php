@@ -43,7 +43,8 @@
                 "https://api.linkenfest.co.uk/checkout/processOrder",
                 {
                     session: '<?= session_id(); ?>',
-                    orderReference: order_ref
+                    orderReference: order_ref,
+                    secretCode: '<?= $_POST["secretCodeConfirmed"]; ?>',
                 }
             ).done(function( data ){
                 alert(data.data.message);
