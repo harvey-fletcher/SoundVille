@@ -85,10 +85,11 @@
                             <?php if( $canCheckout && $checkoutOpen ){?>
                                 <div id="secretCodeContainer">
                                     <p class="noMargin">
-                                        Ticket sales are currently restricted. To buy tickets, you must have a secret code.
+                                        If you have a promo code, enter it here to receive a <b>free</b> printed copy of set times.<br />
+                                        Otherwise, click continue.
                                     </p>
-                                    <input type="text" id="secretCode" name="secretCode" placeholder="Enter your secret code here." class="doubleFormControl"/><br /><br />
-                                    <button onclick="verifySecretCode();" class="doubleFormControl">Check Secret Code</button><br /><br />
+                                    <input type="text" id="secretCode" name="secretCode" placeholder="Promo Code" class="doubleFormControl"/><br /><br />
+                                    <button onclick="verifySecretCode();" class="doubleFormControl">Continue</button><br /><br />
                                 </div>
                                 <div id="paymentForm" class="hidden">
                                     <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
@@ -136,13 +137,14 @@
                         secretCode: SecretCode
                     }
                 ).done(function (data){
-                    alert( data.data.message );
-
                     if( data.data.codeValid ){
-                        $('#secretCodeContainer').addClass('hidden');
                         $('#secretCodeConfirmed').val( SecretCode );
-                        $('#paymentForm').removeClass('hidden');
+                    } else {
+                        $('#secretCodeConfirmed').val( 'XXXXX' );
                     }
+
+                    $('#secretCodeContainer').addClass('hidden');
+                    $('#paymentForm').removeClass('hidden');
                 });
             }
 
