@@ -35,6 +35,9 @@
                         <h2 class="noMargin">
                             <?= $product['product_name'];?><br  />
                             £<?= $product['product_price'];?> each<br />
+                            <?php if( $product['promotion'] == '1' ){ ?>
+                                <img src='http://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
+                            <?php } ?>
                             <br />
                             Quantity: <?= $product['quantity'];?><br />
                             Total Price ( <?= $product['quantity'];?> X £<?= $product['product_price'];?> ): £<?= $product['item_total'];?>

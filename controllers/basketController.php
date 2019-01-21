@@ -13,6 +13,7 @@
                     "SELECT
                        b.product_id,
                        SUM( b.quantity ) as 'quantity',
+                       p.promotion,
                        ROUND( SUM( b.quantity * p.product_price ), 2) as 'item_total',
                        ( ( p.product_stock_level - SUM( b.quantity ) ) >= 0 ) as 'in_stock',
                        p.product_name,

@@ -6,7 +6,7 @@
     include '../config/database.php';
 
     //We will need to get a list of all the products
-    $productsQuery = $db->prepare( "SELECT p.*, i.image_url FROM products p JOIN product_images i ON p.product_image_id=i.id" );
+    $productsQuery = $db->prepare( "SELECT p.*, i.image_url FROM products p JOIN product_images i ON p.product_image_id=i.id ORDER BY p.promotion DESC" );
     $productsQuery->execute();
 
     //Put all the products in an array
@@ -33,7 +33,12 @@
                     </div>
                     <div class="productDetails">
                          <h2 class="noMargin"><?= $product['product_name'];?></h2>
-                         <h2 class="noMargin">£<?= $product['product_price'];?></h2>
+                         <h2 class="noMargin">
+                             £<?= $product['product_price'];?>
+                             <?php if( $product['promotion'] == '1' ){ ?>
+                                  <br /><img src='http://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
+                             <?php } ?>
+                         </h2>
                          <br />
                          <p><?= $product['product_description']; ?></p>
                          <div class="productOptions">
