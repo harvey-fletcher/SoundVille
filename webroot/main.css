@@ -96,7 +96,6 @@ div.productDetails{
   float: left;
   padding-left: 20px;
   width: 100%;
-  height: 250;
   overflow: hidden;
 }
 
@@ -234,4 +233,6 @@ td.itemsList{
 
 img.specialOfferBanner{
   width: 200px;
+  position: relative;
+  top: -65%;
 }
