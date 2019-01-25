@@ -12,10 +12,19 @@
 
     if( !isset( $_SESSION['email'] ) ){
 ?>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.2';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
         <p class="noMargin warning" id="errorMessageLoginForm"></p>
         <input type="text" id="email" name="email" placeholder="E-mail address" class="signInWidgetControls">
         <input type="password" id="password" name="password" placeholder="Password" class="signInWidgetControls">
-        <button name="loginButton" id="loginButton" onclick="doLogin()" class="signOutButton">Sign In</button>
+        <button name="loginButton" id="loginButton" onclick="doLogin()" class="signOutButton">Sign In</button><br />
+        <div class="fb-like" data-href="https://www.facebook.com/linkenfest/" data-width="40" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript">
             function doLogin(){

@@ -236,3 +236,8 @@ img.specialOfferBanner{
   position: relative;
   top: -65%;
 }
+
+div.fb-like{
+  margin-top: 3px;
+  float: right;
+}
