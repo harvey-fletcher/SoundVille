@@ -60,7 +60,7 @@
                 //Set the mail parameters
                 include '../serverSide/emailScript.php';
                 $email = new email();
-                $email->send( $_SESSION['email'], "donotreply", "Linkenfest 2019: Purchase confirmation", $emailBody );
+                $email->send( $_SESSION['email'], "do-not-reply", "Linkenfest 2019: Purchase confirmation", $emailBody );
 
                 //Update the user's session so it has nothing in the basket
                 $_SESSION['basketSize'] = 0;
