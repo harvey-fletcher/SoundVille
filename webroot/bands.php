@@ -140,7 +140,7 @@
                     <i><b>Want to perform at Linkenfest?</b></i>
                 </span>
                 It's simple. All you need to do is fill out the below form, and we will get in touch with you to arrange further details.<br /><br />
-                Contract and Payment negotiation will take place after we have established contact with you.<br /><br />
+                Unfortunately, we're all out of `fixed fee` performer budget for this year. However, that doesn't mean you can't apply. Instead of this fixed fee, we're offering 10% of every ticket purchased using the special code that you will be given if your application is accepted. (This applies to applications received on or after 17th January 2019)<br /><br />
                 In order to perform at Linkenfest, you'll need to meet the following criteria:<br />
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
