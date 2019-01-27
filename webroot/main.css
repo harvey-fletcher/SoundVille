@@ -241,3 +241,17 @@ div.fb-like{
   margin-top: 3px;
   float: right;
 }
+
+img.galleryHeader{
+    width: 25%;
+}
+
+.fb-video{
+   float: left;
+   margin-right: 30px;
+   padding-right: 30px;
+}
+
+div.container{
+   float: left;
+}
