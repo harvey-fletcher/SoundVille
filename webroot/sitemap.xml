@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+<url>
+  <loc>https://linkenfest.co.uk/</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/index.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/info.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/createAccount.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/lineup.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/tickets.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/bands.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/volunteer.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/gallery.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://linkenfest.co.uk/contact.php</loc>
+  <lastmod>2019-02-03T09:00:28+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+</urlset>
