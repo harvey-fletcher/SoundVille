@@ -159,7 +159,9 @@
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Linkenholt Adventure Centre<br />"
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Linkenholt<br />"
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Wiltshire<br />"
-                       .         "&nbsp;&nbsp;&nbsp;&nbsp;SP11 0EA"
+                       .         "&nbsp;&nbsp;&nbsp;&nbsp;SP11 0EA<br />"
+                       .         "<br /><br />"
+                       .         "<img src='http://barcodes4.me/barcode/c128a/" . str_replace( 'ch_', '', substr( $orderReference, 0, -15  ) . '.png' ) . "?width=300&height=80&IsTextDrawn=1' />"
                        .         "<br /><br />"
                        .     "</h4>"
                        . "</div>";
