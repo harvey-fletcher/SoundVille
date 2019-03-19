@@ -63,10 +63,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>

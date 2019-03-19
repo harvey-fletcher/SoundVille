@@ -4,7 +4,7 @@ html{
 
 body{
   margin: 0;
-  background-image: url("https://files.linkenfest.co.uk/site_background_png.png");
+  background-image: url("https://files.soundville.co.uk/site_background_png.png");
   background-size: cover;
 
   font-family: Arial, serif;
@@ -115,7 +115,7 @@ div.productOptions{
 
 div.lineupPoster{
   background-color: white;
-  background-image: url('https://files.linkenfest.co.uk/logo_png_transparent.png');
+  background-image: url('https://files.soundville.co.uk/logo_png_transparent.png');
   background-repeat: no-repeat;
   background-position: center;
 

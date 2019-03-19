@@ -13,10 +13,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -31,7 +31,7 @@
                     <div class="productImageContainer">
                         <img src="<?= $product['image_url']; ?>" width="100%" height="100%" />
                         <?php if( $product['promotion'] == '1' ){ ?>
-                            <img src='http://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
+                            <img src='https://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
                         <?php } ?>
                     </div>
                     <div class="productDetails">
@@ -94,7 +94,7 @@
             var newQuantity = $('#quantity-item-' + product_id).val();
 
             $.post(
-                "https://api.linkenfest.co.uk/basket/amend",
+                "https://api.soundville.co.uk/basket/amend",
                 { session: '<?= session_id(); ?>', amend_id: product_id, new_quantity: newQuantity }
             ).done(function( data ){
                 alert( data.data.message );
@@ -106,7 +106,7 @@
             var product_id  = id.split("-")[2];
 
             $.post(
-                "https://api.linkenfest.co.uk/basket/remove",
+                "https://api.soundville.co.uk/basket/remove",
                 { session: '<?= session_id(); ?>', amend_id: product_id }
             ).done(function( data ){
                 alert( data.data.message );

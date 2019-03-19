@@ -69,15 +69,15 @@
         //Make a mail
         $emailBody = "<div style='width: 650'>"
                .     "<div style='float: left; width: 100px; height: 100px;'>"
-               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+               .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
                .     "</div>"
                .     "<div style='float: left; height: 100;' align='right'>"
-               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+               .         "<h1 style='margin: 0; font-size: 80px;'>SoundVille</h1>"
                .     "</div>"
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
-               .         "Hello, A new performer request was received on the linkenfest site. Here are the details:<br /><br />"
+               .         "Hello, A new performer request was received on the SoundVille site. Here are the details:<br /><br />"
                .         "Act Name: " . $_POST['actName'] . "<br />"
                .         "Person Name: " . $_POST['personName'] . "<br />"
                .         "Phone Number: " . $_POST['phone'] . "<br />"
@@ -88,37 +88,37 @@
         //This email gets sent to the user who completed the form
         $confirmationEmail = "<div style='width: 650'>"
                .     "<div style='float: left; width: 100px; height: 100px;'>"
-               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+               .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
                .     "</div>"
                .     "<div style='float: left; height: 100;' align='right'>"
-               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+               .         "<h1 style='margin: 0; font-size: 80px;'>SoundVille</h1>"
                .     "</div>"
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
                .         "Hello,<br />"
-               .         "We're just writing to let you know that we received your application to perform at Linkenfest.<br />"
+               .         "We're just writing to let you know that we received your application to perform at SoundVille.<br />"
                .         "We will be in touch with you shortly with further details.<br />"
                .         "<br />"
-               .         "Many thanks,<br />The Linkenfest team.<br /><br />"
+               .         "Many thanks,<br />The SoundVille team.<br /><br />"
                .     "</h4><br /><br />"
                . "</div>";
 
         //Send the email
         include '../serverSide/emailScript.php';
         $email = new email();
-        $email->send( "harvey.fletcher1@ntlworld.com", 'do-not-reply', "Linkenfest: New Band Application", $emailBody );
-        $email->send( $_POST['email'] , 'do-not-reply', "Linkenfest: We received your application", $confirmationEmail );
+        $email->send( "harvey.fletcher1@ntlworld.com", 'do-not-reply', "SoundVille: New Band Application", $emailBody );
+        $email->send( $_POST['email'] , 'do-not-reply', "SoundVille: We received your application", $confirmationEmail );
     }
 ?>
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -137,16 +137,16 @@
                     <?php } ?>
                 <?php } ?>
                 <span class="title">
-                    <i><b>Want to perform at Linkenfest?</b></i>
+                    <i><b>Want to perform at SoundVille?</b></i>
                 </span>
                 It's simple. All you need to do is fill out the below form, and we will get in touch with you to arrange further details.<br /><br />
                 Unfortunately, we're all out of `fixed fee` performer budget for this year. However, that doesn't mean you can't apply. Instead of this fixed fee, we're offering 10% of every ticket purchased using the special code that you will be given if your application is accepted. (This applies to applications received on or after 17th January 2019)<br /><br />
-                In order to perform at Linkenfest, you'll need to meet the following criteria:<br />
+                In order to perform at SoundVille, you'll need to meet the following criteria:<br />
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
                     <li>Be available on Friday 19th July from 17:30 to 23:30, your performance will be scheduled between these times.</li>
                     <li>Have at least 1 example of a prior gig, and the contact details of the organiser.</li>
-                    <li>Have your own transport to and from Linkenfest.</li>
+                    <li>Have your own transport to and from SoundVille.</li>
                     <li>Have a valid form of photo ID that is not expired.</li>
                 </ul>
                 <br />
@@ -216,7 +216,7 @@
                         </tr>
                         <tr>
                             <td class="title" align="right">
-                                I have read the criteria for performing at Linkenfest and confirm I meet all requirements.*
+                                I have read the criteria for performing at SoundVille and confirm I meet all requirements.*
                             </td>
                             <td align="center">
                                 <input type="checkbox" name="confirmTermsCheckbox" class="largeCheckbox" required/>
@@ -230,7 +230,7 @@
                         <tr>
                             <td colspan="2" class="title" align="center">
                                 By clicking the below button, you confirm that the details that you have provided above, are accurate and true.<br /><br />
-                                You also agree to be contacted by Linkenfest regarding your performance. You will not be contacted for any reason other than this.
+                                You also agree to be contacted by SoundVille regarding your performance. You will not be contacted for any reason other than this.
                             </td>
                         </tr>
                         <tr>

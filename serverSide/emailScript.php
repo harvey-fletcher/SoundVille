@@ -38,13 +38,13 @@
             $signature = file_get_contents( "../config/emailSignature.html" );
 
             //Build the full from address
-            $from .= "@linkenfest.co.uk";
+            $from .= "@soundville.co.uk";
 
             //Join the mail with the signature
             $body .= $signature;
 
             //Set the mail from address
-            $mailer->SetFrom( $from , "Linkenfest");
+            $mailer->SetFrom( $from , "SoundVille");
 
             //Build the email
             $mailer->addAddress( $to );

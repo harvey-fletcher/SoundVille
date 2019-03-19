@@ -19,11 +19,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body onload="">
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -38,7 +38,7 @@
                     <div class="productImageContainer">
                         <img src="<?= $product['image_url']; ?>" width="100%" height="100%" />
                         <?php if( $product['promotion'] == '1' ){ ?>
-                            <img src='http://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
+                            <img src='https://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
                         <?php } ?>
                     </div>
                     <div class="productDetails">
@@ -102,10 +102,10 @@
                                             src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                             data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
                                             data-amount="<?= $basket['order_total']['plain'] ?>"
-                                            data-name="Linkenfest"
+                                            data-name="SoundVille"
                                             data-description="Complete Purchase"
                                             data-email="<?= $_SESSION['email']; ?>"
-                                            data-image="https://files.linkenfest.co.uk/logo_png.png"
+                                            data-image="https://files.soundville.co.uk/logo_png.png"
                                             data-locale="auto"
                                             data-currency="gbp">
                                         </script>
@@ -134,7 +134,7 @@
                 var SecretCode = $('#secretCode').val();
 
                 $.post(
-                    "https://api.linkenfest.co.uk/checkout/verifySecretCode",
+                    "https://api.soundville.co.uk/checkout/verifySecretCode",
                     {
                         session: '<?= session_id(); ?>',
                         secretCode: SecretCode

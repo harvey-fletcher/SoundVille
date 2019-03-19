@@ -35,16 +35,16 @@
         //Make a mail
         $emailBody = "<div style='width: 750'>"
                .     "<div style='float: left; width: 150px; height: 150px;'>"
-               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
+               .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
                .     "</div>"
                .     "<div style='float: left; height: 150;' align='right'>"
-               .         "<h1 style='margin: 0; font-size: 130px;'>Linkenfest</h1>"
+               .         "<h1 style='margin: 0; font-size: 130px;'>SoundVille</h1>"
                .     "</div>"
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
-               .         "Hello, someone just tried to register this email address on the https://linkenfest.co.uk site.<br />If this was you, please click the link below:<br /><br />"
-               .         "https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
+               .         "Hello, someone just tried to register this email address on the https://soundville.co.uk site.<br />If this was you, please click the link below:<br /><br />"
+               .         "https://soundville.co.uk/completePendingAction.php?identifier=" . $uuid . "<br /><br />"
                .         "If this was not you, you do not need to do anything."
                .     "</h4><br /><br />"
                . "</div>";
@@ -52,7 +52,7 @@
         //Send the email
         include '../serverSide/emailScript.php';
         $email = new email();
-        $email->send( $_POST['newEmailConfirm'], "do-not-reply", "Linkenfest: Confirm your email", $emailBody );
+        $email->send( $_POST['newEmailConfirm'], "do-not-reply", "SoundVille: Confirm your email", $emailBody );
     } else if( isset( $_POST['changePasswordForm'] ) ){
         //An update happend
         $updateHappened = true;
@@ -147,10 +147,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>

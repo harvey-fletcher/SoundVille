@@ -67,15 +67,15 @@
         //Make a mail
         $emailBody = "<div style='width: 650'>"
                .     "<div style='float: left; width: 100px; height: 100px;'>"
-               .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+               .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
                .     "</div>"
                .     "<div style='float: left; height: 100;' align='right'>"
-               .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+               .         "<h1 style='margin: 0; font-size: 80px;'>SoundVille</h1>"
                .     "</div>"
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
-               .         "Hello, A new volunteer request was received on the linkenfest site. Here are the details:<br /><br />"
+               .         "Hello, A new volunteer request was received on the SoundVille site. Here are the details:<br /><br />"
                .         "Person Name: " . $_POST['personName'] . "<br />"
                .         "Phone Number: " . $_POST['phone'] . "<br />"
                .         "Email Address: " . $_POST['email'] . "<br /><br />"
@@ -85,17 +85,17 @@
         //Send the mail
         include '../serverSide/emailScript.php';
         $email = new email();
-        $email->send( "harvey.fletcher1@ntlworld.com", "do-not-reply", "Linkenfest: New volunteer request", $emailBody );
+        $email->send( "harvey.fletcher1@ntlworld.com", "do-not-reply", "SoundVille: New volunteer request", $emailBody );
     }
 ?>
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -114,16 +114,16 @@
                     <?php } ?>
                 <?php } ?>
                 <span class="title">
-                    <i><b>Want to volunteer at Linkenfest?</b></i>
+                    <i><b>Want to volunteer at SoundVille?</b></i>
                 </span>
-                Volunteers will receive 30% off* tickets in exchange for 2x 1.5 hour shifts ( 3 hour total ) across the Linkenfest weekend, as well as the option for designated private camping in a seperate area of the field if they wish.
+                Volunteers will receive 30% off* tickets in exchange for 2x 1.5 hour shifts ( 3 hour total ) across the SoundVille weekend, as well as the option for designated private camping in a seperate area of the field if they wish.
                 <br />
                 <br />
                 In order to volunteer at Linkenholt, you'll need to meet the following conditions:
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
                     <li>Be available from Friday 19th July at 09:00 to Sunday 21st July 21:00, your volunteer shift will be scheduled between these times.</li>
-                    <li>Have your own transport to and from Linkenfest.</li>
+                    <li>Have your own transport to and from SoundVille.</li>
                     <li>Have a valid form of photo ID that is not expired.</li>
                     <li>Can pay the deposit fee (full price ticket). You will be refunded 30% after the event</li>
                 </ul>
@@ -183,7 +183,7 @@
                             </tr>
                             <tr>
                                 <td class="title" align="right">
-                                    I have read the criteria for volunteering at Linkenfest and confirm I meet all requirements.*
+                                    I have read the criteria for volunteering at SoundVille and confirm I meet all requirements.*
                                 </td>
                                 <td align="center">
                                     <input type="checkbox" name="confirmTermsCheckbox" class="largeCheckbox" required/>
@@ -197,7 +197,7 @@
                             <tr>
                                 <td colspan="2" class="title" align="center">
                                     By clicking the below button, you confirm that the details that you have provided above, are accurate and true.<br /><br />
-                                    You also agree that you will be contacted by Linkenfest, and agree to the following conditions:<br />
+                                    You also agree that you will be contacted by SoundVille, and agree to the following conditions:<br />
                                     <ul>
                                         <li>No-Shows will not be refunded their deposit fee or the 30% refund</li>
                                         <li>If accepted, you will need to purchase a full price weekend ticket, the 30% off will be refunded to you after you have completed your assigned shifts.</li>

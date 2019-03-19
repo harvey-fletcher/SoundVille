@@ -1,2 +1,2 @@
 #This cron will purge expired actions every hour
-0 * * * * cd /var/www/html/linkenfest/serverSide && php purgeExpiredActions.php >/dev/null 2>&1
+0 * * * * cd /var/www/html/SoundVille/serverSide && php purgeExpiredActions.php >/dev/null 2>&1

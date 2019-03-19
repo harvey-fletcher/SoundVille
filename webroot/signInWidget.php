@@ -24,7 +24,7 @@
         <input type="text" id="email" name="email" placeholder="E-mail address" class="signInWidgetControls">
         <input type="password" id="password" name="password" placeholder="Password" class="signInWidgetControls">
         <button name="loginButton" id="loginButton" onclick="doLogin()" class="signOutButton">Sign In</button><br />
-        <div class="fb-like" data-href="https://www.facebook.com/linkenfest/" data-width="40" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
+        <div class="fb-like" data-href="https://www.facebook.com/SoundVille/" data-width="40" data-layout="standard" data-action="like" data-size="small" data-show-faces="false" data-share="true"></div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript">
             function doLogin(){
@@ -32,7 +32,7 @@
                 var userPassword = $("#password").val();
 
                 $.post(
-                    "https://api.linkenfest.co.uk/access/login/<?= $referrer ?>",
+                    "https://api.soundville.co.uk/access/login/<?= $referrer ?>",
                     {
                       email: userEmail,
                       password: userPassword

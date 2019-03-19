@@ -4,10 +4,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -20,7 +20,7 @@
                 <span class="title">
                     By Email
                 </span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;information@linkenfest.co.uk<br /><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;information@soundville.co.uk<br /><br />
                 <span class="title">
                     By Phone
                 </span><br />
@@ -28,7 +28,7 @@
                 <span class="title">
                     By Post
                 </span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;Linkenfest Information<br />
+                &nbsp;&nbsp;&nbsp;&nbsp;SoundVille Information<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;24 Saffron Close<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;Newbury<br />
                 &nbsp;&nbsp;&nbsp;&nbsp;West Berkshire<br />

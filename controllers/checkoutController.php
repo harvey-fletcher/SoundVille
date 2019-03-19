@@ -60,7 +60,7 @@
                 //Set the mail parameters
                 include '../serverSide/emailScript.php';
                 $email = new email();
-                $email->send( $_SESSION['email'], "do-not-reply", "Linkenfest 2019: Purchase confirmation", $emailBody );
+                $email->send( $_SESSION['email'], "do-not-reply", "SoundVille 2019: Purchase confirmation", $emailBody );
 
                 //Update the user's session so it has nothing in the basket
                 $_SESSION['basketSize'] = 0;
@@ -134,15 +134,15 @@
             //Assemble the full email
             $emailBody = "<div style='width: 750'>"
                        .     "<div style='float: left; width: 150px; height: 150px;'>"
-                       .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
+                       .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 150px; height: 150px;' />"
                        .     "</div>"
                        .     "<div style='float: left; height: 150;' align='right'>"
-                       .         "<h1 style='margin: 0; font-size: 130px;'>Linkenfest</h1>"
+                       .         "<h1 style='margin: 0; font-size: 130px;'>SoundVille</h1>"
                        .     "</div>"
                        . "</div>"
                        . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                        .     "<h4 style='margin: 0;'>"
-                       .         "Hello,<br />Thank you for booking your tickets to Linkenfest 2019! We're happy to have you with us.<br />"
+                       .         "Hello,<br />Thank you for booking your tickets to SoundVille 2019! We're happy to have you with us.<br />"
                        .         "It is extremely important that you print this email off and keep it safe. You <b>MUST</b> bring it with you<br />"
                        .         "to the festival, or you will not be granted entry.<br />"
                        .         "<br /><br />"
@@ -161,7 +161,7 @@
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Wiltshire<br />"
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;SP11 0EA<br />"
                        .         "<br /><br />"
-                       .         "<img src='http://barcodes4.me/barcode/c128a/" . str_replace( 'ch_', '', substr( $orderReference, 0, -15  ) . '.png' ) . "?width=300&height=80&IsTextDrawn=1' />"
+                       .         "<img src='https://barcodes4.me/barcode/c128a/" . str_replace( 'ch_', '', substr( $orderReference, 0, -15  ) . '.png' ) . "?width=300&height=80&IsTextDrawn=1' />"
                        .         "<br /><br />"
                        .     "</h4>"
                        . "</div>";

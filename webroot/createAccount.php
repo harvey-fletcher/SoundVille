@@ -100,23 +100,23 @@
             //Make the mail
             $emailBody = "<div style='width: 650'>"
                    .     "<div style='float: left; width: 100px; height: 100px;'>"
-                   .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+                   .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
                    .     "</div>"
                    .     "<div style='float: left; height: 100;' align='right'>"
-                   .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+                   .         "<h1 style='margin: 0; font-size: 80px;'>SoundVille</h1>"
                    .     "</div>"
                    . "</div>"
                    . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                    .     "<h4 style='margin: 0;'>"
-                   .         "Hello, someone just tried to create an account at https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
-                   .         "<a href='https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
+                   .         "Hello, someone just tried to create an account at https://soundville.co.uk. If this was you, please click the link below:<br /><br />"
+                   .         "<a href='https://soundville.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://soundville.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
                    .     "</h4><br /><br />"
                    . "</div>";
 
             //Send the mail
             include '../serverSide/emailScript.php';
             $email = new email();
-            $email->send( $_POST['email'], 'do-not-reply', "Linkenfest: Activate your account!", $emailBody );
+            $email->send( $_POST['email'], 'do-not-reply', "SoundVille: Activate your account!", $emailBody );
         }
 
     }
@@ -127,11 +127,11 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
     </head>
     <body>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>

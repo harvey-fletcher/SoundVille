@@ -15,10 +15,10 @@
 <html>
     <head>
         <link rel="stylesheet" href="main.css" type="text/css"/>
-        <title>Linkenfest 2019</title>
+        <title>SoundVille 2019</title>
     </head>
     <body <?php if( $auto ){ ?>onload=" displaySect( '<?= $section; ?>' ) "<?php }?>>
-        <img src="https://files.linkenfest.co.uk/logo_png.png" class="main-logo"/>
+        <img src="https://files.soundville.co.uk/logo_png.png" class="main-logo"/>
         <div class="signInWidget">
             <?php include 'signInWidget.php'; ?>
         </div>
@@ -30,24 +30,24 @@
                 <h1 class="noMargin"><u>Information</u></h1>
             </div>
             <h2 class="noMargin" onclick=" displaySect( this.id ) " id="show-whatIs">
-                What is Linkenfest? [+]
+                What is SoundVille? [+]
             </h3>
             <div class="hidden" id="whatIs">
-                Linkenfest is a small music festival presenting local bands and individual artists.<br /><br />
+                SoundVille is a small music festival presenting local bands and individual artists.<br /><br />
             </div>
             <br />
             <h2 class="noMargin" onclick=" displaySect( this.id ) " id="show-whenIs">
                 When is it? [+]
             </h2>
             <div id="whenIs" class="hidden">
-                Linkenfest will be taking place from the 19th to 21st of July 2019.<br />
+                SoundVille will be taking place from the 19th to 21st of July 2019.<br />
             </div>
             <br />
             <h2 class="noMargin" onclick=" displaySect( this.id ) " id="show-whereIs">
                 Where is it? [+]
             </h2>
             <div class="hidden" id="whereIs">
-                Linkenfest is at the Linkenholt Adventure Centre, Linkenholt, SP11 0EA.
+                SoundVille is at the Linkenholt Adventure Centre, Linkenholt, SP11 0EA.
                 <br />
                 <br />
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2096.585375854682!2d-1.477779317007439!3d51.324475400045465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487400307f1cf205%3A0xe5696ab08fabfae7!2sLinkenholt+Adventure+Centre+%2F+Campsite!5e0!3m2!1sen!2suk!4v1543786671440" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe><br /><br />
@@ -64,7 +64,7 @@
                 Lost Property [+]
             </h2>
             <div class="hidden" id="lostProperty">
-                Should you lose an item of personal belonging, please contact the lost and found at information@linkenfest.co.uk<br />If you are bringing a mobile phone with you, please make note of the device IMEI number. For any other portable device, please note the serial number. The organisers cannot be held responsible for any item of personal property which gets lost or damaged.<br /><br />
+                Should you lose an item of personal belonging, please contact the lost and found at information@soundville.co.uk<br />If you are bringing a mobile phone with you, please make note of the device IMEI number. For any other portable device, please note the serial number. The organisers cannot be held responsible for any item of personal property which gets lost or damaged.<br /><br />
             </div>
             <br />
             <h2 class="noMargin" onclick=" displaySect( this.id ) " id="show-restrictedItems">
@@ -121,14 +121,14 @@
                                 <li>Artists may be subject to change or cancellation.</li>
                                 <li>No trading or promotional activities allowed within the venue without express consent.</li>
                                 <li>Photographic equipment is permitted provided that it is for personal non-commercial use only.</li>
-                                <li>Only tickets purchased from <u><a href="https://linkenfest.co.uk">linkenfest.co.uk</a></u> will be valid.</li>
-                                <li>By attending the event, express consent is given for use of your image, or true likeness, in any media or promotional activity by Linkenfest or associates (e.g. bands or artists)</li>
+                                <li>Only tickets purchased from <u><a href="https://soundville.co.uk">soundville.co.uk</a></u> will be valid.</li>
+                                <li>By attending the event, express consent is given for use of your image, or true likeness, in any media or promotional activity by SoundVille or associates (e.g. bands or artists)</li>
                             </ul>
                         <li>
                             <h3 class="noMargin">Refunds and Cancellations</h3>
                             <ul>
                                 <li>Refunds are only considered on major cancellation. (Where less than 60% of the acts are shown, or the event is cancelled by reasons not due to adverse weather)</li>
-                                <li>Refunds should be obtained by contacting information@linkenfest.co.uk no later than 1 month after the event</li>
+                                <li>Refunds should be obtained by contacting information@soundville.co.uk no later than 1 month after the event</li>
                                 <li>A minimum of the face value of the ticket (minus any processing fees) will be refunded.</li>
                                 <li>The site processing fee will not be refunded.</li>
                             </ul>
@@ -143,7 +143,7 @@
                         <li>
                             <h3 class="noMargin">Tickets and wristbands</h3>
                             <ul>
-                                <li>Tickets are non-transferable and only valid when purchased from <u><a href="https://linkenfest.co.uk">linkenfest.co.uk</a></u>.</li>
+                                <li>Tickets are non-transferable and only valid when purchased from <u><a href="https://soundville.co.uk">soundville.co.uk</a></u>.</li>
                                 <li>Weekend ticket holders MUST exchange their ticket for a wristband on entry.</li>
                                 <li>Day ticket holders MUST be in posession of a physical copy of their ticket at all times.</li>
                                 <li>Tickets MUST be printed or they will be considered invalid and you will be refused entry to the event.</li>
@@ -248,10 +248,10 @@
                             As part of the GDPR, you have the following rights with regard to the data we hold on you.
                             <ul>
                                 <li>The right to request confirmation if we process your personal data, and if so, a right to request a copy of that data.</li>
-                                <li>The right to request that Linkenfest rectifies or updates your personal data that is inaccurate, incomplete, or outdated.</li>
-                                <li>The right to request that Linkenfest erase your personal data in certain circumstances provided by law;</li>
-                                <li>The right to request that Linkenfest restrict the use of your personal data in certain circumstances, such as while Linkenfest considers another request that you have submitted (including a request that Linkenfest makes an update to your Personal Data; and</li>
-                                <li>The right to request that Linkenfest export to another company, where technically feasible, your Personal Data that we hold in order to provide Services to you.</li>
+                                <li>The right to request that SoundVille rectifies or updates your personal data that is inaccurate, incomplete, or outdated.</li>
+                                <li>The right to request that SoundVille erase your personal data in certain circumstances provided by law;</li>
+                                <li>The right to request that SoundVille restrict the use of your personal data in certain circumstances, such as while SoundVille considers another request that you have submitted (including a request that SoundVille makes an update to your Personal Data; and</li>
+                                <li>The right to request that SoundVille export to another company, where technically feasible, your Personal Data that we hold in order to provide Services to you.</li>
                             </ul>
                             Where the processing of your Personal Data is based on your previously given consent, you have the right to withdraw your consent at any time. You may also have the right to object to the processing of your Personal Data on grounds relating to your particular situation.<br />
                             If you wish to exercise any of your data protection rights listed above, you can contact us using the <u><a href="contact.php">contact us page</a></u>. We take each request seriously. We will comply with your request to the extent required by the applicable law. We will not be able to respond to a request if we no longer hold your Personal Data.<br />
@@ -264,7 +264,7 @@
                                 <li>Do we share your data?</li>
                             </h3>
                             <ul>
-                                <li>Linkenfest does not share your data with third parties. We do not have any advertisements on this site that collect data.</li>
+                                <li>SoundVille does not share your data with third parties. We do not have any advertisements on this site that collect data.</li>
                                 <li>Our payment processor, stripe payments, has a separate privacy policy. This can be viewed <u><a href="https://stripe.com/gb/privacy">here.</a></u></li>
                             </ul>
                         </li>
@@ -273,7 +273,7 @@
             </p>
             <br /><br />
             <h2 class="noMargin">
-                If any of these terms are unclear please contact information@linkenfest.co.uk
+                If any of these terms are unclear please contact information@soundville.co.uk
             </h2>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

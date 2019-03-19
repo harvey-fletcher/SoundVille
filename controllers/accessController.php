@@ -135,16 +135,16 @@
             //OK, now that's done, we need to build an email containing a password reset link
             $emailBody = "<div style='width: 650'>"
                    .     "<div style='float: left; width: 100px; height: 100px;'>"
-                   .         "<img src='https://files.linkenfest.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
+                   .         "<img src='https://files.soundville.co.uk/logo_png.png' style='width: 100px; height: 100px;' />"
                    .     "</div>"
                    .     "<div style='float: left; height: 100;' align='right'>"
-                   .         "<h1 style='margin: 0; font-size: 80px;'>Linkenfest</h1>"
+                   .         "<h1 style='margin: 0; font-size: 80px;'>SoundVille</h1>"
                    .     "</div>"
                    . "</div>"
                    . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                    .     "<h4 style='margin: 0;'>"
-                   .         "Hello, someone just tried to reset your password on https://linkenfest.co.uk. If this was you, please click the link below:<br /><br />"
-                   .         "<a href='https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://linkenfest.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
+                   .         "Hello, someone just tried to reset your password on https://soundville.co.uk. If this was you, please click the link below:<br /><br />"
+                   .         "<a href='https://soundville.co.uk/completePendingAction.php?identifier=" . $uuid . "'>https://soundville.co.uk/completePendingAction.php?identifier=" . $uuid . "</a><br /><br />"
                    .         "After you click this link, your new password will be:<br />&nbsp;&nbsp;&nbsp;&nbsp;<b>" . $passwordPlainText . "</b><br /><br />"
                    .         "If this was not you, you do not need to do anything, and your account will not be changed.<br /><br />"
                    .     "</h4><br /><br />"
@@ -152,7 +152,7 @@
 
             include '../serverSide/emailScript.php';
             $email = new email();
-            $email->send( $_POST['email'], "do-not-reply", "Linkenfest: Reset Password", $emailBody );
+            $email->send( $_POST['email'], "do-not-reply", "SoundVille: Reset Password", $emailBody );
 
             return array("status" => 200, "message" => "Ok, we've reset your password. Please check your emails for a link to complete the process.");
         }
