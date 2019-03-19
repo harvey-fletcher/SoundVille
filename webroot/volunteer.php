@@ -119,7 +119,7 @@
                 Volunteers will receive 30% off* tickets in exchange for 2x 1.5 hour shifts ( 3 hour total ) across the SoundVille weekend, as well as the option for designated private camping in a seperate area of the field if they wish.
                 <br />
                 <br />
-                In order to volunteer at Linkenholt, you'll need to meet the following conditions:
+                In order to volunteer at SoundVille, you'll need to meet the following conditions:
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
                     <li>Be available from Friday 19th July at 09:00 to Sunday 21st July 21:00, your volunteer shift will be scheduled between these times.</li>
