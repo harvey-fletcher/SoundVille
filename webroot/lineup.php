@@ -32,7 +32,6 @@ print_r( $_SESSION, 1 );
                 </div>
 				<img src="https://files.soundville.co.uk/lizzie_cullen_name_png.png" class="largeActNotHeadline"/><br /><br />
 				<img src="https://files.soundville.co.uk/logo_maddision_douch.png" class="largeActNotHeadline"/><br />
-				<img src="https://files.soundville.co.uk/hengistbury_logo.png" class="largeActNotHeadline"/>
             </div>
         </div>
     </body>
