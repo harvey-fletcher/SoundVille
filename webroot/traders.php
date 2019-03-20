@@ -58,11 +58,10 @@
     if( $success ){
         //If there's a  success, insert to DB
         //Prepare to insert the data into the table
-        $insertVolunteerRequest = $db->prepare( "INSERT INTO performer_requests ( name, email, phone ) VALUES ( :name, :email, :phone )");
+        $insertVolunteerRequest = $db->prepare( "INSERT INTO vendor_requests ( `name`, `email`, `phone` ) VALUES ( :name, :email, :phone )");
         $insertVolunteerRequest->bindParam( ":name", $_POST['personName'] );
         $insertVolunteerRequest->bindParam( ":email", $_POST['email'] );
         $insertVolunteerRequest->bindParam( ":phone", $_POST['phone'] );
-        $insertVolunteerRequest->execute();
 
         //Make a mail
         $emailBody = "<div style='width: 650'>"
@@ -75,7 +74,7 @@
                . "</div>"
                . "<div style='width: 750; margin-top: 25px; display: inline-block;'>"
                .     "<h4 style='margin: 0;'>"
-               .         "Hello, A new volunteer request was received on the SoundVille site. Here are the details:<br /><br />"
+               .         "Hello, A new vendor request was received on the SoundVille site. Here are the details:<br /><br />"
                .         "Person Name: " . $_POST['personName'] . "<br />"
                .         "Phone Number: " . $_POST['phone'] . "<br />"
                .         "Email Address: " . $_POST['email'] . "<br /><br />"
@@ -85,7 +84,7 @@
         //Send the mail
         include '../serverSide/emailScript.php';
         $email = new email();
-        $email->send( "harvey.fletcher1@ntlworld.com", "do-not-reply", "SoundVille: New volunteer request", $emailBody );
+        $email->send( "harvey.fletcher1@ntlworld.com", "do-not-reply", "SoundVille: New vendor request", $emailBody );
     }
 ?>
 <html>
@@ -114,20 +113,29 @@
                     <?php } ?>
                 <?php } ?>
                 <span class="title">
-                    <i><b>Want to volunteer at SoundVille?</b></i>
+                    <i><b>Apply to be a vendor at SoundVille</b></i>
                 </span>
-                Volunteers will receive 30% off* tickets in exchange for 2x 1.5 hour shifts ( 3 hour total ) across the SoundVille weekend, as well as the option for designated private camping in a seperate area of the field if they wish.
+                You must register here first if you wish to trade goods at the festival. There is a charge of &pound;20, this will give you the following:<br />
+                <ul>
+                    <li>Permission to trade goods at SoundVille</li>
+                    <li>A space within the festival grounds to park your vehicle and set up your trade stall</li>
+                    <li>2 vendor weekend tickets are included in the price.</li>
+                    <li>Come and go whenever you want across the weekend.</li>
+                    <li>You can keep all the money you make at the festival. We do not charge commission.</li>
+                </ul>
                 <br />
                 <br />
-                In order to volunteer at SoundVille, you'll need to meet the following conditions:
+                In order to be a trader at SoundVille, you'll need to meet the following conditions:
                 <ul class="title">
                     <li>Be older than 18 years of age.</li>
-                    <li>Be available from Friday 19th July at 09:00 to Sunday 21st July 21:00, your volunteer shift will be scheduled between these times.</li>
-                    <li>Have your own transport to and from SoundVille.</li>
+                    <li>Have your own insurance policies, and understand that your equipment and employees will not be covered by the event insurance policy.</li>
+                    <li>If you are a food vendor, you must have the required licenses.</li>
                     <li>Have a valid form of photo ID that is not expired.</li>
-                    <li>Can pay the deposit fee (full price ticket). You will be refunded 30% after the event</li>
+                    <li>Can pay the trader registration fee of &pound;20. This is for 2 people. Additional staff are charged at &pound;8 per person.</li>
                 </ul>
-                If you meet these conditions, and would like to volunteer, please fill out the form below.
+                <br />
+                Due to licensing restrictions, the sale of alcohol is prohibited at this event.
+                If you meet these conditions, and would like to apply as a trader, please fill out the form below.
                 <br /><br />
                 <?php if( isset( $_SESSION['email'] ) ){ ?>
                     <form name="bandSignUpForm" action="" method="POST" class="title">
@@ -183,7 +191,7 @@
                             </tr>
                             <tr>
                                 <td class="title" align="right">
-                                    I have read the criteria for volunteering at SoundVille and confirm I meet all requirements.*
+                                    I have read the criteria for trading at SoundVille and confirm I meet all requirements.*
                                 </td>
                                 <td align="center">
                                     <input type="checkbox" name="confirmTermsCheckbox" class="largeCheckbox" required/>
@@ -195,18 +203,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" class="title" align="center">
-                                    By clicking the below button, you confirm that the details that you have provided above, are accurate and true.<br /><br />
-                                    You also agree that you will be contacted by SoundVille, and agree to the following conditions:<br />
-                                    <ul>
-                                        <li>No-Shows will not be refunded their deposit fee or the 30% refund</li>
-                                        <li>If accepted, you will need to purchase a full price weekend ticket, the 30% off will be refunded to you after you have completed your assigned shifts.</li>
-                                        <li>Should the event be cancelled, you will receive a full deposit refund.</li>
-                                        <li>Tickets purchased prior to volunteer approval will not be deducted.</li>
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td colspan="2">
                                     <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
                                     <button type="submit" name="submit" class="largeFormSubmit">Apply</button>
@@ -214,7 +210,7 @@
                             </tr>
                     </form>
                 <?php } else { ?>
-                    You must be signed in to apply.
+                    You must be signed in to apply. <a href="createAccount.php"><u>Click here to register</u></a>
                 <?php } ?>
             </p>
         </div>
