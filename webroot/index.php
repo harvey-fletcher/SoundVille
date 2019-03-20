@@ -26,11 +26,11 @@
                 <span class="title">
                     <i><b>GET READY</b></i>
                 </span>
-                to party, this summer at <i>SoundVille</i>! A small music festival in Hampshire featuring local bands and small artists who are just starting out!
+                to party, this summer at <i>SoundVille</i>! A small music festival in Hampshire featuring local bands and small artists.
                 <br />
                 <br />
                 <span class="title">
-                    <b><i>Tickets only £35.00!</i></b>
+                    <b><i>Tickets start from £7.00!</i></b>
                 </span>
                 And are sold <b>EXCLUSIVELY</b> on this website, so get them while they last!
                 <br />
