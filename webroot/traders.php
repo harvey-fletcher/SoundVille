@@ -58,10 +58,12 @@
     if( $success ){
         //If there's a  success, insert to DB
         //Prepare to insert the data into the table
-        $insertVolunteerRequest = $db->prepare( "INSERT INTO vendor_requests ( `name`, `email`, `phone` ) VALUES ( :name, :email, :phone )");
-        $insertVolunteerRequest->bindParam( ":name", $_POST['personName'] );
-        $insertVolunteerRequest->bindParam( ":email", $_POST['email'] );
-        $insertVolunteerRequest->bindParam( ":phone", $_POST['phone'] );
+        $insertVolunteerRequest = $db->prepare( "INSERT INTO vendor_requests ( name, email, phone ) VALUES ( :name, :email, :phone )");
+        $insertVolunteerRequest->execute(array(
+            ":name"  => $_POST['personName'],
+            ":email" => $_POST['email'],
+            ":phone" => $_POST['phone']
+        ));
 
         //Make a mail
         $emailBody = "<div style='width: 650'>"
