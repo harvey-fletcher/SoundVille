@@ -31,7 +31,7 @@
                     <div class="productImageContainer">
                         <img src="<?= $product['image_url']; ?>" width="100%" height="100%" />
                         <?php if( $product['promotion'] == '1' ){ ?>
-                            <img src='https://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
+                            <img src='http://www.uppercutsmeat.com/wp-content/uploads/2018/02/Special-Offer-Image-Chiropractor-Canberra.png' class='specialOfferBanner' />
                         <?php } ?>
                     </div>
                     <div class="productDetails">
