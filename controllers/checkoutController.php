@@ -161,7 +161,7 @@
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;Hampshire<br />"
                        .         "&nbsp;&nbsp;&nbsp;&nbsp;RG25 2AR<br />"
                        .         "<br /><br />"
-                       .         "<img src='https://barcodes4.me/barcode/c128a/" . str_replace( 'ch_', '', substr( $orderReference, 0, -15  ) . '.png' ) . "?width=300&height=80&IsTextDrawn=1' />"
+                       .         "<img src='http://barcodes4.me/barcode/c128a/" . str_replace( 'ch_', '', substr( $orderReference, 0, -15  ) . '.png' ) . "?width=300&height=80&IsTextDrawn=1' />"
                        .         "<br /><br />"
                        .     "</h4>"
                        . "</div>";
