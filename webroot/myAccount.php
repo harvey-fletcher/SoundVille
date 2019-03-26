@@ -113,7 +113,7 @@
     }
 
     //Select all the information for this users orderr
-    $myOrdersQuery = $db->prepare("SELECT * FROM orders WHERE user_id=:user_id ORDER BY created DESC");
+    $myOrdersQuery = $db->prepare("SELECT o.*, sc.id AS 'secret_code_id', sc.discount_percent AS 'discountRateModifier', sc.code FROM orders o LEFT JOIN secret_codes sc ON sc.id=o.secret_code WHERE o.user_id=:user_id ORDER BY o.created DESC");
     $myOrdersQuery->bindParam( ":user_id", $_SESSION['id'] );
     $myOrdersQuery->execute();
     $myOrders = $myOrdersQuery->fetchAll( PDO::FETCH_ASSOC );
@@ -126,25 +126,12 @@
         $myOrderProductsQuery->execute();
         $myOrderProducts = $myOrderProductsQuery->fetchAll( PDO::FETCH_ASSOC );
 
-        //Get the discount rate modifier
-        $discountRateModifier = 0;
-        $discountCodeQuery = $db->prepare( "SELECT * FROM secret_codes WHERE code=:discount_code" );
-        $discountCodeQuery->execute(array(
-            ":discount_code" => $order['secret_code']
-        ));
-        $discountCodeResults = $discountCodeQuery->fetchAll( PDO::FETCH_ASSOC );
-
-        //If there is a discount code that matches, amend the ratemodifier
-        if( sizeof( $discountCodeResults ) == 1 ){
-            $discountRateModifier = $discountCodeResults[0]['discount_percent'];
-        }
-
         //Build a new array structure with those products
         $myOrder = array(
                 "id"      => $order['id'],
                 "created" => $order['created'],
-                "discountRateModifier" => $discountRateModifier,
-                "discountCode" => $order['secret_code'],
+                "discountRateModifier" => (int)$order['discountRateModifier'],
+                "discountCode" => $order['code'],
                 "items"   => $myOrderProducts
             );
 
