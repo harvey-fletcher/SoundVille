@@ -1,4 +1,6 @@
 config/database.php
 config/schema.sql
 config/service_keys.php
+phpmyadmin/*
+phpmyadmin
 error.log

@@ -31,7 +31,8 @@
                 "https://api.soundville.co.uk/checkout/payment",
                 {
                   session: '<?= session_id(); ?>',
-                  stripeToken: '<?= $_POST["stripeToken"] ?>'
+                  stripeToken: '<?= $_POST["stripeToken"] ?>',
+                  discount_code: '<?= $_POST["secretCodeConfirmed"]; ?>'
                 }
             ).done(function( data ){
                 processOrder( data.data.order_id );

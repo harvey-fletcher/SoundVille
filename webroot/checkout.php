@@ -82,7 +82,7 @@
                             Order SubTotal: £<?= $basket['sub_total']; ?><br />
                             Processing Charge: £<?= $basket['processing_fee']; ?> <a href="info.php?section=fees">(?)</a><br />
                             <br />
-                            Order Total: £<?= $basket['order_total']['decimal']; ?><br />
+                            Order Total: £<span id='totalDisplay'><?= $basket['order_total']['decimal']; ?></span><br />
                             <br />
                             <p class="smallPrint">By clicking the button below, you agree to make this purchase, our privacy policy, and cancellation policy.</p>
                             <?php if( $canCheckout && $checkoutOpen ){?>
@@ -97,18 +97,6 @@
                                 <div id="paymentForm" class="hidden">
                                     <div class="g-recaptcha" data-sitekey="6LcOKn4UAAAAALBQMY5TPjp-mLoZcPBauPsg4c9I" data-callback="confirmCaptcha"></div>
                                     <form action="processPayment.php" method="POST" style='display: none' id="checkout-form">
-					<input type="text" id="secretCodeConfirmed" hidden="hidden" name="secretCodeConfirmed"/>
-                                        <script
-                                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                            data-key="pk_live_CQKwBSpMlqkJDj1l1hfBG1aE"
-                                            data-amount="<?= $basket['order_total']['plain'] ?>"
-                                            data-name="SoundVille"
-                                            data-description="Complete Purchase"
-                                            data-email="<?= $_SESSION['email']; ?>"
-                                            data-image="https://files.soundville.co.uk/logo_png.png"
-                                            data-locale="auto"
-                                            data-currency="gbp">
-                                        </script>
                                     </form>
                                 </div>
                             <?php } else if( !$checkoutOpen ) { ?>
@@ -146,6 +134,45 @@
                         $('#secretCodeConfirmed').val( 'XXXXX' );
                     }
 
+                    //The total amount of the order
+                    var orderTotal =  '<?= $basket["order_total"]["decimal"]; ?>';
+
+                    //If there is a discount percentage
+                    if( parseInt( data.data.discount ) > 0 ){
+                        //Work out the new value of the total
+                        orderTotal = ( ( parseInt( '<?= $basket["order_total"]["plain"]; ?>' ) / 100 ) * ( 1 - ( data.data.discount / 100 ) ) ).toFixed(2);
+
+                        //Alert that a discount has been applied
+                        alert( data.data.discount + "% discount applied. New total: £" + orderTotal );
+
+                        //Update the display of the total
+                        $("#totalDisplay").text( orderTotal );
+                    }
+
+                    //Create a new checkout form
+                    $("#checkout-form")
+                    .append(
+                        $("<input></input>")
+                             .attr("id", "secretCodeConfirmed")
+                             .attr("name", "secretCodeConfirmed")
+                             .attr("hidden", true)
+                             .attr("type", "text")
+                             .val( SecretCode )
+                    )
+                    .append(
+                        $("<script>")
+                            .attr("src", "https://checkout.stripe.com/checkout.js")
+                            .addClass("stripe-button")
+                            .attr("data-key", "pk_live_CQKwBSpMlqkJDj1l1hfBG1aE")
+                            .attr("data-amount", (orderTotal * 100 ).toFixed(0) )
+                            .attr("data-name", "SoundVille")
+                            .attr("data-description", "Complete Purchase")
+                            .attr("data-email", "<?= $_SESSION['email']; ?>")
+                            .attr("data-image", "https://files.soundville.co.uk/logo_png.png")
+                            .attr("data-locale", "auto")
+                            .attr("data-currency", "gbp")
+                    )
+
                     $('#secretCodeContainer').addClass('hidden');
                     $('#paymentForm').removeClass('hidden');
                 });
@@ -157,7 +184,7 @@
                     { response: data }
                 ).done(function( data ){
                     if( data.status == 200 ){
-                        $('#checkout-form').removeAttr('style');
+                        $("#checkout-form").toggle();
                     } else {
                         alert( data.message );
                     }

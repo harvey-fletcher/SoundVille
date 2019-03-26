@@ -46,6 +46,9 @@
                     $stockAdjustQuery->execute();
                 }
 
+                //Calculate the discount percentage
+                $basket['order_total']['plain'] = ( (int)$basketController->calculateDiscountPercentage( $basket, $_POST['secretCode'] ) / 100 );
+
                 //Build the confirmation email
                 $emailBody = $this->buildConfirmationEmail( $basket, $_POST['orderReference'], $orderNumber );
                 if( !$emailBody ){
@@ -184,6 +187,11 @@
             //Build the reference number
             $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i') . $_SESSION['email'] ), 0, 20);
 
+            //If the user has specified a discount code, re-calculate the total
+            if( isset( $_POST['discount_code'] ) ){
+                $basket['order_total']['plain'] = $basketController->calculateDiscountPercentage( $basket, $_POST['discount_code'] );
+            }
+
             $headers = array();
             $headers[] = "Content-Type: application/x-www-form-urlencoded";
 
@@ -226,6 +234,19 @@
                 $message   = "Oops, sorry, this is a private event and you must have a secret code to buy tickets";
             }
 
-            return array( "status" => 200, "codeValid" => $codeValid, "message" => $message );
+            //Get the discount percentage for that code
+            if( $codeValid ){
+                //Get the percentage of discount
+                $discountPercentQuery = $db->prepare("SELECT discount_percent FROM secret_codes WHERE code=:secret_code");
+                $discountPercentQuery->execute(array(
+                    ":secret_code" => $userCode
+                ));
+                $discountPercentage = $discountPercentQuery->fetch( PDO::FETCH_ASSOC )['discount_percent'];
+            } else {
+                //Do not give a discount
+                $discountPercentage = 0;
+            }
+
+            return array( "status" => 200, "codeValid" => $codeValid, "message" => $message, "discount" => $discountPercentage );
         }
     }

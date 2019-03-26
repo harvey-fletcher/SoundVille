@@ -269,4 +269,31 @@
                     "message" => $_SESSION['basketSize']
                 );
         }
+
+        function calculateDiscountPercentage( $basket = NULL, $code = "XXXXXX" ){
+            global $db;
+
+            if( $basket == NULL ){
+                return false;
+            }
+
+            //Work out the percentage of that discount code
+            $stmt = $db->prepare( "SELECT * FROM secret_codes WHERE code=:discount_code" );
+            $stmt->execute(array(
+                ":discount_code" => $code
+            ));
+
+            $codes = $stmt->fetchAll( PDO::FETCH_ASSOC );
+
+            //Is there a matching code?
+            if( sizeof( $codes ) == 1 ){
+                if( (int)$codes[0]['discount_percent'] > 0 ){
+                    //Re-calculate using the discount
+                    return round( (int)$basket['order_total']['plain'] * ( ( 100 - (int)$codes[0]['discount_percent'] ) / 100  ) );
+                }
+            }
+
+            //Return the default
+            return $basket['order_total']['plain'];
+        }
     }
