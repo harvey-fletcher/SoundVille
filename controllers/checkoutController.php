@@ -47,7 +47,7 @@
                 }
 
                 //Calculate the discount percentage
-                $basket['order_total']['plain'] = ( (int)$basketController->calculateDiscountPercentage( $basket, $_POST['secretCode'] ) / 100 );
+                $basket['order_total']['decimal'] = ( (int)$basketController->calculateDiscountPercentage( $basket, $_POST['secretCode'] ) / 100 );
 
                 //Build the confirmation email
                 $emailBody = $this->buildConfirmationEmail( $basket, $_POST['orderReference'], $orderNumber );

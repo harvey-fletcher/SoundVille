@@ -163,6 +163,7 @@
                         $("<script>")
                             .attr("src", "https://checkout.stripe.com/checkout.js")
                             .addClass("stripe-button")
+//                            .attr("data-key", "pk_test_RZIMubVhyxMcq7jNaWpiZGrX")
                             .attr("data-key", "pk_live_CQKwBSpMlqkJDj1l1hfBG1aE")
                             .attr("data-amount", (orderTotal * 100 ).toFixed(0) )
                             .attr("data-name", "SoundVille")
