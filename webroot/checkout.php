@@ -128,10 +128,8 @@
                         secretCode: SecretCode
                     }
                 ).done(function (data){
-                    if( data.data.codeValid ){
-                        $('#secretCodeConfirmed').val( SecretCode );
-                    } else {
-                        $('#secretCodeConfirmed').val( 'XXXXX' );
+                    if( !data.data.codeValid ){
+                        SecretCode = "XXXXXX";
                     }
 
                     //The total amount of the order

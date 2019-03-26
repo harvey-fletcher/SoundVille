@@ -47,10 +47,10 @@
                 }
 
                 //Calculate the discount percentage
-                $basket['order_total']['decimal'] = ( (int)$basketController->calculateDiscountPercentage( $basket, $_POST['secretCode'] ) / 100 );
+                $basket['order_total']['decimal'] = number_format( ( (int)$basketController->calculateDiscountPercentage( $basket, $_POST['secretCode'] ) / 100 ), 2);
 
                 //Build the confirmation email
-                $emailBody = $this->buildConfirmationEmail( $basket, $_POST['orderReference'], $orderNumber );
+                $emailBody = $this->buildConfirmationEmail( $basket, $_POST['orderReference'], $orderNumber, $_POST['secretCode'] );
                 if( !$emailBody ){
                     return array( "message" => "Error building confirmation email." );
                 }
@@ -105,7 +105,7 @@
             return $result;
         }
 
-        function buildConfirmationEmail( $basket = NULL, $orderReference = NULL, $orderNumber = 0 ){
+        function buildConfirmationEmail( $basket = NULL, $orderReference = NULL, $orderNumber = 0, $discountCode = "XXXXXX" ){
             if( $basket == NULL ){
                 return false;
             }
@@ -128,8 +128,15 @@
 
             //There is a blank row, followed by a complete order total
             $orderSummary .= "<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>"
-                           . "<tr><td>&nbsp;</td><td>Processing Fee:</td><td>&pound;" . $basket['processing_fee']  . "</td>"
-                           . "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . $basket['order_total']['decimal']  . "</td>";
+                           . "<tr><td>&nbsp;</td><td>Processing Fee:</td><td>&pound;" . $basket['processing_fee']  . "</td>";
+
+            //Is there a discount code
+            if( strtoupper( $discountCode ) !== "XXXXXX" ){
+                $orderSummary .= "<tr><td>&nbsp;</td><td>Discount Code:</td><td>". $discountCode ."</td></tr>";
+            }
+
+            //Display the order total
+            $orderSummary .= "<tr><td>&nbsp;</td><td>Total:</td><td>&pound;" . $basket['order_total']['decimal']  . "</td>";
 
             //Close off the order summary
             $orderSummary .= "</table>";
