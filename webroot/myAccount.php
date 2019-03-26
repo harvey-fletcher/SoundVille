@@ -126,10 +126,25 @@
         $myOrderProductsQuery->execute();
         $myOrderProducts = $myOrderProductsQuery->fetchAll( PDO::FETCH_ASSOC );
 
+        //Get the discount rate modifier
+        $discountRateModifier = 0;
+        $discountCodeQuery = $db->prepare( "SELECT * FROM secret_codes WHERE code=:discount_code" );
+        $discountCodeQuery->execute(array(
+            ":discount_code" => $order['secret_code']
+        ));
+        $discountCodeResults = $discountCodeQuery->fetchAll( PDO::FETCH_ASSOC );
+
+        //If there is a discount code that matches, amend the ratemodifier
+        if( sizeof( $discountCodeResults ) == 1 ){
+            $discountRateModifier = $discountCodeResults[0]['discount_percent'];
+        }
+
         //Build a new array structure with those products
         $myOrder = array(
                 "id"      => $order['id'],
                 "created" => $order['created'],
+                "discountRateModifier" => $discountRateModifier,
+                "discountCode" => $order['secret_code'],
                 "items"   => $myOrderProducts
             );
 
@@ -254,11 +269,19 @@
                             <td class="itemsList">&nbsp;</td>
                             <td class="itemsList">&pound;<?= $processingCharge; ?></td>
                         </tr>
+                        <?php if( $order['discountRateModifier'] !== 0 ){  ?>
+                                <tr>
+                                    <td class="itemsList">Discount Code:</td>
+                                    <td class="itemsList">&nbsp;</td>
+                                    <td class="itemsList"><?= $order['discountCode']; ?></td>
+                                    <td class="itemsList">-£<?= round( $orderTotal * ( $order['discountRateModifier'] / 100 ), 2 ); ?></td>
+                                </tr>
+                        <?php } ?>
                         <tr>
                             <td class="itemsList">Total</td>
                             <td class="itemsList">&nbsp;</td>
                             <td class="itemsList">&nbsp;</td>
-                            <td class="itemsList">&pound;<?= number_format( $orderTotal, 2, '.', ''); ?></td>
+                            <td class="itemsList">&pound;<?= number_format( $orderTotal * ( 1 - ( $order['discountRateModifier'] / 100  )), 2, '.', ''); ?></td>
                         </tr>
                     </table>
                     <br /><br />
