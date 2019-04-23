@@ -20,7 +20,7 @@
                 <span class="title">
                     By Email
                 </span><br />
-                &nbsp;&nbsp;&nbsp;&nbsp;information@soundville.co.uk<br /><br />
+                &nbsp;&nbsp;&nbsp;&nbsp;<span id="eml_1_pt_1"></span>@<span id="eml_1_pt_2"></span>.co.uk<br /><br />
                 <span class="title">
                     By Phone
                 </span><br />
@@ -37,5 +37,17 @@
                 An emergency contact number will be posted here during the event should you need it.
             </p>
         </div>
+        <script type="text/javascript">
+            window.addEventListener("load", function(){
+              //eml_pt_1
+              //eml_pt_2
+              //Assemble the email address, we do this here to prevent bots from scraping the web page.
+              $("#eml_1_pt_1")
+                  .text( "information" );
+
+               $("#eml_1_pt_2")
+                  .text( "soundville" );
+            })
+        </script>
     </body>
 </html>

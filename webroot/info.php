@@ -64,7 +64,7 @@
                 Lost Property [+]
             </h2>
             <div class="hidden" id="lostProperty">
-                Should you lose an item of personal belonging, please contact the lost and found at information@soundville.co.uk<br />If you are bringing a mobile phone with you, please make note of the device IMEI number. For any other portable device, please note the serial number. The organisers cannot be held responsible for any item of personal property which gets lost or damaged.<br /><br />
+                Should you lose an item of personal belonging, please contact the lost and found at <span id='eml_1_pt_1'></span>@<span id='eml_1_pt_2'></span>.co.uk<br />If you are bringing a mobile phone with you, please make note of the device IMEI number. For any other portable device, please note the serial number. The organisers cannot be held responsible for any item of personal property which gets lost or damaged.<br /><br />
             </div>
             <br />
             <h2 class="noMargin" onclick=" displaySect( this.id ) " id="show-restrictedItems">
@@ -128,7 +128,7 @@
                             <h3 class="noMargin">Refunds and Cancellations</h3>
                             <ul>
                                 <li>Refunds are only considered on major cancellation. (Where less than 60% of the acts are shown, or the event is cancelled by reasons not due to adverse weather)</li>
-                                <li>Refunds should be obtained by contacting information@soundville.co.uk no later than 1 month after the event</li>
+                                <li>Refunds should be obtained by contacting <span id="eml_2_pt_1"></span>@<span id="eml_2_pt_2"></span>.co.uk no later than 1 month after the event</li>
                                 <li>A minimum of the face value of the ticket (minus any processing fees) will be refunded.</li>
                                 <li>The site processing fee will not be refunded.</li>
                             </ul>
@@ -273,11 +273,34 @@
             </p>
             <br /><br />
             <h2 class="noMargin">
-                If any of these terms are unclear please contact information@soundville.co.uk
+                If any of these terms are unclear please contact <span id='eml_3_pt_1'></span>@<span id='eml_3_pt_2'></span>.co.uk
             </h2>
         </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script type="text/javascript">
+          window.addEventListener("load", function(){
+              //eml_pt_1
+              //eml_pt_2
+              //Assemble the email address, we do this here to prevent bots from scraping the web page.
+              $("#eml_1_pt_1")
+                  .text( "information" );
+
+               $("#eml_1_pt_2")
+                  .text( "soundville" );
+
+               $("#eml_2_pt_1")
+                   .text( "information" );
+
+               $( "#eml_2_pt_2" )
+                   .text("soundville");
+
+               $("#eml_3_pt_1")
+                   .text( "information" );
+
+               $( "#eml_3_pt_2" )
+                   .text("soundville");
+          })
+
           function displaySect( id ){
               //The ID of that sections div
               var sect = id.split('-')[1];
