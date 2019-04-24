@@ -21,6 +21,7 @@
                        p.product_description,
                        p.product_max_per_purchase,
                        p.product_stock_level,
+                       ( p.attendance_count * SUM( b.quantity ) ) as 'product_combined_attendance',
                        pi.image_url
                      FROM baskets b
                      JOIN products p
@@ -47,6 +48,11 @@
             //Work out the processing fee
             $processingFee = $math->calcProcessingFee( $orderTotal );
 
+            //Is making this sale going to exceed the event capacity?
+            include '../serverSide/eventProperties.php';
+            $attendanceLevel     = array_sum( array_column( $basketItems, "product_combined_attendance" ) );
+            $attendanceLevelOkay = $event->willSaleBeUnderLimit( $attendanceLevel );
+
             //Return the data
             return array(
                     "sub_total"      => number_format( $orderTotal, 2, '.', '' ),
@@ -55,7 +61,9 @@
                             "plain"   => number_format( ( $orderTotal + $processingFee ), 2, '', '' ),
                         ),
                     "processing_fee" => number_format( $processingFee, 2, '.', '' ),
-                    "basket_items"   => $basketItems
+                    "basket_items"   => $basketItems,
+                    "combined_attendance_level" => $attendanceLevel,
+                    "attendance_level_ok" => $attendanceLevelOkay
                 );
         }
 

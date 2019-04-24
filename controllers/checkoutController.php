@@ -68,6 +68,10 @@
                 //Update the user's session so it has nothing in the basket
                 $_SESSION['basketSize'] = 0;
 
+                //Add the combined attendance to the attendance count
+                $event = new eventStatistics( $db );
+                $event->addAttendeesToEvent( $basket['combined_attendance_level'] );
+
                 //Success
                 return array( "message" => "Success! Your reference number is " . $_POST['orderReference'] . " and a confirmation email has been sent to you." );
             } else {
@@ -190,6 +194,14 @@
             include '../controllers/basketController.php';
             $basketController = new basketController();
             $basket = $basketController->getContents();
+
+            //Check that making this sale will not cause the event to be over max attendance
+            if( !$basket['attendance_level_ok'] ){
+                return array(
+                        "status"  => 400,
+                        "message" => "Making this sale would put the event over the attendance limit. No payment has been made. Please remove some items from your basket and try again."
+                    );
+            }
 
             //Build the reference number
             $orderReference = substr( hash( 'sha1', json_encode( $basket ) . date('Y-m-d H:i') . $_SESSION['email'] ), 0, 20);

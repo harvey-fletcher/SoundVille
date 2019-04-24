@@ -60,16 +60,24 @@
                                $canCheckout = false;
                            ?>
                         <?php } ?>
-                        <?php if(!$product['in_stock']){ ?>
-                            <h3 class="warning noMargin">
-                                There is not enough of this product remaining.<br />
-                                You will need to decrease your selection before you can check out.<br />
-                            </h3>
-                            <?php
-                                //This error should stop the user from being able to check out
-                                $canCheckout = false;
-                            ?>
-                        <?php } ?>
+                        <?php
+                            if(!$product['in_stock']){ ?>
+                                <h3 class="warning noMargin">
+                                    There is not enough of this product remaining.<br />
+                                    You will need to decrease your selection before you can check out.<br />
+                                </h3>
+                                <?php
+                                    //This error should stop the user from being able to check out
+                                    $canCheckout = false;
+                                ?>
+                        <?php
+                            }
+
+                            //Check we wont be exceeding max attendance
+                            if( !$basket['attendance_level_ok'] ){
+//                                $canCheckout = false;
+                            }
+                        ?>
                     </div>
                 </div>
             <?php
@@ -102,6 +110,10 @@
                             <?php } else if( !$checkoutOpen ) { ?>
                                 <h3 class="warning noMargin">
                                     The checkout is currently disabled<br />We're sorry for any inconvenience this causes.
+                                </h3>
+                            <?php } else if( !$basket['attendance_level_ok'] ){?>
+                                <h3 class="warning noMargin">
+                                    This sale would mean that the attendance level of the event exceeds maximum capacity.<br />Please remove some items from your basket and try again.
                                 </h3>
                             <?php } else { ?>
                                 <h3 class="warning noMargin">

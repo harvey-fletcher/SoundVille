@@ -15,7 +15,7 @@
         <div class="links" align="right">
             <?php include 'menu.php'; ?>
         </div>
-        <div class="mainBodyContainer" align="center">
+        <div class="mainBodyContainer" align="center" id="pleaseWaitTextDiv">
             <h1 class="noMargin">
                 Please wait.
             </h2>
@@ -35,7 +35,22 @@
                   discount_code: '<?= $_POST["secretCodeConfirmed"]; ?>'
                 }
             ).done(function( data ){
-                processOrder( data.data.order_id );
+                if( data.status == 200 ){
+                    processOrder( data.data.order_id );
+                } else {
+                    $("#pleaseWaitTextDiv")
+                        .empty()
+                        .append(
+                            $("<h1></h1>")
+                                .addClass("noMargin")
+                                .text("An error has occurred")
+                        )
+                        .append(
+                            $("<h4></h4>")
+                                .addClass("noMargin")
+                                .text( data.message )
+                        )
+                }
             });
         }
 
